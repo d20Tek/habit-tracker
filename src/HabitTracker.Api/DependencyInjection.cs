@@ -14,6 +14,8 @@ internal static class DependencyInjection
 
         app.UseHttpsRedirection();
         app.UseCors();
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         return app;
     }
@@ -34,7 +36,8 @@ internal static class DependencyInjection
                 .ToArray();
             return forecast;
         })
-        .WithName("GetWeatherForecast");
+        .WithName("GetWeatherForecast")
+        .RequireAuthorization();
 
         return app;
     }
