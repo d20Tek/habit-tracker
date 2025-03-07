@@ -4,3 +4,8 @@ GET {{HabitTracker.Api_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{HabitTracker.Api_HostAddress}}/api/v1/category/user/test-user-1
+Accept: application/json
+
+###

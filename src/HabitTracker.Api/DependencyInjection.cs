@@ -1,4 +1,6 @@
-﻿namespace HabitTracker.Api;
+﻿using HabitTracker.Api.Features.Categories;
+
+namespace HabitTracker.Api;
 
 internal static class DependencyInjection
 {
@@ -17,6 +19,8 @@ internal static class DependencyInjection
 
     public static WebApplication MapEndpoints(this WebApplication app)
     {
+        CategoryEndpoints.MapCategoryEndpoints(app);
+
         app.MapGet("/weatherforecast", () =>
         {
             var forecast = Enumerable.Range(1, 5).Select(index =>
