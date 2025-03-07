@@ -4,7 +4,8 @@ using HabitTracker.Api.Persistence;
 
 var builder = WebApplication.CreateBuilder(args)
                             .AddDatabase()
-                            .AddServices();
+                            .AddServices()
+                            .AddAuth();
 
 builder.Build()
        .ConfigurePipeline()

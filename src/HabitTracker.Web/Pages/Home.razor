@@ -1,0 +1,42 @@
+﻿@page "/"
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<AuthorizeView>
+    <Authorized>
+        <p>Name: @user?.Identity?.Name</p>
+        <p>UserId: @id</p>
+        <p>Email: @email</p>
+        <p>Clasim: @claims</p>
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not logged in.</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private ClaimsPrincipal? user;
+    private string? email;
+    private string? claims;
+    private string? id;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        user = authState.User;
+
+        if (user.Identity is { IsAuthenticated: true })
+        {
+            email = user.FindFirst(c => c.Type == "email")?.Value;
+            id = user.FindFirst(c => c.Type == "sub")?.Value;
+            claims = string.Join(", ", user.Claims.Select(c => $"{c.Type}: {c.Value}"));
+        }
+    }
+}
