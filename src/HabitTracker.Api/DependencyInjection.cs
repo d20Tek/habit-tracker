@@ -1,6 +1,7 @@
 ﻿using HabitTracker.Api.Features.Categories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace HabitTracker.Api;
 
@@ -55,8 +56,10 @@ internal static class DependencyInjection
     {
         CategoryEndpoints.MapCategoryEndpoints(app);
 
-        app.MapGet("/weatherforecast", () =>
+        app.MapGet("/weatherforecast", (ClaimsPrincipal user) =>
         {
+            var id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Console.WriteLine($"GET Forecast => User-Id: {id}");
             var forecast = Enumerable.Range(1, 10).Select(index =>
                 new WeatherForecast
                 (
