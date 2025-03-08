@@ -1,4 +1,5 @@
 ﻿using HabitTracker.Api.Domain;
+using System.Security.Claims;
 namespace HabitTracker.Api.Features.Categories;
 
 public static class CategoryEndpoints
@@ -7,12 +8,14 @@ public static class CategoryEndpoints
     {
         var group = routes.MapGroup("/api/v1/category").WithTags(nameof(Category));
 
-        group.MapGet("/user/{userId}", (string userId) =>
+        group.MapGet("/", (ClaimsPrincipal user) =>
         {
-            return new [] { new Category() };
+            var id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Console.WriteLine($"GET Category => User-Id: {id}");
+            return new [] { new Category { CategoryId = 1, Name = "Get Healthy", UserId=$"{id}" } };
         })
         .WithName("GetAllCategories")
-        //.RequireAuthorization()
+        .RequireAuthorization()
         .WithOpenApi();
 
         group.MapGet("/{id}", (int id) =>
