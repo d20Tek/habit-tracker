@@ -1,0 +1,23 @@
+﻿@page "/category/add"
+@inject HttpClient _http;
+@inject NavigationManager _nav;
+
+<PageTitle>Budget Tracker - Categories</PageTitle>
+<div class="col-12 border border-secondary p-1">
+    <h3>New Budget Category</h3>
+
+    <EditForm class="mx-2" Model="@_vm" OnValidSubmit="CreateCategory">
+        <div class="mb-3">
+            <label for="categoryName" class="form-label">Name</label>
+            <InputText id="categoryName" class="form-control" required @bind-Value="_vm.Name" placeholder="New budget category" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
+    </EditForm>
+
+    @if (_errorMessage.IsSome && _errorMessage.Get() is string error)
+    {
+        <div class="mt-3">@error</div>
+    }
+</div>

@@ -1,4 +1,5 @@
 ﻿using HabitTracker.Api.Domain;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 namespace HabitTracker.Api.Features.Categories;
 
@@ -6,7 +7,9 @@ public static class CategoryEndpoints
 {
     public static void MapCategoryEndpoints (this IEndpointRouteBuilder routes)
     {
-        var group = routes.MapGroup("/api/v1/category").WithTags(nameof(Category));
+        var group = routes.MapGroup("/api/v1/category")
+                          .WithTags(nameof(Category))
+                          .RequireAuthorization();
 
         group.MapGet("/", (ClaimsPrincipal user) =>
         {
@@ -15,7 +18,6 @@ public static class CategoryEndpoints
             return new [] { new Category { CategoryId = 1, Name = "Get Healthy", UserId=$"{id}" } };
         })
         .WithName("GetAllCategories")
-        .RequireAuthorization()
         .WithOpenApi();
 
         group.MapGet("/{id}", (int id) =>
@@ -32,9 +34,13 @@ public static class CategoryEndpoints
         .WithName("UpdateCategory")
         .WithOpenApi();
 
-        group.MapPost("/", (Category model) =>
+        group.MapPost("/", ([FromBody]Category model, ClaimsPrincipal user) =>
         {
-            //return TypedResults.Created($"/api/Categories/{model.ID}", model);
+            model.CategoryId = 2;
+            var id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Console.WriteLine($"POST Category => User-Id: {id}");
+            model.UserId = id!;
+            return TypedResults.Created($"/api/categories/{model.CategoryId}", model);
         })
         .WithName("CreateCategory")
         .WithOpenApi();

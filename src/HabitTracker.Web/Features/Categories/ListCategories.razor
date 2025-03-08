@@ -1,5 +1,6 @@
 ﻿@page "/category"
-@inject HttpClient Http
+@page "/category/list"
+@inject HttpClient _http;
 @attribute [Authorize]
 
 <PageTitle>Habit Tracker - Categories</PageTitle>
@@ -11,7 +12,7 @@
 }
 else
 {
-    <div class="col-12 col-lg-8">
+    <div class="col-12 col-lg-8 d-flex justify-content-center">
         <table class="table table-sm table-bordered table-striped">
             <thead>
                 <tr>
@@ -43,5 +44,5 @@ else
     private CategoryResponse[] _categories = [];
 
     protected override async Task OnInitializedAsync() =>
-        _categories = await Http.TryGetFromJsonAsync<CategoryResponse[]>(Constants.Categories.ServiceUrl, []);
+        _categories = await _http.TryGetFromJsonAsync<CategoryResponse[]>(Constants.Categories.ServiceUrl, []);
 }
