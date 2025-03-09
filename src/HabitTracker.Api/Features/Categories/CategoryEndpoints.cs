@@ -34,7 +34,7 @@ public static class CategoryEndpoints
         .WithName("UpdateCategory")
         .WithOpenApi();
 
-        group.MapPost("/", ([FromBody]Category model, ClaimsPrincipal user) =>
+        group.MapPost("/", ([FromBody] Category model, ClaimsPrincipal user) =>
         {
             model.CategoryId = 2;
             var id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;

@@ -1,7 +1,13 @@
-﻿namespace HabitTracker.Web.Common;
+﻿using D20Tek.Functional;
+
+namespace HabitTracker.Web.Common;
 
 internal static class Constants
 {
+    public const string DefaultErrorCode = "ServiceApi";
+    public const string UnexpectedServiceMessage = "Unexpected server error from backend service.";
+    public static Error UnexpectedServiceError(string code) => Error.Unexpected(code, UnexpectedServiceMessage);
+
     internal static class Categories
     {
         public const string ServiceUrl = "/api/v1/category";

@@ -6,7 +6,7 @@
 <PageTitle>Habit Tracker - Categories</PageTitle>
 <h3>Habit Categories</h3>
 
-@if (_categories.Length <= 0)
+@if (_categories.Length <= 0 && _errorMessage.IsNone)
 {
     <div>No habit categories are defined... please add some.</div>
 }
@@ -38,11 +38,18 @@ else
     </div>
 }
 
+@if (_errorMessage.IsSome && _errorMessage.Get() is string error)
+{
+    <div class="mt-3">@error</div>
+}
+
 <div class="mt-2"><a class="btn btn-outline-primary" href=@Constants.Categories.AddUrl>Add Category</a></div>
 
 @code {
     private CategoryResponse[] _categories = [];
+    private Option<string> _errorMessage = Option<string>.None();
 
     protected override async Task OnInitializedAsync() =>
-        _categories = await _http.TryGetFromJsonAsync<CategoryResponse[]>(Constants.Categories.ServiceUrl, []);
+        _categories = await _http.TryGetFromJsonAsync<CategoryResponse[]>(Constants.Categories.ServiceUrl, [])
+                                 .HandleErrorAsync(e => _errorMessage = e, []);
 }
