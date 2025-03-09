@@ -25,11 +25,11 @@ else
                 @foreach (var category in _categories)
                 {
                     <tr>
-                        <td class="text-center">@category.CategoryId</td>
+                        <td class="text-center">@category.Id</td>
                         <td>@category.Name</td>
                         <td class="text-center">
-                            <a href=@Constants.Categories.EditUrl(category.CategoryId)><img class="bi bi-pencil"/></a>
-                            <a href=@Constants.Categories.DeleteUrl(category.CategoryId)><img class="bi bi-trash3"/></a>
+                            <a href=@Constants.Categories.EditUrl(category.Id)><img class="bi bi-pencil"/></a>
+                            <a href=@Constants.Categories.DeleteUrl(category.Id)><img class="bi bi-trash3"/></a>
                         </td>
                     </tr>
                 }
