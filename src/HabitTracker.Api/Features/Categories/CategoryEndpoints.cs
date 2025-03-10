@@ -13,43 +13,39 @@ public static class CategoryEndpoints
     {
         var group = routes.MapGroup("/api/v1/category")
                           .WithTags(nameof(Category))
-                          .RequireAuthorization();
+                          .RequireAuthorization()
+                          .WithOpenApi();
 
         group.MapGet("/", async ([FromServices] HabitTrackerDbContext db, ClaimsPrincipal user) =>
                 (await GetCategoriesForUserCommand.Handle(db, user.GetId())).ToApiResult())
-             .WithName("GetAllCategories")
-             .WithOpenApi();
+             .WithName("GetAllCategories");
 
         group.MapGet("/{id}", (int id) =>
         {
             //return new Category { ID = id };
         })
-        .WithName("GetCategoryById")
-        .WithOpenApi();
+        .WithName("GetCategoryById");
 
         group.MapPut("/{id}", (int id, Category input) =>
         {
             return TypedResults.NoContent();
         })
-        .WithName("UpdateCategory")
-        .WithOpenApi();
+        .WithName("UpdateCategory");
 
         group.MapPost("/", async ([FromBody] CreateCategoryRequest request,
                                   [FromServices] HabitTrackerDbContext db,
                                   ClaimsPrincipal user) =>
         {
-            var result = await CreateCategoryCommand.Handle(db, request with { UserId = user.GetId() });
+            var result = await CreateCategoryCommand.Handle(db, request.AppendUserId(user.GetId()));
             var catId = result.Match(c => c.Id, _ => 0);
             return result.ToCreatedApiResult($"/api/categories/{catId}");
         })
-        .WithName("CreateCategory")
-        .WithOpenApi();
+        .WithName("CreateCategory");
 
         group.MapDelete("/{id}", (int id) =>
         {
             //return TypedResults.Ok(new Category { ID = id });
         })
-        .WithName("DeleteCategory")
-        .WithOpenApi();
+        .WithName("DeleteCategory");
     }
 }
