@@ -8,7 +8,7 @@ namespace HabitTracker.Api.Features.Categories;
 internal static class CreateCategoryCommand
 {
     public static async Task<Result<CategoryResponse>> Handle(HabitTrackerDbContext db, CreateCategoryRequest request) => 
-        await TryCatch.RunAsync(
+        await TryExcept.RunAsync(
             async () =>
             {
                 var result = request.Validate();
