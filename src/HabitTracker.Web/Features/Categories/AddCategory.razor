@@ -4,15 +4,16 @@
 
 <PageTitle>Budget Tracker - Categories</PageTitle>
 <div class="col-12 border border-secondary p-1">
-    <h3>New Budget Category</h3>
+    <h3>New Category</h3>
 
     <EditForm class="mx-2" Model="@_vm" OnValidSubmit="CreateCategory">
         <div class="mb-3">
             <label for="categoryName" class="form-label">Name</label>
-            <InputText id="categoryName" class="form-control" required @bind-Value="_vm.Name" placeholder="New budget category" />
+            <InputText id="categoryName" class="form-control" required @bind-Value="_vm.Name"
+                       placeholder="Category name" />
         </div>
 
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-light">Create</button>
         <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
     </EditForm>
 
