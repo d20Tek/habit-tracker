@@ -34,13 +34,11 @@ public static class CategoryEndpoints
         .WithName("UpdateCategory")
         .WithOpenApi();
 
-        group.MapPost("/", ([FromBody] CreateCategoryRequest request,
-                            [FromServices] HabitTrackerDbContext db,
-                            ClaimsPrincipal user) =>
+        group.MapPost("/", async ([FromBody] CreateCategoryRequest request,
+                                  [FromServices] HabitTrackerDbContext db,
+                                  ClaimsPrincipal user) =>
         {
-            request = request with { UserId = user.GetId() };
-            Console.WriteLine($"POST Category => User-Id: {request.UserId}");
-            var result = CreateCategoryCommand.Handle(db, request);
+            var result = await CreateCategoryCommand.Handle(db, request with { UserId = user.GetId() });
             var catId = result.Match(c => c.Id, _ => 0);
             return result.ToCreatedApiResult($"/api/categories/{catId}");
         })

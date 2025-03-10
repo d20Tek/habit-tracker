@@ -7,4 +7,6 @@ internal class Category
     public string UserId { get; set; } = string.Empty;
 
     public string Name { get; set; } = string.Empty;
+
+    public static Category Create(string name, string userId) => new() { Name = name, UserId = userId };
 }

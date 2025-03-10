@@ -25,4 +25,6 @@ public class ValidationErrors
 
     public Result<T> Map<T>(Func<T> onSuccess) where T : notnull =>
          HasErrors ? Result<T>.Failure([.. _errors]) : onSuccess();
+
+    public Result<T> ToFailure<T>() where T: notnull => Result<T>.Failure([.. _errors]);
 }
