@@ -9,7 +9,7 @@ namespace HabitTracker.Api.Features.Categories;
 
 public static class CategoryEndpoints
 {
-    public static void MapCategoryEndpoints (this IEndpointRouteBuilder routes)
+    public static WebApplication MapCategoryEndpoints (this WebApplication routes)
     {
         var group = routes.MapGroup("/api/v1/category")
                           .WithTags(nameof(Category))
@@ -47,5 +47,7 @@ public static class CategoryEndpoints
             //return TypedResults.Ok(new Category { ID = id });
         })
         .WithName("DeleteCategory");
+
+        return routes;
     }
 }

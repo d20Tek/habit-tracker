@@ -1,7 +1,7 @@
 ﻿using HabitTracker.Api.Features.Categories;
+using HabitTracker.Api.Features.Weather;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
 
 namespace HabitTracker.Api;
 
@@ -52,35 +52,7 @@ internal static class DependencyInjection
         return app;
     }
 
-    public static WebApplication MapEndpoints(this WebApplication app)
-    {
-        CategoryEndpoints.MapCategoryEndpoints(app);
-
-        app.MapGet("/weatherforecast", (ClaimsPrincipal user) =>
-        {
-            var id = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            Console.WriteLine($"GET Forecast => User-Id: {id}");
-            var forecast = Enumerable.Range(1, 10).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    _summaries[Random.Shared.Next(_summaries.Length)]
-                ))
-                .ToArray();
-            return forecast;
-        })
-        .WithName("GetWeatherForecast")
-        .RequireAuthorization();
-
-        return app;
-    }
-
-    private static string[] _summaries =
-        [ "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" ];
-
-    internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-    {
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-    }
+    public static WebApplication MapEndpoints(this WebApplication app) =>
+        app.MapCategoryEndpoints()
+           .MapWeatherEndpoints();
 }
