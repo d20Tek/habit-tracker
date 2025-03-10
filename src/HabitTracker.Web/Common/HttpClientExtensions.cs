@@ -38,6 +38,10 @@ internal static class HttpClientExtensions
             exception.Redirect();
             return Result<TResponse>.Failure(exception);
         }
+        catch (HttpRequestException ex)
+        {
+            return Result<TResponse>.Failure(ex);
+        }
         catch (Exception)
         {
             return Result<TResponse>.Failure(Constants.UnexpectedServiceError(errorCode));
