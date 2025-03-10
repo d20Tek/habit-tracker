@@ -13,22 +13,12 @@ internal static class GetCategoriesForUserCommand
                                     .MapAsync(() => GetEntitiesForUser(db, userId)),
             ex => Result<IList<CategoryResponse>>.Failure(ex));
 
-    private static async Task<Result<IList<CategoryResponse>>> MapAsync(this ValidationErrors result, HabitTrackerDbContext db, string userId) =>
-        result.HasErrors ?
-            result.ToFailure<IList<CategoryResponse>>() :
-            await GetEntitiesForUser(db, userId);
-
-    private static async Task<Result<IList<CategoryResponse>>> MapAsync(this ValidationErrors result, Func<Task<Result<IList<CategoryResponse>>>> operation) =>
-        result.HasErrors ?
-            result.ToFailure<IList<CategoryResponse>>() :
-            await operation();
-
     private static ValidationErrors Validate(this string userId) =>
         ValidationErrors.Create()
                         .AddIfError(() => string.IsNullOrEmpty(userId),
                             Constants.UserIdRequiredError("GetCategories"));
 
-    private static async Task<Result<IList<CategoryResponse>>> GetEntitiesForUser(
+    private static async Task<IList<CategoryResponse>> GetEntitiesForUser(
         HabitTrackerDbContext db,
         string userId) =>
         await db.Categories.Where(c => c.UserId == userId)

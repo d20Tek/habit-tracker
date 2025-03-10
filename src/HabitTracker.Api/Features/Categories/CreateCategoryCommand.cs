@@ -9,13 +9,8 @@ internal static class CreateCategoryCommand
 {
     public static async Task<Result<CategoryResponse>> Handle(HabitTrackerDbContext db, CreateCategoryRequest request) => 
         await TryExcept.RunAsync(
-            async () =>
-            {
-                var result = request.Validate();
-                return result.HasErrors ?
-                    result.ToFailure<CategoryResponse>() :
-                    await CreateEntity(db, request.ToEntity());
-            },
+            async () => await request.Validate()
+                                     .MapAsync(async() => await CreateEntity(db, request.ToEntity())),
             ex => Result<CategoryResponse>.Failure(ex));
 
     private static ValidationErrors Validate(this CreateCategoryRequest request) =>
