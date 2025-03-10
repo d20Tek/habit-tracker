@@ -15,8 +15,8 @@ public static class CategoryEndpoints
                           .WithTags(nameof(Category))
                           .RequireAuthorization();
 
-        group.MapGet("/", ([FromServices] HabitTrackerDbContext db, ClaimsPrincipal user) =>
-                GetCategoriesForUserCommand.Handle(db, user.GetId()).ToApiResult())
+        group.MapGet("/", async ([FromServices] HabitTrackerDbContext db, ClaimsPrincipal user) =>
+                (await GetCategoriesForUserCommand.Handle(db, user.GetId())).ToApiResult())
              .WithName("GetAllCategories")
              .WithOpenApi();
 
