@@ -13,6 +13,12 @@ internal static class HttpClientExtensions
             async () => await httpClient.GetFromJsonAsync<T>(requestUri) ?? defaultValue,
             $"{typeof(T).Name}.Get");
 
+    public static async Task<Result<T>> TryGetByIdFromJsonAsync<T>(this HttpClient httpClient, string requestUri)
+        where T : notnull =>
+        await TrySendMessageAsync<T>(
+            async () => (await httpClient.GetFromJsonAsync<T>(requestUri))!,
+            $"{typeof(T).Name}.GetById");
+
     public static async Task<Result<TResponse>> TryPostAsJsonAsync<TRequest, TResponse>(
         this HttpClient httpClient,
         string requestUri,
@@ -23,6 +29,13 @@ internal static class HttpClientExtensions
             async () => await httpClient.PostAsJsonAsync<TRequest>(requestUri, value)
                                         .MapMessageToResponse<TResponse>(),
             $"{typeof(TRequest).Name}.Post");
+
+    public static async Task<Result<T>> TryDeleteAsJsonAsync<T>(this HttpClient httpClient, string requestUri)
+        where T : notnull =>
+        await TrySendMessageAsync<T>(
+            async () => await httpClient.DeleteAsync(requestUri)
+                                        .MapMessageToResponse<T>(),
+            $"{typeof(T).Name}.Delete");
 
     private static async Task<Result<TResponse>> TrySendMessageAsync<TResponse>(
         Func<Task<Result<TResponse>>> operation,

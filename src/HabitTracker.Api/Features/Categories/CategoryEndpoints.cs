@@ -42,11 +42,12 @@ public static class CategoryEndpoints
         })
         .WithName("CreateCategory");
 
-        group.MapDelete("/{id}", (int id) =>
-        {
-            //return TypedResults.Ok(new Category { ID = id });
-        })
-        .WithName("DeleteCategory");
+        group.MapDelete("/{id}", async (
+            [FromRoute] int id,
+            [FromServices] HabitTrackerDbContext db,
+            ClaimsPrincipal user) =>
+                (await DeleteCategoryCommand.Handle(db, new(id, user.GetId()))).ToApiResult())
+            .WithName("DeleteCategory");
 
         return routes;
     }

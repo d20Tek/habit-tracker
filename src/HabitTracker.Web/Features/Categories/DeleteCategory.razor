@@ -1,0 +1,27 @@
+﻿@page "/category/delete/{Id:int}"
+@inject HttpClient _http;
+@inject NavigationManager _nav;
+
+<PageTitle>Budget Tracker - Categories</PageTitle>
+<div class="col-12 border border-secondary p-1">
+    <h3>Delete Category</h3>
+
+    @if (_category.IsSome && _category.Get() is CategoryResponse cat)
+    {
+        <EditForm class="mx-2" Model="@cat" OnValidSubmit="DeleteHandler">
+            <div class="mb-3">
+                <div class="form-label">
+                    Are you sure that you want to delete the budget category with id=@cat.Id, named '@cat.Name'?
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Delete</button>
+            <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
+        </EditForm>
+    }
+
+    @if (_errorMessage.IsSome && _errorMessage.Get() is string error)
+    {
+        <div class="mt-3">@error</div>
+    }
+</div>
