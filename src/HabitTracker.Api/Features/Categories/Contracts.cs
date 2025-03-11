@@ -16,3 +16,5 @@ internal record CreateCategoryRequest(string Name, string UserId)
 }
 
 internal record DeleteCategoryRequest(int Id, string UserId);
+
+internal record GetCategoryByIdRequest(int Id, string UserId);

@@ -20,11 +20,11 @@ public static class CategoryEndpoints
                 (await GetCategoriesForUserCommand.Handle(db, user.GetId())).ToApiResult())
              .WithName("GetAllCategories");
 
-        group.MapGet("/{id}", (int id) =>
-        {
-            //return new Category { ID = id };
-        })
-        .WithName("GetCategoryById");
+        group.MapGet("/{id}", async ([FromRoute] int id,
+                                     [FromServices] HabitTrackerDbContext db,
+                                     ClaimsPrincipal user) =>
+                (await GetCategoryByIdCommand.Handle(db, new(id, user.GetId()))).ToApiResult())
+             .WithName("GetCategoryById");
 
         group.MapPut("/{id}", (int id, Category input) =>
         {
@@ -42,10 +42,9 @@ public static class CategoryEndpoints
         })
         .WithName("CreateCategory");
 
-        group.MapDelete("/{id}", async (
-            [FromRoute] int id,
-            [FromServices] HabitTrackerDbContext db,
-            ClaimsPrincipal user) =>
+        group.MapDelete("/{id}", async ([FromRoute] int id,
+                                        [FromServices] HabitTrackerDbContext db,
+                                        ClaimsPrincipal user) =>
                 (await DeleteCategoryCommand.Handle(db, new(id, user.GetId()))).ToApiResult())
             .WithName("DeleteCategory");
 
