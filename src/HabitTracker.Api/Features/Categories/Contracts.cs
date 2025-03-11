@@ -14,3 +14,5 @@ internal record CreateCategoryRequest(string Name, string UserId)
 
     public Category ToEntity() => Category.Create(Name, UserId);
 }
+
+internal record DeleteCategoryRequest(int Id, string UserId);

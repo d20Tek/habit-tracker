@@ -10,7 +10,7 @@ internal static class CreateCategoryCommand
     public static async Task<Result<CategoryResponse>> Handle(HabitTrackerDbContext db, CreateCategoryRequest request) => 
         await TryExcept.RunAsync(
             async () => await request.Validate()
-                                     .MapAsync(async() => await CreateEntity(db, request.ToEntity())),
+                                     .MapAsync(async () => await CreateEntity(db, request.ToEntity())),
             ex => Result<CategoryResponse>.Failure(ex));
 
     private static ValidationErrors Validate(this CreateCategoryRequest request) =>
