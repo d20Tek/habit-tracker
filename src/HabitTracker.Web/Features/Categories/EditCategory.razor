@@ -18,7 +18,7 @@
             <div class="mb-3">
                 <label for="categoryName" class="form-label">Name</label>
                 <InputText id="categoryName" class="form-control" required @bind-Value="cat.Name"
-                           placeholder="Category name" />
+                           maxlength=@Constants.Categories.NameLength placeholder="Category name" />
             </div>
 
             <button type="submit" class="btn btn-light me-2">Save</button>

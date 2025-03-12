@@ -17,5 +17,7 @@ internal static class Constants
         public const string AddUrl = "/category/add";
         public static string EditUrl(int id) => $"/category/edit/{id}";
         public static string DeleteUrl(int id) => $"/category/delete/{id}";
+
+        public const int NameLength = 100;
     }
 }
