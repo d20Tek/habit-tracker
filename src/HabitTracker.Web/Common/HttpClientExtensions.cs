@@ -30,6 +30,17 @@ internal static class HttpClientExtensions
                                         .MapMessageToResponse<TResponse>(),
             $"{typeof(TRequest).Name}.Post");
 
+    public static async Task<Result<TResponse>> TryPutAsJsonAsync<TRequest, TResponse>(
+        this HttpClient httpClient,
+        string requestUri,
+        TRequest value)
+        where TRequest : notnull
+        where TResponse : notnull =>
+        await TrySendMessageAsync<TResponse>(
+            async () => await httpClient.PutAsJsonAsync<TRequest>(requestUri, value)
+                                        .MapMessageToResponse<TResponse>(),
+            $"{typeof(TRequest).Name}.Put");
+
     public static async Task<Result<T>> TryDeleteAsJsonAsync<T>(this HttpClient httpClient, string requestUri)
         where T : notnull =>
         await TrySendMessageAsync<T>(

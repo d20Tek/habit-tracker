@@ -1,0 +1,37 @@
+﻿@page "/category/edit/{Id:int}"
+@inject HttpClient _http;
+@inject NavigationManager _nav;
+
+<PageTitle>Budget Tracker - Categories</PageTitle>
+<div class="col-12 border border-secondary p-1">
+    <h3>Edit Category</h3>
+    <p>Change this category's information.</p>
+
+    @if (_vm.IsSome && _vm.Get() is ViewModel cat)
+    {
+        <EditForm class="mx-2" Model="@cat" OnValidSubmit="SaveCategory">
+            <div class="mb-3">
+                <label for="categoryId" class="form-label">Id</label>
+                <InputNumber id="categoryId" class="form-control" readonly @bind-Value="cat.Id" />
+            </div>
+
+            <div class="mb-3">
+                <label for="categoryName" class="form-label">Name</label>
+                <InputText id="categoryName" class="form-control" required @bind-Value="cat.Name"
+                           placeholder="Category name" />
+            </div>
+
+            <button type="submit" class="btn btn-light">Save</button>
+            <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
+        </EditForm>
+    }
+
+    @if (_errorMessage.IsSome && _errorMessage.Get() is string error)
+    {
+        <div class="mt-3">@error</div>
+    }
+</div>
+
+@code {
+
+}
