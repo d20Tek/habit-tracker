@@ -23,9 +23,5 @@ internal class Category
 
     public static Category Create(string name, string userId) => new(0, name, userId);
 
-    public Category Rename(string name)
-    {
-        Name = name;
-        return this;
-    }
+    public void Rename(string name) => Name = name;
 }

@@ -24,16 +24,13 @@ internal static class UpdateCategoryCommand
     private static ValidationErrors Validate(this UpdateCategoryRequest request) =>
         ValidationErrors.Create()
                         .AddIfError(() => request.Id <= 0,
-                                  "UpdateCategory.Id",
-                                  "Category id must be a valid number.")
+                                  Constants.EntityIdRequiredError("UpdateCategory"))
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError("UpdateCategory"))
                         .AddIfError(() => string.IsNullOrEmpty(request.Name),
-                                  "UpdateCategory.Name",
-                                  "Category name is a required.")
-                        .AddIfError(() => request.Name.Length > 100,
-                                  "UpdateCategory.Name",
-                                  "Category name must be less than 100 characters.");
+                                  Constants.Categories.RequiredNameError)
+                        .AddIfError(() => request.Name.Length > Constants.Categories.NameLength,
+                                  Constants.Categories.NameLengthError);
 
     private static async Task<Option<CategoryResponse>> UpdateEntity(AppDbContext db, UpdateCategoryRequest request)
     {

@@ -18,11 +18,9 @@ internal static class CreateCategoryCommand
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError("CreateCategory"))
                         .AddIfError(() => string.IsNullOrEmpty(request.Name),
-                                  "CreateCategory.Name",
-                                  "Category name is a required.")
-                        .AddIfError(() => request.Name.Length > 100,
-                                  "CreateCategory.Name",
-                                  "Category name must be less than 100 characters.");
+                                  Constants.Categories.RequiredNameError)
+                        .AddIfError(() => request.Name.Length > Constants.Categories.NameLength,
+                                  Constants.Categories.NameLengthError);
 
     private static async Task<CategoryResponse> CreateEntity(AppDbContext db, Category c)
     {

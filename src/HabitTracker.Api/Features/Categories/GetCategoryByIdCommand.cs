@@ -24,8 +24,7 @@ internal static class GetCategoryByIdCommand
     private static ValidationErrors Validate(this GetCategoryByIdRequest request) =>
         ValidationErrors.Create()
                         .AddIfError(() => request.Id <= 0,
-                                  "GetCategoryById.Id",
-                                  "Category id must be a valid number.")
+                                  Constants.EntityIdRequiredError("GetCategoryById"))
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError("GetCategoryById"));
 

@@ -24,8 +24,7 @@ internal static class DeleteCategoryCommand
     private static ValidationErrors Validate(this DeleteCategoryRequest request) =>
         ValidationErrors.Create()
                         .AddIfError(() => request.Id <= 0,
-                                  "DeleteCategory.Id",
-                                  "Category id must be a valid number.")
+                                  Constants.EntityIdRequiredError("DeleteCategory"))
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError("DeleteCategory"));
 
