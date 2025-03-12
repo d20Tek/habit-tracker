@@ -1,7 +1,6 @@
 ﻿using D20Tek.Functional.AspNetCore.MinimalApi;
 using HabitTracker.Api.Common;
 using HabitTracker.Api.Domain;
-using HabitTracker.Api.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -13,6 +12,11 @@ public static class GetCategoriesEndpoint
     {
         routes.MapGet(Constants.Categories.ServiceBase, GetAll)
               .WithTags(nameof(Category))
+              .WithName(Constants.Categories.GetAllName)
+              .WithDescription(Constants.Categories.GetAllDesc)
+              .Produces<CategoryResponse>()
+              .ProducesProblem(StatusCodes.Status400BadRequest)
+              .ProducesProblem(StatusCodes.Status401Unauthorized)
               .RequireAuthorization()
               .WithOpenApi();
 
@@ -20,14 +24,13 @@ public static class GetCategoriesEndpoint
     }
 
     private static async Task<IResult> GetAll(
-        [FromServices] AppDbContext db,
-        [FromServices] ILogger<Program> logger,
+        [FromServices] GetCategoriesForUserCommand command,
+        [FromServices] ILogger<GetCategoriesForUserCommand> logger,
         ClaimsPrincipal user)
     {
-        logger.LogInformation("==> GET CategoriesForUser called");
-        var result = await GetCategoriesForUserCommand.Handle(db, user.GetId());
-        var msg = result.Match(s => "succeeded", e => e.First().ToString());
-        logger.LogInformation($"==> GET CategoriesForUser complete - result: {msg}");
+        logger.LogEndpointStart(Constants.Categories.GetAllName);
+        var result = await command.Handle(user.GetId());
+        logger.LogEndpointComplete(Constants.Categories.GetAllName, result.LogDetails());
         return result.ToApiResult();
     }
 }

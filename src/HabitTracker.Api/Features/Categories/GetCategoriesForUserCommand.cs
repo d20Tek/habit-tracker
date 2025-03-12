@@ -5,18 +5,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HabitTracker.Api.Features.Categories;
 
-internal static class GetCategoriesForUserCommand
+internal class GetCategoriesForUserCommand
 {
-    public static async Task<Result<IList<CategoryResponse>>> Handle(AppDbContext db, string userId) =>
+    private readonly AppDbContext _db;
+
+    public GetCategoriesForUserCommand(AppDbContext db) => _db = db;
+
+    public async Task<Result<IList<CategoryResponse>>> Handle(string userId) =>
         await TryExcept.RunAsync(
-            async () => await userId.Validate()
-                                    .MapAsync(() => GetEntitiesForUser(db, userId)),
+            async () => await Validate(userId)
+                                .MapAsync(() => GetEntitiesForUser(_db, userId)),
             ex => Result<IList<CategoryResponse>>.Failure(ex));
 
-    private static ValidationErrors Validate(this string userId) =>
+    private static ValidationErrors Validate(string userId) =>
         ValidationErrors.Create()
                         .AddIfError(() => string.IsNullOrEmpty(userId),
-                            Constants.UserIdRequiredError("GetCategories"));
+                            Constants.UserIdRequiredError(Constants.Categories.GetAllName));
 
     private static async Task<IList<CategoryResponse>> GetEntitiesForUser(
         AppDbContext db,

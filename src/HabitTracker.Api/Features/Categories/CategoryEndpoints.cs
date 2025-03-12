@@ -16,10 +16,6 @@ public static class CategoryEndpoints
                           .RequireAuthorization()
                           .WithOpenApi();
 
-        //group.MapGet("/", async ([FromServices] AppDbContext db, ClaimsPrincipal user) =>
-        //        (await GetCategoriesForUserCommand.Handle(db, user.GetId())).ToApiResult())
-        //     .WithName(Constants.Categories.GetAllName);
-
         group.MapGet("/{id}", async ([FromRoute] int id,
                                      [FromServices] AppDbContext db,
                                      ClaimsPrincipal user) =>

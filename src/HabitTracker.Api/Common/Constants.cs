@@ -13,10 +13,17 @@ internal static partial class Constants
     public static Error EntityNotFound(string entityType, int id) => 
         Error.NotFound($"{entityType}.NotFound", $"Entity with id: {id} doesn't exist for user.");
 
+    public const string EndpointSuccess = "succeeded";
+    public static void LogEndpointStart<T>(this ILogger<T> logger, string opName) =>
+        logger.LogInformation($"==> {Constants.Categories.GetAllName} called");
+    public static void LogEndpointComplete<T>(this ILogger<T> logger, string opName, string message) =>
+        logger.LogInformation($"==> {Constants.Categories.GetAllName} complete - result: {message}");
+
     internal static class Categories
     {
         public const string ServiceBase = "/api/v1/category";
         public const string GetAllName = "GetAllCategories";
+        public const string GetAllDesc = "Retrieves a list of categories for the logged in user.";
         public const string GetByIdName = "GetCategoryById";
         public const string UpdateName = "UpdateCategory";
         public const string CreateName = "CreateCategory";
