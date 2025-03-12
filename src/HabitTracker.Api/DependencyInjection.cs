@@ -2,6 +2,7 @@
 using HabitTracker.Api.Features.Weather;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Scalar.AspNetCore;
 
 namespace HabitTracker.Api;
 
@@ -42,6 +43,7 @@ internal static class DependencyInjection
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
+            app.MapScalarApiReference();
         }
 
         app.UseHttpsRedirection()
@@ -54,5 +56,6 @@ internal static class DependencyInjection
 
     public static WebApplication MapEndpoints(this WebApplication app) =>
         app.MapCategoryEndpoints()
+           .MapGetCategoriesEndpoint()
            .MapWeatherEndpoints();
 }
