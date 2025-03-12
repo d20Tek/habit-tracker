@@ -1,6 +1,7 @@
 ﻿using HabitTracker.Api.Domain;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using HabitTracker.Api.Common;
 
 namespace HabitTracker.Api.Persistence.Configurations;
 
@@ -15,14 +16,14 @@ internal class HabitConfiguration : IEntityTypeConfiguration<Habit>
 
         builder.Property(h => h.UserId)
                .IsRequired()
-               .HasMaxLength(32);
+               .HasMaxLength(Constants.Habits.UserIdLength);
 
         builder.Property(h => h.Name)
                .IsRequired()
-               .HasMaxLength(100);
+               .HasMaxLength(Constants.Habits.NameLength);
 
         builder.Property(h => h.Description)
-               .HasMaxLength(500)
+               .HasMaxLength(Constants.Habits.DescLength)
                .IsRequired(false);
 
         builder.Property(h => h.TargetAttempts)

@@ -1,4 +1,5 @@
-﻿using HabitTracker.Api.Domain;
+﻿using HabitTracker.Api.Common;
+using HabitTracker.Api.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,10 +16,10 @@ internal class CategoryConfiguration : IEntityTypeConfiguration<Category>
 
         builder.Property(c => c.UserId)
               .IsRequired()
-              .HasMaxLength(32);
+              .HasMaxLength(Constants.Categories.UserIdLength);
 
         builder.Property(c => c.Name)
               .IsRequired()
-              .HasMaxLength(100);
+              .HasMaxLength(Constants.Categories.NameLength);
     }
 }
