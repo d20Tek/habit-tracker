@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-
-namespace HabitTracker.Api.Common;
+﻿namespace HabitTracker.Api.Common;
 
 internal static class ClaimsPrincipalExtensions
 {

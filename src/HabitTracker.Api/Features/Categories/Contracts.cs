@@ -1,5 +1,4 @@
-﻿using HabitTracker.Api.Domain;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace HabitTracker.Api.Features.Categories;
 

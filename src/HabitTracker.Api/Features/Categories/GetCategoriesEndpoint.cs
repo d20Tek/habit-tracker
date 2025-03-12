@@ -1,10 +1,4 @@
-﻿using D20Tek.Functional.AspNetCore.MinimalApi;
-using HabitTracker.Api.Common;
-using HabitTracker.Api.Domain;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-
-namespace HabitTracker.Api.Features.Categories;
+﻿namespace HabitTracker.Api.Features.Categories;
 
 public static class GetCategoriesEndpoint
 {

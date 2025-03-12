@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace HabitTracker.Api.Persistence;
+﻿namespace HabitTracker.Api.Persistence;
 
 internal static class DependencyInjection
 {

@@ -1,7 +1,4 @@
-﻿using HabitTracker.Api.Domain;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using HabitTracker.Api.Common;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HabitTracker.Api.Persistence.Configurations;
 

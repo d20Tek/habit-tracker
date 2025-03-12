@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-
-namespace HabitTracker.Api.Features.Weather;
+﻿namespace HabitTracker.Api.Features.Weather;
 
 public static class WeatherForecastEndpoints
 {

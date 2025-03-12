@@ -1,9 +1,4 @@
-﻿using D20Tek.Functional;
-using HabitTracker.Api.Common;
-using HabitTracker.Api.Persistence;
-using Microsoft.EntityFrameworkCore;
-
-namespace HabitTracker.Api.Features.Categories;
+﻿namespace HabitTracker.Api.Features.Categories;
 
 internal static class DeleteCategoryCommand
 {

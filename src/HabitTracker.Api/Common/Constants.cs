@@ -1,6 +1,4 @@
-﻿using D20Tek.Functional;
-
-namespace HabitTracker.Api.Common;
+﻿namespace HabitTracker.Api.Common;
 
 internal static partial class Constants
 {

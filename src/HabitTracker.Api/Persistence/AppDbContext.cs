@@ -1,6 +1,4 @@
-﻿using HabitTracker.Api.Domain;
-using HabitTracker.Api.Persistence.Configurations;
-using Microsoft.EntityFrameworkCore;
+﻿using HabitTracker.Api.Persistence.Configurations;
 
 namespace HabitTracker.Api.Persistence;
 
