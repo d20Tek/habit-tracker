@@ -15,6 +15,11 @@ internal record CreateCategoryRequest(string Name, string UserId)
     public Category ToEntity() => Category.Create(Name, UserId);
 }
 
+internal record UpdateCategoryRequest(int Id, string Name, string UserId)
+{
+    public UpdateCategoryRequest AppendUserId(string userId) => this with { UserId = userId };
+}
+
 internal record DeleteCategoryRequest(int Id, string UserId);
 
 internal record GetCategoryByIdRequest(int Id, string UserId);

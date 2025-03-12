@@ -26,10 +26,11 @@ public static class CategoryEndpoints
                 (await GetCategoryByIdCommand.Handle(db, new(id, user.GetId()))).ToApiResult())
              .WithName("GetCategoryById");
 
-        group.MapPut("/{id}", (int id, Category input) =>
-        {
-            return TypedResults.NoContent();
-        })
+        group.MapPut("/{id}", async([FromRoute] int id,
+                                    [FromBody] UpdateCategoryRequest request,
+                                    [FromServices] HabitTrackerDbContext db,
+                                    ClaimsPrincipal user) =>
+                (await UpdateCategoryCommand.Handle(db, request.AppendUserId(user.GetId()))).ToApiResult())
         .WithName("UpdateCategory");
 
         group.MapPost("/", async ([FromBody] CreateCategoryRequest request,

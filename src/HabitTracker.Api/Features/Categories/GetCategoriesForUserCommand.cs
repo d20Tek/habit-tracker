@@ -23,5 +23,6 @@ internal static class GetCategoriesForUserCommand
         string userId) =>
         await db.Categories.Where(c => c.UserId == userId)
                            .Select(c => new CategoryResponse(c.CategoryId, c.Name, c.UserId))
+                           .AsNoTracking()
                            .ToListAsync();
 }

@@ -20,7 +20,7 @@ internal static class CreateCategoryCommand
                         .AddIfError(() => string.IsNullOrEmpty(request.Name),
                                   "CreateCategory.Name",
                                   "Category name is a required.")
-                        .AddIfError(() => request.Name.Length > 10,
+                        .AddIfError(() => request.Name.Length > 100,
                                   "CreateCategory.Name",
                                   "Category name must be less than 100 characters.");
 
