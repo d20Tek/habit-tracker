@@ -1,6 +1,6 @@
 ﻿namespace HabitTracker.Api.Features.Categories;
 
-public static class GetCategoriesEndpoint
+internal static class GetCategoriesEndpoint
 {
     public static WebApplication MapEndpoint(WebApplication routes)
     {

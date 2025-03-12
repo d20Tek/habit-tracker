@@ -27,6 +27,7 @@ internal static partial class Constants
         public const string UpdateName = "UpdateCategory";
         public const string CreateName = "CreateCategory";
         public const string DeleteName = "DeleteCategory";
+        public const string DeleteDesc = "Deletes a single category identified by its unique id.";
         public const int NameLength = 100;
         public const int UserIdLength = 32;
 

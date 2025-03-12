@@ -1,13 +1,13 @@
 ﻿namespace HabitTracker.Api.Features.Categories;
 
-internal static class GetCategoryByIdEndpoint
+internal static class DeleteCategoryEndpoint
 {
     public static WebApplication MapEndpoint(WebApplication routes)
     {
-        routes.MapGet(Constants.Categories.ServiceBase + "/{id}", Get)
+        routes.MapDelete(Constants.Categories.ServiceBase + "/{id}", Delete)
               .WithTags(nameof(Category))
-              .WithName(Constants.Categories.GetByIdName)
-              .WithDescription(Constants.Categories.GetByIdDesc)
+              .WithName(Constants.Categories.DeleteName)
+              .WithDescription(Constants.Categories.DeleteDesc)
               .Produces<CategoryResponse>()
               .ProducesProblem(StatusCodes.Status400BadRequest)
               .ProducesProblem(StatusCodes.Status404NotFound)
@@ -18,15 +18,15 @@ internal static class GetCategoryByIdEndpoint
         return routes;
     }
 
-    private static async Task<IResult> Get(
+    private static async Task<IResult> Delete(
         [FromRoute] int id,
-        [FromServices] GetCategoryByIdCommand command,
-        [FromServices] ILogger<GetCategoryByIdCommand> logger,
+        [FromServices] DeleteCategoryCommand command,
+        [FromServices] ILogger<DeleteCategoryCommand> logger,
         ClaimsPrincipal user)
     {
-        logger.LogEndpointStart(Constants.Categories.GetByIdName);
+        logger.LogEndpointStart(Constants.Categories.DeleteName);
         var result = await command.Handle(new(id, user.GetId()));
-        logger.LogEndpointComplete(Constants.Categories.GetByIdName, result.LogDetails());
+        logger.LogEndpointComplete(Constants.Categories.DeleteName, result.LogDetails());
         return result.ToApiResult();
     }
 }

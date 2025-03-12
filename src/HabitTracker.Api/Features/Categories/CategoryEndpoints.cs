@@ -32,11 +32,11 @@ public static class CategoryEndpoints
         })
         .WithName(Constants.Categories.CreateName);
 
-        group.MapDelete("/{id}", async ([FromRoute] int id,
-                                        [FromServices] AppDbContext db,
-                                        ClaimsPrincipal user) =>
-                (await DeleteCategoryCommand.Handle(db, new(id, user.GetId()))).ToApiResult())
-            .WithName(Constants.Categories.DeleteName);
+        //group.MapDelete("/{id}", async ([FromRoute] int id,
+        //                                [FromServices] AppDbContext db,
+        //                                ClaimsPrincipal user) =>
+        //        (await DeleteCategoryCommand.Handle(db, new(id, user.GetId()))).ToApiResult())
+        //    .WithName(Constants.Categories.DeleteName);
 
         return routes;
     }

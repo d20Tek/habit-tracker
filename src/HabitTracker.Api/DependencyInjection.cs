@@ -58,6 +58,7 @@ internal static class DependencyInjection
     {
         GetCategoriesEndpoint.MapEndpoint(app);
         GetCategoryByIdEndpoint.MapEndpoint(app);
+        DeleteCategoryEndpoint.MapEndpoint(app);
 
         return app.MapCategoryEndpoints()
                   .MapWeatherEndpoints();

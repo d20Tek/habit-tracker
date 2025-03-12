@@ -16,16 +16,16 @@ internal class GetCategoryByIdCommand
                 var result = await GetCategoryById(_db, request);
                 return result.Match(
                     response => response,
-                    () => Result<CategoryResponse>.Failure(Constants.EntityNotFound("Category", request.Id)));
+                    () => Result<CategoryResponse>.Failure(Constants.EntityNotFound(nameof(Category), request.Id)));
             },
             ex => Result<CategoryResponse>.Failure(ex));
 
     private static ValidationErrors Validate(GetCategoryByIdRequest request) =>
         ValidationErrors.Create()
                         .AddIfError(() => request.Id <= 0,
-                                  Constants.EntityIdRequiredError("GetCategoryById"))
+                                  Constants.EntityIdRequiredError(Constants.Categories.GetByIdName))
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
-                                  Constants.UserIdRequiredError("GetCategoryById"));
+                                  Constants.UserIdRequiredError(Constants.Categories.GetByIdName));
 
     private static async Task<Option<CategoryResponse>> GetCategoryById(
         AppDbContext db,
