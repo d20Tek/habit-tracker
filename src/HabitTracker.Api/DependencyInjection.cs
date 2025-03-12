@@ -54,8 +54,12 @@ internal static class DependencyInjection
         return app;
     }
 
-    public static WebApplication MapEndpoints(this WebApplication app) =>
-        app.MapCategoryEndpoints()
-           .MapGetCategoriesEndpoint()
-           .MapWeatherEndpoints();
+    public static WebApplication MapEndpoints(this WebApplication app)
+    {
+        GetCategoriesEndpoint.MapEndpoint(app);
+        GetCategoryByIdEndpoint.MapEndpoint(app);
+
+        return app.MapCategoryEndpoints()
+                  .MapWeatherEndpoints();
+    }
 }

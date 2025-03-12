@@ -9,8 +9,12 @@ internal static class DependencyInjection
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
 
-        builder.Services.AddScoped<GetCategoriesForUserCommand>();
+        builder.Services.AddCategoryCommands();
 
         return builder;
     }
+
+    private static IServiceCollection AddCategoryCommands(this IServiceCollection services) =>
+        services.AddScoped<GetCategoriesForUserCommand>()
+                .AddScoped<GetCategoryByIdCommand>();
 }

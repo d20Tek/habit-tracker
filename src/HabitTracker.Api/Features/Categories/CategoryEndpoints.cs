@@ -9,11 +9,11 @@ public static class CategoryEndpoints
                           .RequireAuthorization()
                           .WithOpenApi();
 
-        group.MapGet("/{id}", async ([FromRoute] int id,
-                                     [FromServices] AppDbContext db,
-                                     ClaimsPrincipal user) =>
-                (await GetCategoryByIdCommand.Handle(db, new(id, user.GetId()))).ToApiResult())
-             .WithName(Constants.Categories.GetByIdName);
+        //group.MapGet("/{id}", async ([FromRoute] int id,
+        //                             [FromServices] AppDbContext db,
+        //                             ClaimsPrincipal user) =>
+        //        (await GetCategoryByIdCommand.Handle(db, new(id, user.GetId()))).ToApiResult())
+        //     .WithName(Constants.Categories.GetByIdName);
 
         group.MapPut("/{id}", async([FromRoute] int id,
                                     [FromBody] UpdateCategoryRequest request,

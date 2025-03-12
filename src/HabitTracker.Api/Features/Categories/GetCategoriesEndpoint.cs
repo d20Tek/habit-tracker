@@ -2,13 +2,13 @@
 
 public static class GetCategoriesEndpoint
 {
-    public static WebApplication MapGetCategoriesEndpoint(this WebApplication routes)
+    public static WebApplication MapEndpoint(WebApplication routes)
     {
         routes.MapGet(Constants.Categories.ServiceBase, GetAll)
               .WithTags(nameof(Category))
               .WithName(Constants.Categories.GetAllName)
               .WithDescription(Constants.Categories.GetAllDesc)
-              .Produces<CategoryResponse>()
+              .Produces<CategoryResponse[]>()
               .ProducesProblem(StatusCodes.Status400BadRequest)
               .ProducesProblem(StatusCodes.Status401Unauthorized)
               .RequireAuthorization()

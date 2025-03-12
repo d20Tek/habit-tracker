@@ -23,6 +23,7 @@ internal static partial class Constants
         public const string GetAllName = "GetAllCategories";
         public const string GetAllDesc = "Retrieves a list of categories for the logged in user.";
         public const string GetByIdName = "GetCategoryById";
+        public const string GetByIdDesc = "Retrieves a single category identified by its unique id.";
         public const string UpdateName = "UpdateCategory";
         public const string CreateName = "CreateCategory";
         public const string DeleteName = "DeleteCategory";

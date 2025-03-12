@@ -1,22 +1,26 @@
 ﻿namespace HabitTracker.Api.Features.Categories;
 
-internal static class GetCategoryByIdCommand
+internal class GetCategoryByIdCommand
 {
-    public static async Task<Result<CategoryResponse>> Handle(AppDbContext db, GetCategoryByIdRequest request) =>
+    private readonly AppDbContext _db;
+
+    public GetCategoryByIdCommand(AppDbContext db) => _db = db;
+
+    public async Task<Result<CategoryResponse>> Handle(GetCategoryByIdRequest request) =>
         await TryExcept.RunAsync(
             async () =>
             {
-                var validations = request.Validate();
+                var validations = Validate(request);
                 if (validations.HasErrors) return Result<CategoryResponse>.Failure(validations.ToArray());
 
-                var result = await GetCategoryById(db, request);
+                var result = await GetCategoryById(_db, request);
                 return result.Match(
                     response => response,
                     () => Result<CategoryResponse>.Failure(Constants.EntityNotFound("Category", request.Id)));
             },
             ex => Result<CategoryResponse>.Failure(ex));
 
-    private static ValidationErrors Validate(this GetCategoryByIdRequest request) =>
+    private static ValidationErrors Validate(GetCategoryByIdRequest request) =>
         ValidationErrors.Create()
                         .AddIfError(() => request.Id <= 0,
                                   Constants.EntityIdRequiredError("GetCategoryById"))
