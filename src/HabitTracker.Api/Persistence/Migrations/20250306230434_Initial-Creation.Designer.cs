@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HabitTracker.Api.Persistence.Migrations
 {
-    [DbContext(typeof(HabitTrackerDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20250306230434_Initial-Creation")]
     partial class InitialCreation
     {

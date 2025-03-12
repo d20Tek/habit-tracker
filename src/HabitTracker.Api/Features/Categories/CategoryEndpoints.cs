@@ -16,25 +16,25 @@ public static class CategoryEndpoints
                           .RequireAuthorization()
                           .WithOpenApi();
 
-        group.MapGet("/", async ([FromServices] HabitTrackerDbContext db, ClaimsPrincipal user) =>
+        group.MapGet("/", async ([FromServices] AppDbContext db, ClaimsPrincipal user) =>
                 (await GetCategoriesForUserCommand.Handle(db, user.GetId())).ToApiResult())
              .WithName("GetAllCategories");
 
         group.MapGet("/{id}", async ([FromRoute] int id,
-                                     [FromServices] HabitTrackerDbContext db,
+                                     [FromServices] AppDbContext db,
                                      ClaimsPrincipal user) =>
                 (await GetCategoryByIdCommand.Handle(db, new(id, user.GetId()))).ToApiResult())
              .WithName("GetCategoryById");
 
         group.MapPut("/{id}", async([FromRoute] int id,
                                     [FromBody] UpdateCategoryRequest request,
-                                    [FromServices] HabitTrackerDbContext db,
+                                    [FromServices] AppDbContext db,
                                     ClaimsPrincipal user) =>
                 (await UpdateCategoryCommand.Handle(db, request.AppendUserId(user.GetId()))).ToApiResult())
         .WithName("UpdateCategory");
 
         group.MapPost("/", async ([FromBody] CreateCategoryRequest request,
-                                  [FromServices] HabitTrackerDbContext db,
+                                  [FromServices] AppDbContext db,
                                   ClaimsPrincipal user) =>
         {
             var result = await CreateCategoryCommand.Handle(db, request.AppendUserId(user.GetId()));
@@ -44,7 +44,7 @@ public static class CategoryEndpoints
         .WithName("CreateCategory");
 
         group.MapDelete("/{id}", async ([FromRoute] int id,
-                                        [FromServices] HabitTrackerDbContext db,
+                                        [FromServices] AppDbContext db,
                                         ClaimsPrincipal user) =>
                 (await DeleteCategoryCommand.Handle(db, new(id, user.GetId()))).ToApiResult())
             .WithName("DeleteCategory");

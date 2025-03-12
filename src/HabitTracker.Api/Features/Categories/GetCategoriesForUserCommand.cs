@@ -7,7 +7,7 @@ namespace HabitTracker.Api.Features.Categories;
 
 internal static class GetCategoriesForUserCommand
 {
-    public static async Task<Result<IList<CategoryResponse>>> Handle(HabitTrackerDbContext db, string userId) =>
+    public static async Task<Result<IList<CategoryResponse>>> Handle(AppDbContext db, string userId) =>
         await TryExcept.RunAsync(
             async () => await userId.Validate()
                                     .MapAsync(() => GetEntitiesForUser(db, userId)),
@@ -19,7 +19,7 @@ internal static class GetCategoriesForUserCommand
                             Constants.UserIdRequiredError("GetCategories"));
 
     private static async Task<IList<CategoryResponse>> GetEntitiesForUser(
-        HabitTrackerDbContext db,
+        AppDbContext db,
         string userId) =>
         await db.Categories.Where(c => c.UserId == userId)
                            .Select(c => new CategoryResponse(c.CategoryId, c.Name, c.UserId))

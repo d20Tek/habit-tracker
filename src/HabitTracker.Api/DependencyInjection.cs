@@ -44,10 +44,10 @@ internal static class DependencyInjection
             app.MapOpenApi();
         }
 
-        app.UseHttpsRedirection();
-        app.UseCors();
-        app.UseAuthentication();
-        app.UseAuthorization();
+        app.UseHttpsRedirection()
+           .UseCors()
+           .UseAuthentication()
+           .UseAuthorization();
 
         return app;
     }

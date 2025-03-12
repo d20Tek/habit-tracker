@@ -7,7 +7,7 @@ namespace HabitTracker.Api.Features.Categories;
 
 internal static class DeleteCategoryCommand
 {
-    public static async Task<Result<CategoryResponse>> Handle(HabitTrackerDbContext db, DeleteCategoryRequest request) =>
+    public static async Task<Result<CategoryResponse>> Handle(AppDbContext db, DeleteCategoryRequest request) =>
         await TryExcept.RunAsync(
             async () =>
             {
@@ -29,7 +29,7 @@ internal static class DeleteCategoryCommand
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError("DeleteCategory"));
 
-    private static async Task<Option<CategoryResponse>> DeleteEntity(HabitTrackerDbContext db, DeleteCategoryRequest request)
+    private static async Task<Option<CategoryResponse>> DeleteEntity(AppDbContext db, DeleteCategoryRequest request)
     {
         var c = await db.Categories.SingleOrDefaultAsync(x => x.CategoryId == request.Id && x.UserId == request.UserId);
         if (c is null) return Option<CategoryResponse>.None();

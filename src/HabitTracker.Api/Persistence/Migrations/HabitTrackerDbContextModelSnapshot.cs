@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HabitTracker.Api.Persistence.Migrations
 {
-    [DbContext(typeof(HabitTrackerDbContext))]
+    [DbContext(typeof(AppDbContext))]
     partial class HabitTrackerDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -7,7 +7,7 @@ namespace HabitTracker.Api.Features.Categories;
 
 internal static class UpdateCategoryCommand
 {
-    public static async Task<Result<CategoryResponse>> Handle(HabitTrackerDbContext db, UpdateCategoryRequest request) =>
+    public static async Task<Result<CategoryResponse>> Handle(AppDbContext db, UpdateCategoryRequest request) =>
         await TryExcept.RunAsync(
             async () =>
             {
@@ -35,7 +35,7 @@ internal static class UpdateCategoryCommand
                                   "UpdateCategory.Name",
                                   "Category name must be less than 100 characters.");
 
-    private static async Task<Option<CategoryResponse>> UpdateEntity(HabitTrackerDbContext db, UpdateCategoryRequest request)
+    private static async Task<Option<CategoryResponse>> UpdateEntity(AppDbContext db, UpdateCategoryRequest request)
     {
         var cat = await db.Categories.SingleOrDefaultAsync(x => x.CategoryId == request.Id && x.UserId == request.UserId);
         if (cat is null) return Option<CategoryResponse>.None();

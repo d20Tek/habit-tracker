@@ -7,7 +7,7 @@ namespace HabitTracker.Api.Features.Categories;
 
 internal static class GetCategoryByIdCommand
 {
-    public static async Task<Result<CategoryResponse>> Handle(HabitTrackerDbContext db, GetCategoryByIdRequest request) =>
+    public static async Task<Result<CategoryResponse>> Handle(AppDbContext db, GetCategoryByIdRequest request) =>
         await TryExcept.RunAsync(
             async () =>
             {
@@ -30,7 +30,7 @@ internal static class GetCategoryByIdCommand
                                   Constants.UserIdRequiredError("GetCategoryById"));
 
     private static async Task<Option<CategoryResponse>> GetCategoryById(
-        HabitTrackerDbContext db,
+        AppDbContext db,
         GetCategoryByIdRequest request)
     {
         var cat = await db.Categories.SingleOrDefaultAsync(

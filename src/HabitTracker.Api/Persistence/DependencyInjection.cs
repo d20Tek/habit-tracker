@@ -9,7 +9,7 @@ internal static class DependencyInjection
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
         // Register the DbContext with SQL Server
-        builder.Services.AddDbContext<HabitTrackerDbContext>(options =>
+        builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(connectionString));
 
         return builder;

@@ -7,7 +7,7 @@ namespace HabitTracker.Api.Features.Categories;
 
 internal static class CreateCategoryCommand
 {
-    public static async Task<Result<CategoryResponse>> Handle(HabitTrackerDbContext db, CreateCategoryRequest request) => 
+    public static async Task<Result<CategoryResponse>> Handle(AppDbContext db, CreateCategoryRequest request) => 
         await TryExcept.RunAsync(
             async () => await request.Validate()
                                      .MapAsync(async () => await CreateEntity(db, request.ToEntity())),
@@ -24,7 +24,7 @@ internal static class CreateCategoryCommand
                                   "CreateCategory.Name",
                                   "Category name must be less than 100 characters.");
 
-    private static async Task<CategoryResponse> CreateEntity(HabitTrackerDbContext db, Category c)
+    private static async Task<CategoryResponse> CreateEntity(AppDbContext db, Category c)
     {
         var r = await db.Categories.AddAsync(c);
         await db.SaveChangesAsync();

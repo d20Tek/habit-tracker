@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HabitTracker.Api.Persistence;
 
-internal class HabitTrackerDbContext : DbContext
+internal class AppDbContext : DbContext
 {
     public DbSet<Category> Categories { get; set; }
 
@@ -12,7 +12,7 @@ internal class HabitTrackerDbContext : DbContext
 
     public DbSet<HabitCompletion> HabitCompletions { get; set; }
 
-    public HabitTrackerDbContext(DbContextOptions<HabitTrackerDbContext> options) : base(options)
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
 
