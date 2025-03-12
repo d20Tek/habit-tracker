@@ -1,13 +1,13 @@
 ﻿namespace HabitTracker.Api.Features.Categories;
 
-internal static class DeleteCategoryEndpoint
+internal static class UpdateCategoryEndpoint
 {
     public static WebApplication MapEndpoint(WebApplication routes)
     {
-        routes.MapDelete(Constants.Categories.ServiceBase + "/{id}", Delete)
+        routes.MapPut(Constants.Categories.ServiceBase + "/{id}", Update)
               .WithTags(nameof(Category))
-              .WithName(Constants.Categories.DeleteName)
-              .WithDescription(Constants.Categories.DeleteDesc)
+              .WithName(Constants.Categories.UpdateName)
+              .WithDescription(Constants.Categories.UpdateDesc)
               .Produces<CategoryResponse>()
               .ProducesValidationProblem(StatusCodes.Status400BadRequest)
               .ProducesProblem(StatusCodes.Status404NotFound)
@@ -18,10 +18,10 @@ internal static class DeleteCategoryEndpoint
         return routes;
     }
 
-    private static async Task<IResult> Delete(
+    private static async Task<IResult> Update(
         [FromRoute] int id,
-        [FromServices] DeleteCategoryCommand command,
-        [FromServices] ILogger<DeleteCategoryCommand> logger,
+        [FromServices] UpdateCategoryCommand command,
+        [FromServices] ILogger<UpdateCategoryCommand> logger,
         ClaimsPrincipal user)
     {
         logger.LogEndpointStart(Constants.Categories.DeleteName);

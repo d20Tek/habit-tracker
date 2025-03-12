@@ -1,27 +1,31 @@
 ﻿namespace HabitTracker.Api.Features.Categories;
 
-internal static class UpdateCategoryCommand
+internal class UpdateCategoryCommand
 {
-    public static async Task<Result<CategoryResponse>> Handle(AppDbContext db, UpdateCategoryRequest request) =>
+    private readonly AppDbContext _db;
+
+    public UpdateCategoryCommand(AppDbContext db) => _db = db;
+
+    public async Task<Result<CategoryResponse>> Handle(UpdateCategoryRequest request) =>
         await TryExcept.RunAsync(
             async () =>
             {
-                var validations = request.Validate();
+                var validations = Validate(request);
                 if (validations.HasErrors) return Result<CategoryResponse>.Failure(validations.ToArray());
 
-                var result = await UpdateEntity(db, request);
+                var result = await UpdateEntity(_db, request);
                 return result.Match(
                     response => response,
-                    () => Result<CategoryResponse>.Failure(Constants.EntityNotFound("Category", request.Id)));
+                    () => Result<CategoryResponse>.Failure(Constants.EntityNotFound(nameof(Category), request.Id)));
             },
             ex => Result<CategoryResponse>.Failure(ex));
 
-    private static ValidationErrors Validate(this UpdateCategoryRequest request) =>
+    private static ValidationErrors Validate(UpdateCategoryRequest request) =>
         ValidationErrors.Create()
                         .AddIfError(() => request.Id <= 0,
-                                  Constants.EntityIdRequiredError("UpdateCategory"))
+                                  Constants.EntityIdRequiredError(Constants.Categories.UpdateName))
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
-                                  Constants.UserIdRequiredError("UpdateCategory"))
+                                  Constants.UserIdRequiredError(Constants.Categories.UpdateName))
                         .AddIfError(() => string.IsNullOrEmpty(request.Name),
                                   Constants.Categories.RequiredNameError)
                         .AddIfError(() => request.Name.Length > Constants.Categories.NameLength,

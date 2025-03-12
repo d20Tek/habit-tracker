@@ -17,5 +17,6 @@ internal static class DependencyInjection
     private static IServiceCollection AddCategoryCommands(this IServiceCollection services) =>
         services.AddScoped<GetCategoriesForUserCommand>()
                 .AddScoped<GetCategoryByIdCommand>()
+                .AddScoped<UpdateCategoryCommand>()
                 .AddScoped<DeleteCategoryCommand>();
 }

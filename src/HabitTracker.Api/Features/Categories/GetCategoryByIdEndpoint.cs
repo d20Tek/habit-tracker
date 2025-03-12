@@ -9,7 +9,7 @@ internal static class GetCategoryByIdEndpoint
               .WithName(Constants.Categories.GetByIdName)
               .WithDescription(Constants.Categories.GetByIdDesc)
               .Produces<CategoryResponse>()
-              .ProducesProblem(StatusCodes.Status400BadRequest)
+              .ProducesValidationProblem(StatusCodes.Status400BadRequest)
               .ProducesProblem(StatusCodes.Status404NotFound)
               .ProducesProblem(StatusCodes.Status401Unauthorized)
               .RequireAuthorization()

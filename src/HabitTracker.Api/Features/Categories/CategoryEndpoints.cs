@@ -15,12 +15,12 @@ public static class CategoryEndpoints
         //        (await GetCategoryByIdCommand.Handle(db, new(id, user.GetId()))).ToApiResult())
         //     .WithName(Constants.Categories.GetByIdName);
 
-        group.MapPut("/{id}", async([FromRoute] int id,
-                                    [FromBody] UpdateCategoryRequest request,
-                                    [FromServices] AppDbContext db,
-                                    ClaimsPrincipal user) =>
-                (await UpdateCategoryCommand.Handle(db, request.AppendUserId(user.GetId()))).ToApiResult())
-        .WithName(Constants.Categories.UpdateName);
+        //group.MapPut("/{id}", async([FromRoute] int id,
+        //                            [FromBody] UpdateCategoryRequest request,
+        //                            [FromServices] AppDbContext db,
+        //                            ClaimsPrincipal user) =>
+        //        (await UpdateCategoryCommand.Handle(db, request.AppendUserId(user.GetId()))).ToApiResult())
+        //.WithName(Constants.Categories.UpdateName);
 
         group.MapPost("/", async ([FromBody] CreateCategoryRequest request,
                                   [FromServices] AppDbContext db,
