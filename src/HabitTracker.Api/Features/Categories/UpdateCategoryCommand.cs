@@ -31,7 +31,7 @@ internal static class UpdateCategoryCommand
                         .AddIfError(() => string.IsNullOrEmpty(request.Name),
                                   "UpdateCategory.Name",
                                   "Category name is a required.")
-                        .AddIfError(() => request.Name.Length > 10,
+                        .AddIfError(() => request.Name.Length > 100,
                                   "UpdateCategory.Name",
                                   "Category name must be less than 100 characters.");
 
