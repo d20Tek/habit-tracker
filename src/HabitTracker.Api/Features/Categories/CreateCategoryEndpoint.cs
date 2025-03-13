@@ -7,7 +7,7 @@ internal static class CreateCategoryEndpoint
         routes.MapPost(Constants.Categories.ServiceBase, Create)
               .WithTags(nameof(Category))
               .WithName(Constants.Categories.CreateName)
-              .WithDescription(Constants.Categories.UpdateDesc)
+              .WithDescription(Constants.Categories.CreateDesc)
               .Produces<CategoryResponse>()
               .ProducesValidationProblem(StatusCodes.Status400BadRequest)
               .ProducesProblem(StatusCodes.Status401Unauthorized)
