@@ -58,10 +58,10 @@ internal static class DependencyInjection
     {
         GetCategoriesEndpoint.MapEndpoint(app);
         GetCategoryByIdEndpoint.MapEndpoint(app);
+        CreateCategoryEndpoint.MapEndpoint(app);
         UpdateCategoryEndpoint.MapEndpoint(app);
         DeleteCategoryEndpoint.MapEndpoint(app);
 
-        return app.MapCategoryEndpoints()
-                  .MapWeatherEndpoints();
+        return app.MapWeatherEndpoints();
     }
 }

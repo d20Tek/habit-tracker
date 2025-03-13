@@ -1,17 +1,21 @@
 ﻿namespace HabitTracker.Api.Features.Categories;
 
-internal static class CreateCategoryCommand
+internal class CreateCategoryCommand
 {
-    public static async Task<Result<CategoryResponse>> Handle(AppDbContext db, CreateCategoryRequest request) => 
+    private readonly AppDbContext _db;
+
+    public CreateCategoryCommand(AppDbContext db) => _db = db;
+
+    public async Task<Result<CategoryResponse>> Handle(CreateCategoryRequest request) => 
         await TryExcept.RunAsync(
-            async () => await request.Validate()
-                                     .MapAsync(async () => await CreateEntity(db, request.ToEntity())),
+            async () => await Validate(request)
+                                .MapAsync(async () => await CreateEntity(_db, request.ToEntity())),
             ex => Result<CategoryResponse>.Failure(ex));
 
-    private static ValidationErrors Validate(this CreateCategoryRequest request) =>
+    private static ValidationErrors Validate(CreateCategoryRequest request) =>
         ValidationErrors.Create()
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
-                                  Constants.UserIdRequiredError("CreateCategory"))
+                                  Constants.UserIdRequiredError(Constants.Categories.CreateName))
                         .AddIfError(() => string.IsNullOrEmpty(request.Name),
                                   Constants.Categories.RequiredNameError)
                         .AddIfError(() => request.Name.Length > Constants.Categories.NameLength,
