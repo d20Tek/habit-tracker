@@ -1,7 +1,4 @@
-﻿using D20Tek.Functional;
-using HabitTracker.Web.Common;
-
-namespace HabitTracker.Web.Features.Categories;
+﻿namespace HabitTracker.Web.Features.Categories;
 
 public partial class AddCategory
 {
@@ -16,7 +13,8 @@ public partial class AddCategory
     private async Task CreateCategory() =>
         await _http.TryPostAsJsonAsync<CreateCategoryRequest, CategoryResponse>(
                         Constants.Categories.ServiceUrl,
-                        new CreateCategoryRequest(_vm.Name))
+                        new CreateCategoryRequest(_vm.Name),
+                        _log)
                    .HandleResultAsync(s => _nav.NavigateTo(Constants.Categories.ListUrl), e => _errorMessage = e);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Categories.ListUrl);

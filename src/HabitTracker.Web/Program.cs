@@ -1,5 +1,9 @@
+global using D20Tek.Functional;
+global using HabitTracker.Web;
+global using HabitTracker.Web.Common;
+global using Microsoft.AspNetCore.Components;
+
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using HabitTracker.Web;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args)
                                     .AddBlazorRoot()

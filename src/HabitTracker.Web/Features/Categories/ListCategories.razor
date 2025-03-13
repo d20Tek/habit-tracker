@@ -1,6 +1,7 @@
 ﻿@page "/category"
 @page "/category/list"
 @inject HttpClient _http;
+@inject ILogger<ListCategories> _log;
 @attribute [Authorize]
 
 <PageTitle>Habit Tracker - Categories</PageTitle>
@@ -60,6 +61,6 @@ else
     private Option<string> _errorMessage = Option<string>.None();
 
     protected override async Task OnInitializedAsync() =>
-        _categories = await _http.TryGetFromJsonAsync<CategoryResponse[]>(Constants.Categories.ServiceUrl, [])
+        _categories = await _http.TryGetFromJsonAsync<CategoryResponse[]>(Constants.Categories.ServiceUrl, [], _log)
                                  .HandleErrorAsync(e => _errorMessage = e, []);
 }

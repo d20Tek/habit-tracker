@@ -1,8 +1,4 @@
-﻿using D20Tek.Functional;
-using HabitTracker.Web.Common;
-using Microsoft.AspNetCore.Components;
-
-namespace HabitTracker.Web.Features.Categories;
+﻿namespace HabitTracker.Web.Features.Categories;
 
 public partial class EditCategory
 {
@@ -20,13 +16,14 @@ public partial class EditCategory
     public int Id { get; set; }
 
     protected override async Task OnInitializedAsync() =>
-        await _http.TryGetByIdFromJsonAsync<CategoryResponse>(Constants.Categories.ServiceUrlWithId(Id))
+        await _http.TryGetByIdFromJsonAsync<CategoryResponse>(Constants.Categories.ServiceUrlWithId(Id), _log)
                    .HandleResultAsync(c => _vm = CreateViewModel(c), e => _errorMessage = e);
 
     private async Task SaveCategory() =>
         await _http.TryPutAsJsonAsync<UpdateCategoryRequest, CategoryResponse>(
                         Constants.Categories.ServiceUrlWithId(Id),
-                        CreateUpdateRequest())
+                        CreateUpdateRequest(),
+                        _log)
                    .HandleResultAsync(s => _nav.NavigateTo(Constants.Categories.ListUrl), e => _errorMessage = e);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Categories.ListUrl);

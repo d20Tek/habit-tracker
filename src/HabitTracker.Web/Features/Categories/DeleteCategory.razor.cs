@@ -1,8 +1,4 @@
-﻿using D20Tek.Functional;
-using HabitTracker.Web.Common;
-using Microsoft.AspNetCore.Components;
-
-namespace HabitTracker.Web.Features.Categories;
+﻿namespace HabitTracker.Web.Features.Categories;
 
 public partial class DeleteCategory
 {
@@ -13,11 +9,11 @@ public partial class DeleteCategory
     public int Id { get; set; }
 
     protected override async Task OnInitializedAsync() =>
-        _category = await _http.TryGetByIdFromJsonAsync<CategoryResponse>(Constants.Categories.ServiceUrlWithId(Id))
+        _category = await _http.TryGetByIdFromJsonAsync<CategoryResponse>(Constants.Categories.ServiceUrlWithId(Id), _log)
                                .HandleErrorAsync(e => _errorMessage = e, default!);
 
     private async Task DeleteHandler() =>
-        await _http.TryDeleteAsJsonAsync<CategoryResponse>(Constants.Categories.ServiceUrlWithId(Id))
+        await _http.TryDeleteAsJsonAsync<CategoryResponse>(Constants.Categories.ServiceUrlWithId(Id), _log)
                    .HandleResultAsync(s => _nav.NavigateTo(Constants.Categories.ListUrl), e => _errorMessage = e);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Categories.ListUrl);

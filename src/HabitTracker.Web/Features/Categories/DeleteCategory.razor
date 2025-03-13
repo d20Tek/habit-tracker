@@ -1,6 +1,7 @@
 ﻿@page "/category/delete/{Id:int}"
 @inject HttpClient _http;
 @inject NavigationManager _nav;
+@inject ILogger<DeleteCategory> _log;
 
 <PageTitle>Budget Tracker - Categories</PageTitle>
 <div class="col-12 border border-secondary p-2">
