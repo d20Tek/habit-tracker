@@ -4,7 +4,7 @@ internal static class GetCategoryByIdEndpoint
 {
     public static WebApplication MapEndpoint(WebApplication routes)
     {
-        routes.MapGet(Constants.Categories.ServiceBase + "/{id}", Get)
+        routes.MapGet(Constants.Categories.ServiceBaseWithId, Get)
               .WithTags(nameof(Category))
               .WithName(Constants.Categories.GetByIdName)
               .WithDescription(Constants.Categories.GetByIdDesc)

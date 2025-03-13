@@ -4,7 +4,7 @@ internal static class DeleteCategoryEndpoint
 {
     public static WebApplication MapEndpoint(WebApplication routes)
     {
-        routes.MapDelete(Constants.Categories.ServiceBase + "/{id}", Delete)
+        routes.MapDelete(Constants.Categories.ServiceBaseWithId, Delete)
               .WithTags(nameof(Category))
               .WithName(Constants.Categories.DeleteName)
               .WithDescription(Constants.Categories.DeleteDesc)

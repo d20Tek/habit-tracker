@@ -20,6 +20,7 @@ internal static partial class Constants
     internal static class Categories
     {
         public const string ServiceBase = "/api/v1/category";
+        public const string ServiceBaseWithId = ServiceBase + "/{id:int}";
         public const string GetAllName = "GetAllCategories";
         public const string GetAllDesc = "Retrieves a list of categories for the logged in user.";
         public const string GetByIdName = "GetCategoryById";

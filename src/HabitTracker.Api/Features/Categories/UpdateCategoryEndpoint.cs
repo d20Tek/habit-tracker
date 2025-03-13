@@ -4,7 +4,7 @@ internal static class UpdateCategoryEndpoint
 {
     public static WebApplication MapEndpoint(WebApplication routes)
     {
-        routes.MapPut(Constants.Categories.ServiceBase + "/{id}", Update)
+        routes.MapPut(Constants.Categories.ServiceBaseWithId, Update)
               .WithTags(nameof(Category))
               .WithName(Constants.Categories.UpdateName)
               .WithDescription(Constants.Categories.UpdateDesc)
