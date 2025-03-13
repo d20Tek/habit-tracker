@@ -1,4 +1,5 @@
 ﻿using HabitTracker.Api.Features.Categories;
+using HabitTracker.Api.Features.Habits;
 using HabitTracker.Api.Features.Weather;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -61,6 +62,12 @@ internal static class DependencyInjection
         CreateCategoryEndpoint.MapEndpoint(app);
         UpdateCategoryEndpoint.MapEndpoint(app);
         DeleteCategoryEndpoint.MapEndpoint(app);
+
+        GetHabitsEndpoint.MapEndpoint(app);
+        GetHabitByIdEndpoint.MapEndpoint(app);
+        CreateHabitEndpoint.MapEndpoint(app);
+        UpdateHabitEndpoint.MapEndpoint(app);
+        DeleteHabitEndpoint.MapEndpoint(app);
 
         return app.MapWeatherEndpoints();
     }

@@ -1,4 +1,5 @@
 ﻿using HabitTracker.Api.Features.Categories;
+using HabitTracker.Api.Features.Habits;
 
 namespace HabitTracker.Api.Features;
 
@@ -19,5 +20,11 @@ internal static class DependencyInjection
                 .AddScoped<GetCategoryByIdCommand>()
                 .AddScoped<CreateCategoryCommand>()
                 .AddScoped<UpdateCategoryCommand>()
-                .AddScoped<DeleteCategoryCommand>();
+                .AddScoped<DeleteCategoryCommand>()
+
+                .AddScoped<GetHabitsCommand>()
+                .AddScoped<GetHabitByIdCommand>()
+                .AddScoped<CreateHabitCommand>()
+                .AddScoped<UpdateHabitCommand>()
+                .AddScoped<DeleteHabitCommand>();
 }

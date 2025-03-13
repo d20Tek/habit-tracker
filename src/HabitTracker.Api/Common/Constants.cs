@@ -26,7 +26,7 @@ internal static partial class Constants
         public const string GetByIdName = "GetCategoryById";
         public const string GetByIdDesc = "Retrieves a single category identified by its unique id.";
         public const string CreateName = "CreateCategory";
-        public const string CreateDesc = "Create a new category with data from the message body.";
+        public const string CreateDesc = "Creates a new category with data from the message body.";
         public const string UpdateName = "UpdateCategory";
         public const string UpdateDesc = "Modifies a single category identified by its unique id with data from the message body.";
         public const string DeleteName = "DeleteCategory";
@@ -34,14 +34,30 @@ internal static partial class Constants
         public const int NameLength = 100;
         public const int UserIdLength = 32;
 
-        public static Error RequiredNameError = Error.Validation("CreateCategory.Name", "Category name is a required.");
-        public static Error NameLengthError = Error.Validation("CreateCategory.Name", "Category name must be less than 100 characters.");
+        public static Error RequiredNameError = Error.Validation("Category.Name", "Category name is a required.");
+        public static Error NameLengthError = Error.Validation("Category.Name", "Category name must be less than 100 characters.");
     }
 
     internal static class Habits
     {
+        public const string ServiceBase = "/api/v1/habit";
+        public const string ServiceBaseWithId = ServiceBase + "/{id:int}";
+        public const string GetAllName = "GetAllHabits";
+        public const string GetAllDesc = "Retrieves a list of habits for the logged in user.";
+        public const string GetByIdName = "GetHabitById";
+        public const string GetByIdDesc = "Retrieves a single habit identified by its unique id.";
+        public const string CreateName = "CreateHabit";
+        public const string CreateDesc = "Creates a new habit with data from the message body.";
+        public const string UpdateName = "UpdateHabit";
+        public const string UpdateDesc = "Modifies a habit identified by its unique id with data from the message body.";
+        public const string DeleteName = "DeleteHabit";
+        public const string DeleteDesc = "Deletes a single habit identified by its unique id.";
         public const int NameLength = 100;
         public const int DescLength = 500;
         public const int UserIdLength = 32;
+
+        public static Error RequiredNameError = Error.Validation("Habit.Name", "Habit name is a required.");
+        public static Error NameLengthError = Error.Validation("Habit.Name", "Habit name must be less than 100 characters.");
+        public static Error DescLengthError = Error.Validation("Habit.Description", "Habit description must be less than 500 characters.");
     }
 }
