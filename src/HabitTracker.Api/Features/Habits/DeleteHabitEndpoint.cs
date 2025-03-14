@@ -26,7 +26,7 @@ internal static class DeleteHabitEndpoint
     {
         logger.LogEndpointStart(Constants.Habits.DeleteName);
         var result = await command.Handle(new(id, user.GetId()));
-        logger.LogEndpointComplete(Constants.Habits.DeleteName, result.LogDetails());
+        logger.LogEndpointComplete(Constants.Habits.DeleteName, result.ToString());
         return result.ToApiResult();
     }
 }

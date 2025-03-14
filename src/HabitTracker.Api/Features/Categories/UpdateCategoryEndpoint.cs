@@ -27,7 +27,7 @@ internal static class UpdateCategoryEndpoint
     {
         logger.LogEndpointStart(Constants.Categories.UpdateName);
         var result = await command.Handle(request.AppendUserId(user.GetId()));
-        logger.LogEndpointComplete(Constants.Categories.UpdateName, result.LogDetails());
+        logger.LogEndpointComplete(Constants.Categories.UpdateName, result.ToString());
         return result.ToApiResult();
     }
 }

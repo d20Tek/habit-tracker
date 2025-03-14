@@ -26,7 +26,7 @@ internal static class DeleteCategoryEndpoint
     {
         logger.LogEndpointStart(Constants.Categories.DeleteName);
         var result = await command.Handle(new(id, user.GetId()));
-        logger.LogEndpointComplete(Constants.Categories.DeleteName, result.LogDetails());
+        logger.LogEndpointComplete(Constants.Categories.DeleteName, result.ToString());
         return result.ToApiResult();
     }
 }

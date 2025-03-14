@@ -25,7 +25,7 @@ internal static class CreateCategoryEndpoint
     {
         logger.LogEndpointStart(Constants.Categories.CreateName);
         var result = await command.Handle(request.AppendUserId(user.GetId()));
-        logger.LogEndpointComplete(Constants.Categories.CreateName, result.LogDetails());
+        logger.LogEndpointComplete(Constants.Categories.CreateName, result.ToString());
 
         var catId = result.Match(c => c.Id, _ => 0);
         return result.ToCreatedApiResult($"{Constants.Categories.ServiceBase}/{catId}");
