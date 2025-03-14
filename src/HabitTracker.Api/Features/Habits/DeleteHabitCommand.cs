@@ -34,6 +34,8 @@ internal class DeleteHabitCommand
 
         var result = db.Habits.Remove(h);
         await db.SaveChangesAsync();
+        await db.Entry(result.Entity).Reference(h => h.Category).LoadAsync();
+
         return HabitResponse.FromEntity(result.Entity);
     }
 }
