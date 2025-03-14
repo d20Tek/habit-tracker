@@ -29,7 +29,7 @@ internal record CompletionResponse(int Id, DateTimeOffset Date, int Count)
         new(hc.Id, hc.CompletionDate, hc.CompletionCount);
 }
 
-internal record CreateHabitRequest(string Name, string? Description, CategoryResponse Category, int TargetAttempts)
+internal record CreateHabitRequest(string Name, string? Description, int CategoryId, int TargetAttempts)
 {
     [JsonIgnore]
     public string UserId { get; private set; } = string.Empty;
@@ -40,7 +40,7 @@ internal record CreateHabitRequest(string Name, string? Description, CategoryRes
         Name,
         Description,
         UserId,
-        Domain.Category.Create(Category.Id, Category.Name, Category.UserId),
+        CategoryId,
         TargetAttempts);
 }
 

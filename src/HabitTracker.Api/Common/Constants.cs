@@ -60,5 +60,6 @@ internal static partial class Constants
         public static Error NameLengthError = Error.Validation("Habit.Name", "Habit name must be less than 100 characters.");
         public static Error DescLengthError = Error.Validation("Habit.Description", "Habit description must be less than 500 characters.");
         public static Error TargetAttemptsError = Error.Validation("Habit.TargetAttempts", "Target attempts must be greater than 0.");
+        public static Error CategoryIdError = Error.Validation("Habit.CategoryId", "Habit's CategoryId must be greater than 0.");
     }
 }

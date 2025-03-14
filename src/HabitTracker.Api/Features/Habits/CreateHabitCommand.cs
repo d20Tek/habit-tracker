@@ -1,4 +1,7 @@
-﻿namespace HabitTracker.Api.Features.Habits;
+﻿using Azure.Core;
+using D20Tek.Functional;
+
+namespace HabitTracker.Api.Features.Habits;
 
 internal class CreateHabitCommand
 {
@@ -23,12 +26,16 @@ internal class CreateHabitCommand
                         .AddIfError(() => request.Description is not null && request.Description.Length > Constants.Habits.DescLength,
                                   Constants.Habits.DescLengthError)
                         .AddIfError(() => request.TargetAttempts <= 0,
+                                  Constants.Habits.TargetAttemptsError)
+                        .AddIfError(() => request.CategoryId <= 0,
                                   Constants.Habits.TargetAttemptsError);
 
     private static async Task<HabitResponse> CreateEntity(AppDbContext db, Habit habit)
     {
         var r = await db.Habits.AddAsync(habit);
         await db.SaveChangesAsync();
+        await db.Entry(r.Entity).Reference(h => h.Category).LoadAsync();
+
         return HabitResponse.FromEntity(r.Entity);
     }
 }

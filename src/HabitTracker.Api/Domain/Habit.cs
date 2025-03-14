@@ -18,14 +18,13 @@ internal class Habit
 
     public List<HabitCompletion> DailyCompletions { get; set; } = [];
 
-    public static Habit Create(string name, string? desc, string userId, Category category, int targetAttempts = 1) =>
+    public static Habit Create(string name, string? desc, string userId, int categoryId, int targetAttempts = 1) =>
         new()
         {
             Name = name,
             Description = desc,
             UserId = userId,
-            Category = category,
-            CategoryId = category.CategoryId,
+            CategoryId = categoryId,
             TargetAttempts = targetAttempts
         };
 }

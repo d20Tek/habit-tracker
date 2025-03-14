@@ -16,12 +16,12 @@ internal record CompletionResponse(int Id, DateTimeOffset Date, int Count);
 internal record CreateHabitRequest(
     string Name,
     string? Description,
-    CategoryResponse Category,
+    int CategoryId,
     int TargetAttempts);
 
 internal record UpdateHabitRequest(
     int Id,
     string Name,
     string? Description,
-    CategoryResponse Category,
+    int CategoryId,
     int TargetAttempts);
