@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+﻿using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
 namespace HabitTracker.Web;
 
@@ -8,7 +7,10 @@ public class CustomAuthorizationMessageHandler : AuthorizationMessageHandler
     private const string _serviceUrlConfig = "ServiceUrl";
     private const string _authAudienceConfig = "Auth0:Audience";
 
-    public CustomAuthorizationMessageHandler(IAccessTokenProvider provider, NavigationManager navigation, IConfiguration config)
+    public CustomAuthorizationMessageHandler(
+        IAccessTokenProvider provider,
+        NavigationManager navigation,
+        IConfiguration config)
         : base(provider, navigation)
     {
         // Set the specific API URL

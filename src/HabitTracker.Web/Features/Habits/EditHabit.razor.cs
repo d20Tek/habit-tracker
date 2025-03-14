@@ -56,7 +56,7 @@ public partial class EditHabit
         _vm.Match(vm => new UpdateHabitRequest(vm.Id, vm.Name, vm.Description, vm.CategoryId, vm.TargetAttempts),
                   () =>
                   {
-                      _errorMessage = "Unexpected error... UpdateHabit request could not be created.";
+                      _errorMessage = Constants.UnexpectedRequestMessage("UpdateHabit");
                       return new UpdateHabitRequest(0, string.Empty, string.Empty, 0, 0);
                   });
 }

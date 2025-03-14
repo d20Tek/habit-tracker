@@ -1,6 +1,4 @@
-﻿using D20Tek.Functional;
-
-namespace HabitTracker.Web.Common;
+﻿namespace HabitTracker.Web.Common;
 
 internal static class ResultExtensions
 {
@@ -13,7 +11,8 @@ internal static class ResultExtensions
             onFailure(result.GetErrors().First().ToString());
     }
 
-    internal static async Task HandleResultAsync<T>(this Task<Result<T>> result, Action<T> onSuccess, Action<string> onFailure)
+    internal static async Task HandleResultAsync<T>(
+        this Task<Result<T>> result, Action<T> onSuccess, Action<string> onFailure)
         where T : notnull
     {
         var r = await result;
@@ -23,7 +22,8 @@ internal static class ResultExtensions
             onFailure(r.GetErrors().First().ToString());
     }
 
-    internal static async Task<T> HandleErrorAsync<T>(this Task<Result<T>> result, Action<string> onFailure, T defaultValue)
+    internal static async Task<T> HandleErrorAsync<T>(
+        this Task<Result<T>> result, Action<string> onFailure, T defaultValue)
         where T : notnull
     {
         var r = await result;

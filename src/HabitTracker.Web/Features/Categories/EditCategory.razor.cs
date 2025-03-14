@@ -35,7 +35,7 @@ public partial class EditCategory
         _vm.Match(vm => new UpdateCategoryRequest(vm.Id, vm.Name),
                   () =>
                   {
-                      _errorMessage = "Unexpected error... UpdateCategory request could not be created.";
+                      _errorMessage = Constants.UnexpectedRequestMessage("UpdateCategory");
                       return new UpdateCategoryRequest(0, string.Empty);
                   });
 }

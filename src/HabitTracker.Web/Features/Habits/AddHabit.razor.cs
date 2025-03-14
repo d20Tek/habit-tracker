@@ -29,7 +29,8 @@ public partial class AddHabit
                    , e => _errorMessage = e);
 
     private async Task CreateHabit() =>
-        await _http.TryPostAsJsonAsync<CreateHabitRequest, HabitResponse>(Constants.Habits.ServiceUrl, CreateRequest(), _log)
+        await _http.TryPostAsJsonAsync<CreateHabitRequest, HabitResponse>(
+                        Constants.Habits.ServiceUrl, CreateRequest(), _log)
                    .HandleResultAsync(s => _nav.NavigateTo(Constants.Habits.ListUrl), e => _errorMessage = e);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Habits.ListUrl);

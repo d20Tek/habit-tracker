@@ -6,6 +6,9 @@ internal static class Constants
     public const string UnexpectedServiceMessage = "Unexpected server error from backend service.";
     public static Error UnexpectedServiceError(string code) => Error.Unexpected(code, UnexpectedServiceMessage);
 
+    public static string UnexpectedRequestMessage(string requestName) =>
+        $"Unexpected error... {requestName} request could not be created.";
+
     internal static class Categories
     {
         public const string ServiceUrl = "/api/v1/category";
