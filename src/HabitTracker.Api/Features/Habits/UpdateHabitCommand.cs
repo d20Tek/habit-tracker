@@ -1,4 +1,6 @@
-﻿namespace HabitTracker.Api.Features.Habits;
+﻿using D20Tek.Functional;
+
+namespace HabitTracker.Api.Features.Habits;
 
 internal class UpdateHabitCommand
 {
@@ -28,7 +30,8 @@ internal class UpdateHabitCommand
                                   Constants.Habits.RequiredNameError)
                         .AddIfError(() => request.Name.Length > Constants.Habits.NameLength,
                                   Constants.Habits.NameLengthError)
-                        .AddIfError(() => request.Description is not null && request.Description.Length > Constants.Habits.DescLength,
+                        .AddIfError(() => request.Description is not null &&
+                                          request.Description.Length > Constants.Habits.DescLength,
                                   Constants.Habits.DescLengthError)
                         .AddIfError(() => request.TargetAttempts <= 0,
                                   Constants.Habits.TargetAttemptsError);
@@ -41,10 +44,11 @@ internal class UpdateHabitCommand
         habit.Name = request.Name;
         habit.Description = request.Description;
         habit.TargetAttempts = request.TargetAttempts;
-        habit.Category = Category.Create(request.Category.Id, request.Category.Name, request.Category.UserId);
         habit.CategoryId = request.Category.Id;
 
         await db.SaveChangesAsync();
-        return HabitResponse.FromEntity(habit);
+        var updated = await db.Habits.Include(h => h.Category)
+                                     .SingleAsync(x => x.HabitId == request.Id && x.UserId == request.UserId);
+        return HabitResponse.FromEntity(updated);
     }
 }
