@@ -25,9 +25,9 @@ internal static class CreateHabitEndpoint
     {
         logger.LogEndpointStart(Constants.Habits.CreateName);
         var result = await command.Handle(request.AppendUserId(user.GetId()));
-        logger.LogEndpointComplete(Constants.Habits.CreateName, result.ToString());
+        logger.LogEndpointComplete(Constants.Habits.CreateName, result);
 
-        var catId = result.Match(c => c.Id, _ => 0);
-        return result.ToCreatedApiResult($"{Constants.Habits.ServiceBase}/{catId}");
+        var habitId = result.Match(h => h.Id, _ => 0);
+        return result.ToCreatedApiResult($"{Constants.Habits.ServiceBase}/{habitId}");
     }
 }

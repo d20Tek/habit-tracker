@@ -4,7 +4,7 @@ internal class HabitCompletion
 {
     public int Id { get; set; }
 
-    public DateTimeOffset CompletionDate { get; private set; }
+    public DateTimeOffset CompletionDate { get; set; }
     
-    public int CompletionCount { get; private set; }
+    public int CompletionCount { get; set; }
 }

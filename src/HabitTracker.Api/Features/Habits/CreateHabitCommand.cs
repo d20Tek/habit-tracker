@@ -1,7 +1,4 @@
-﻿using Azure.Core;
-using D20Tek.Functional;
-
-namespace HabitTracker.Api.Features.Habits;
+﻿namespace HabitTracker.Api.Features.Habits;
 
 internal class CreateHabitCommand
 {
@@ -23,7 +20,8 @@ internal class CreateHabitCommand
                                   Constants.Habits.RequiredNameError)
                         .AddIfError(() => request.Name.Length > Constants.Habits.NameLength,
                                   Constants.Habits.NameLengthError)
-                        .AddIfError(() => request.Description is not null && request.Description.Length > Constants.Habits.DescLength,
+                        .AddIfError(() => request.Description is not null &&
+                                          request.Description.Length > Constants.Habits.DescLength,
                                   Constants.Habits.DescLengthError)
                         .AddIfError(() => request.TargetAttempts <= 0,
                                   Constants.Habits.TargetAttemptsError)

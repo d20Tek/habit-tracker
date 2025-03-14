@@ -24,7 +24,7 @@ internal static class GetHabitsEndpoint
     {
         logger.LogEndpointStart(Constants.Habits.GetAllName);
         var result = await command.Handle(user.GetId());
-        logger.LogEndpointComplete(Constants.Habits.GetAllName, result.ToString());
+        logger.LogEndpointComplete(Constants.Habits.GetAllName, result);
         return result.ToApiResult();
     }
 }

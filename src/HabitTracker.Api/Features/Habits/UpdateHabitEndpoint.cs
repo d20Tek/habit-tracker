@@ -27,7 +27,7 @@ internal static class UpdateHabitEndpoint
     {
         logger.LogEndpointStart(Constants.Habits.UpdateName);
         var result = await command.Handle(request.AppendUserId(user.GetId()));
-        logger.LogEndpointComplete(Constants.Habits.UpdateName, result.ToString());
+        logger.LogEndpointComplete(Constants.Habits.UpdateName, result);
         return result.ToApiResult();
     }
 }

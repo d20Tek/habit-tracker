@@ -24,7 +24,7 @@ internal static class GetCategoriesEndpoint
     {
         logger.LogEndpointStart(Constants.Categories.GetAllName);
         var result = await command.Handle(user.GetId());
-        logger.LogEndpointComplete(Constants.Categories.GetAllName, result.ToString());
+        logger.LogEndpointComplete(Constants.Categories.GetAllName, result);
         return result.ToApiResult();
     }
 }
