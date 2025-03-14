@@ -1,0 +1,70 @@
+﻿@page "/habit"
+@page "/habit/list"
+@inject HttpClient _http;
+@inject ILogger<ListHabits> _log;
+@attribute [Authorize]
+
+<PageTitle>Habit Tracker - Habits</PageTitle>
+<h3>Habits</h3>
+<p>Here are a list of the habits that you are tracking.</p>
+
+@if (_habits is null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (_habits.Length <= 0)
+{
+    <div>There are no habits defined... let's add some.</div>
+}
+
+else
+{
+    <div class="col-12 col-lg-8 d-flex justify-content-center">
+        <table class="table table-sm table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="col text-center">Id</th>
+                    <th class="col">Name</th>
+                    <th class="col text-center">Attempts</th>
+                    <th class="col">Category</th>
+                    <th class="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var habit in _habits)
+                {
+                    <tr>
+                        <td class="text-center">@habit.Id</td>
+                        <td>@habit.Name</td>
+                        <td>@habit.TargetAttempts</td>
+                        <td>@habit.Category.Name</td>
+                        <td class="text-center">
+                            <a class="mx-1" href=@Constants.Habits.EditUrl(habit.Id)>
+                                <img class="bi bi-pencil text-white-50"/>
+                            </a>
+                            <a class="mx-1" href=@Constants.Habits.DeleteUrl(habit.Id)>
+                                <img class="bi bi-trash3 text-white-50"/>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@if (_errorMessage.IsSome && _errorMessage.Get() is string error)
+{
+    <div class="mt-3">@error</div>
+}
+
+<div class="mt-2"><a class="btn btn-outline-light" href=@Constants.Habits.AddUrl>Add Habit</a></div>
+
+@code {
+    private HabitResponse[]? _habits;
+    private Option<string> _errorMessage = Option<string>.None();
+
+    protected override async Task OnInitializedAsync() =>
+        _habits = await _http.TryGetFromJsonAsync<HabitResponse[]>(Constants.Habits.ServiceUrl, [], _log)
+                                 .HandleErrorAsync(e => _errorMessage = e, []);
+}

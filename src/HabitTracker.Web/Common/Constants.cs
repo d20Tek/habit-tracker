@@ -1,6 +1,4 @@
-﻿using D20Tek.Functional;
-
-namespace HabitTracker.Web.Common;
+﻿namespace HabitTracker.Web.Common;
 
 internal static class Constants
 {
@@ -19,5 +17,19 @@ internal static class Constants
         public static string DeleteUrl(int id) => $"/category/delete/{id}";
 
         public const int NameLength = 100;
+    }
+
+    internal static class Habits
+    {
+        public const string ServiceUrl = "/api/v1/habit";
+        public static string ServiceUrlWithId(int id) => $"{ServiceUrl}/{id}";
+
+        public const string ListUrl = "/habit";
+        public const string AddUrl = "/habit/add";
+        public static string EditUrl(int id) => $"/habit/edit/{id}";
+        public static string DeleteUrl(int id) => $"/habit/delete/{id}";
+
+        public const int NameLength = 100;
+        public const int DescLength = 500;
     }
 }
