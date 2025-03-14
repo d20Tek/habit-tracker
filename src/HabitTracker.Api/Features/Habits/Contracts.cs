@@ -48,7 +48,7 @@ internal record UpdateHabitRequest(
     int Id,
     string Name,
     string? Description,
-    CategoryResponse Category,
+    int CategoryId,
     int TargetAttempts)
 {
     [JsonIgnore]

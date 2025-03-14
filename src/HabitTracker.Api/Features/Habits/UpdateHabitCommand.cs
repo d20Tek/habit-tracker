@@ -1,6 +1,4 @@
-﻿using D20Tek.Functional;
-
-namespace HabitTracker.Api.Features.Habits;
+﻿namespace HabitTracker.Api.Features.Habits;
 
 internal class UpdateHabitCommand
 {
@@ -44,7 +42,7 @@ internal class UpdateHabitCommand
         habit.Name = request.Name;
         habit.Description = request.Description;
         habit.TargetAttempts = request.TargetAttempts;
-        habit.CategoryId = request.Category.Id;
+        habit.CategoryId = request.CategoryId;
 
         await db.SaveChangesAsync();
         var updated = await db.Habits.Include(h => h.Category)
