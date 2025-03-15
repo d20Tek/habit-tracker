@@ -71,6 +71,8 @@ internal static partial class Constants
         public const string UnmarkName = "UnmarkHabit";
         public const string UnmarkDesc = "Update the habit to remove a completion count for a date.";
 
+        public static Error IncrementRangeError = Error.Validation("HabitCompletion.Increment", "Habit completion increment out of range (1-100).");
+        public static Error DecrementRangeError = Error.Validation("HabitCompletion.Decrement", "Habit completion decrement out of range (1-100).");
         public static Error FutureDateError = Error.Validation("HabitCompletion.Date", "Habit completion date cannot be in the future.");
     }
 }

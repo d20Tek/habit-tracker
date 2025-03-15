@@ -27,4 +27,33 @@ internal class Habit
             CategoryId = categoryId,
             TargetAttempts = targetAttempts
         };
+
+    internal void MarkCompleted(DateTimeOffset date, int incrementAmount)
+    {
+        var completion = DailyCompletions.SingleOrDefault(c => c.CompletionDate.Date == date);
+        if (completion is null)
+        {
+            DailyCompletions.Add(HabitCompletion.Create(date.Date, incrementAmount));
+        }
+        else
+        {
+            completion.Increment(incrementAmount);
+        }
+    }
+
+    internal void UnmarkCompleted(DateTimeOffset date, int decrement)
+    {
+        var completion = DailyCompletions.SingleOrDefault(c => c.CompletionDate.Date == date);
+        if (completion is not null)
+        {
+            if (decrement > completion.CompletionCount)
+            {
+                DailyCompletions.Remove(completion);
+            }
+            else
+            {
+                completion.Decrement(decrement);
+            }
+        }
+    }
 }
