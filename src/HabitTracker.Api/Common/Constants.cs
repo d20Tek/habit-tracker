@@ -62,4 +62,15 @@ internal static partial class Constants
         public static Error TargetAttemptsError = Error.Validation("Habit.TargetAttempts", "Target attempts must be greater than 0.");
         public static Error CategoryIdError = Error.Validation("Habit.CategoryId", "Habit's CategoryId must be greater than 0.");
     }
+
+    internal static class HabitCompletions
+    {
+        public const string ServiceBase = "/api/v1/habit/{id:int}/completion";
+        public const string MarkName = "MarkHabit";
+        public const string MarkDesc = "Mark the habit with a completion count for a date.";
+        public const string UnmarkName = "UnmarkHabit";
+        public const string UnmarkDesc = "Update the habit to remove a completion count for a date.";
+
+        public static Error FutureDateError = Error.Validation("HabitCompletion.Date", "Habit completion date cannot be in the future.");
+    }
 }

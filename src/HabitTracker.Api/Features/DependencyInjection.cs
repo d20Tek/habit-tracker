@@ -26,5 +26,7 @@ internal static class DependencyInjection
                 .AddScoped<GetHabitByIdCommand>()
                 .AddScoped<CreateHabitCommand>()
                 .AddScoped<UpdateHabitCommand>()
-                .AddScoped<DeleteHabitCommand>();
+                .AddScoped<DeleteHabitCommand>()
+                .AddScoped<MarkHabitCommand>()
+                .AddScoped<UnmarkHabitCommand>();
 }

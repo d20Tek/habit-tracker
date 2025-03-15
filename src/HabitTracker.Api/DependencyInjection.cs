@@ -68,6 +68,8 @@ internal static class DependencyInjection
         CreateHabitEndpoint.MapEndpoint(app);
         UpdateHabitEndpoint.MapEndpoint(app);
         DeleteHabitEndpoint.MapEndpoint(app);
+        MarkHabitEndpoint.MapEndpoint(app);
+        UnmarkHabitEndpoint.MapEndpoint(app);
 
         return app.MapWeatherEndpoints();
     }
