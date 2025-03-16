@@ -32,14 +32,7 @@ public partial class MarkHabitsComponent
 
     private void ReplaceLocalHabit(HabitResponse newHabit)
     {
-        if (_habits is null) return;
-
-        int index = Array.FindIndex(_habits, h => h.Id == newHabit.Id);
-        if (index >= 0)
-        {
-            _habits[index] = newHabit;
-        }
-
+        _habits?.ReplaceFirst(h => h.Id == newHabit.Id, newHabit);
         _errorMessage = Option<string>.None();
         StateHasChanged();
     }
