@@ -65,9 +65,11 @@ internal static partial class Constants
 
     internal static class HabitCompletions
     {
-        public const string ServiceBase = "/api/v1/habit/{id:int}/completion";
+        public const string MarkServiceBase = "/api/v1/habit/{id:int}/mark";
         public const string MarkName = "MarkHabit";
         public const string MarkDesc = "Mark the habit with a completion count for a date.";
+
+        public const string UnmarkServiceBase = "/api/v1/habit/{id:int}/unmark";
         public const string UnmarkName = "UnmarkHabit";
         public const string UnmarkDesc = "Update the habit to remove a completion count for a date.";
 

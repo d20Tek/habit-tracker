@@ -16,7 +16,7 @@ internal class MarkHabitCommand
                 var result = await UpdateEntity(_db, request);
                 return result.Match(
                     response => response,
-                    () => Result<HabitResponse>.Failure(Constants.EntityNotFound(nameof(Habit), request.Id)));
+                    () => Result<HabitResponse>.Failure(Constants.EntityNotFound(nameof(Habit), request.HabitId)));
             },
             ex => Result<HabitResponse>.Failure(ex));
 
@@ -24,7 +24,7 @@ internal class MarkHabitCommand
         ValidationErrors.Create()
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError(Constants.HabitCompletions.MarkName))
-                        .AddIfError(() => request.Id <= 0,
+                        .AddIfError(() => request.HabitId <= 0,
                                   Constants.EntityIdRequiredError(nameof(Habit)))
                         .AddIfError(() => request.Date > DateTimeOffset.Now,
                                   Constants.HabitCompletions.FutureDateError)
@@ -34,7 +34,7 @@ internal class MarkHabitCommand
     private static async Task<Option<HabitResponse>> UpdateEntity(AppDbContext db, MarkHabitRequest request)
     {
         var habit = await db.Habits.Include(h => h.DailyCompletions)
-                                   .SingleOrDefaultAsync(x => x.HabitId == request.Id && x.UserId == request.UserId);
+                                   .SingleOrDefaultAsync(x => x.HabitId == request.HabitId && x.UserId == request.UserId);
         if (habit is null) return Option<HabitResponse>.None();
 
         habit.MarkCompleted(request.Date, request.Increment);
@@ -42,7 +42,7 @@ internal class MarkHabitCommand
 
         var updated = await db.Habits.Include(h => h.Category)
                                      .Include(h => h.DailyCompletions)
-                                     .SingleAsync(x => x.HabitId == request.Id && x.UserId == request.UserId);
+                                     .SingleAsync(x => x.HabitId == request.HabitId && x.UserId == request.UserId);
         return HabitResponse.FromEntity(updated);
     }
 }

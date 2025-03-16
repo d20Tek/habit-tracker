@@ -7,5 +7,5 @@ public partial class ListHabits
 
     protected override async Task OnInitializedAsync() =>
         _habits = await _http.TryGetFromJsonAsync<HabitResponse[]>(Constants.Habits.ServiceUrl, [], _log)
-                                 .HandleErrorAsync(e => _errorMessage = e, []);
+                             .HandleErrorAsync(e => _errorMessage = e, []);
 }

@@ -4,7 +4,7 @@ internal static class UnmarkHabitEndpoint
 {
     public static WebApplication MapEndpoint(WebApplication routes)
     {
-        routes.MapDelete(Constants.HabitCompletions.ServiceBase, Unmark)
+        routes.MapPut(Constants.HabitCompletions.UnmarkServiceBase, Unmark)
               .WithTags(nameof(Habit))
               .WithName(Constants.HabitCompletions.UnmarkName)
               .WithDescription(Constants.HabitCompletions.UnmarkDesc)
@@ -26,7 +26,7 @@ internal static class UnmarkHabitEndpoint
         ClaimsPrincipal user)
     {
         logger.LogEndpointStart(Constants.HabitCompletions.UnmarkName);
-        var result = await command.Handle(request.AppendUserId(user.GetId()));
+        var result = await command.Handle(request with { HabitId = id, UserId = user.GetId() });
         logger.LogEndpointComplete(Constants.HabitCompletions.UnmarkName, result);
         return result.ToApiResult();
     }

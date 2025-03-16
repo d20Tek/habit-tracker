@@ -35,4 +35,10 @@ internal static class Constants
         public const int NameLength = 100;
         public const int DescLength = 500;
     }
+
+    internal static class HabitCompletions
+    {
+        public static string MarkServiceUrl(int id) => $"/api/v1/habit/{id}/mark";
+        public static string UnmarkServiceUrl(int id) => $"/api/v1/habit/{id}/unmark";
+    }
 }

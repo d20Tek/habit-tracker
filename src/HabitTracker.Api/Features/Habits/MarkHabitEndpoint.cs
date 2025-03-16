@@ -4,7 +4,7 @@ internal static class MarkHabitEndpoint
 {
     public static WebApplication MapEndpoint(WebApplication routes)
     {
-        routes.MapPut(Constants.HabitCompletions.ServiceBase, Mark)
+        routes.MapPut(Constants.HabitCompletions.MarkServiceBase, Mark)
               .WithTags(nameof(Habit))
               .WithName(Constants.HabitCompletions.MarkName)
               .WithDescription(Constants.HabitCompletions.MarkDesc)
@@ -26,7 +26,7 @@ internal static class MarkHabitEndpoint
         ClaimsPrincipal user)
     {
         logger.LogEndpointStart(Constants.HabitCompletions.MarkName);
-        var result = await command.Handle(request.AppendUserId(user.GetId()));
+        var result = await command.Handle(request with { HabitId = id, UserId = user.GetId() });
         logger.LogEndpointComplete(Constants.HabitCompletions.MarkName, result);
         return result.ToApiResult();
     }

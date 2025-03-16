@@ -57,20 +57,16 @@ internal record UpdateHabitRequest(
     public UpdateHabitRequest AppendUserId(string userId) => this with { UserId = userId };
 }
 
-internal record MarkHabitRequest(int Id, DateTimeOffset Date, int Increment = 1)
+internal record MarkHabitRequest(int HabitId, DateTimeOffset Date, int Increment = 1)
 {
     [JsonIgnore]
-    public string UserId { get; private set; } = string.Empty;
-
-    public MarkHabitRequest AppendUserId(string userId) => this with { UserId = userId };
+    public string UserId { get; set; } = string.Empty;
 }
 
-internal record UnmarkHabitRequest(int Id, DateTimeOffset Date, int Decrement = 1)
+internal record UnmarkHabitRequest(int HabitId, DateTimeOffset Date, int Decrement = 1)
 {
     [JsonIgnore]
-    public string UserId { get; private set; } = string.Empty;
-
-    public UnmarkHabitRequest AppendUserId(string userId) => this with { UserId = userId };
+    public string UserId { get; set; } = string.Empty;
 }
 
 internal record DeleteHabitRequest(int Id, string UserId);

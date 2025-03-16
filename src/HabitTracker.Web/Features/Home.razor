@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@using HabitTracker.Web.Features.Habits
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Security.Claims
 
@@ -13,6 +14,9 @@
 
 <AuthorizeView>
     <Authorized>
+        <MarkHabitsComponent />
+        <hr />
+
         <p>Name: @user?.Identity?.Name</p>
         <p>UserId: @id</p>
         <p>Email: @email</p>
