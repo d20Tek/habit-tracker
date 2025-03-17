@@ -7,12 +7,13 @@ public static class WeatherForecastEndpoints
 
     public static WebApplication MapWeatherEndpoints(this WebApplication routes)
     {
-        routes.MapGet("/weatherforecast", (ClaimsPrincipal user) =>
+        routes.MapGet("/weatherforecast", () =>
             Enumerable.Range(1, 10).Select(index =>
                 new WeatherForecast(
                     DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                     Random.Shared.Next(-20, 55),
                     _summaries[Random.Shared.Next(_summaries.Length)])).ToArray())
+        .WithTags(nameof(WeatherForecast))
         .WithName("GetWeatherForecast")
         .RequireAuthorization();
 
