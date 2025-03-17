@@ -10,7 +10,8 @@ public partial class DetailHabit
 
     protected override async Task OnInitializedAsync()
     {
-        await _http.TryGetByIdFromJsonAsync<HabitResponse>(Constants.Habits.ServiceUrlWithId(Id), _log)
+        var fullUrl = Constants.Habits.ServiceUrlWithLimit(Id, Constants.Habits.LimitWeekly);
+        await _http.TryGetByIdFromJsonAsync<HabitResponse>(fullUrl, _log)
                    .HandleResultAsync(h => _habit = h, e => _errorMessage = e);
     }
 }
