@@ -81,4 +81,4 @@ internal record UnmarkHabitRequest(int HabitId, DateTimeOffset Date, int Decreme
 
 internal record DeleteHabitRequest(int Id, string UserId);
 
-internal record GetHabitByIdRequest(int Id, string UserId);
+internal record GetHabitByIdRequest(int Id, string UserId, int LimitCompletions);

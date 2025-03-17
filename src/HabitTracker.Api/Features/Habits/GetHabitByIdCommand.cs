@@ -27,11 +27,6 @@ internal class GetHabitByIdCommand
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError(Constants.Habits.GetByIdName));
 
-    private static async Task<Option<HabitResponse>> GetHabitById(
-        AppDbContext db,
-        GetHabitByIdRequest request)
-    {
-        var habit = await db.Habits.QueryHabitById(request.Id, request.UserId).SingleAsync();
-        return (habit is null) ? Option<HabitResponse>.None() : habit;
-    }
+    private static async Task<Option<HabitResponse>> GetHabitById(AppDbContext db, GetHabitByIdRequest request) =>
+        await db.Habits.QueryHabitById(request.Id, request.UserId, request.LimitCompletions).SingleAsync();
 }
