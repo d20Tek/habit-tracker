@@ -45,9 +45,6 @@ internal class UpdateHabitCommand
         habit.CategoryId = request.CategoryId;
 
         await db.SaveChangesAsync();
-        var updated = await db.Habits.Include(h => h.Category)
-                                     .SingleAsync(x => x.HabitId == request.Id && x.UserId == request.UserId);
-
-        return HabitResponse.FromEntity(updated);
+        return await db.Habits.QueryHabitById(request.Id, request.UserId).SingleAsync();
     }
 }

@@ -34,6 +34,6 @@ internal class CreateHabitCommand
         await db.SaveChangesAsync();
         await db.Entry(r.Entity).Reference(h => h.Category).LoadAsync();
 
-        return HabitResponse.FromEntity(r.Entity);
+        return HabitResponse.FromEntity(r.Entity, []);
     }
 }

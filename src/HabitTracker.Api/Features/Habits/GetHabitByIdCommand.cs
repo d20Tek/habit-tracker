@@ -31,11 +31,7 @@ internal class GetHabitByIdCommand
         AppDbContext db,
         GetHabitByIdRequest request)
     {
-        var habit = await db.Habits.Include(h => h.Category)
-                                   .Include(h => h.DailyCompletions)
-                                   .SingleOrDefaultAsync(
-                                        x => x.HabitId == request.Id && x.UserId == request.UserId);
-
-        return (habit is null) ? Option<HabitResponse>.None() : HabitResponse.FromEntity(habit);
+        var habit = await db.Habits.QueryHabitById(request.Id, request.UserId).SingleAsync();
+        return (habit is null) ? Option<HabitResponse>.None() : habit;
     }
 }

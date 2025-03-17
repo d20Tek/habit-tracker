@@ -12,7 +12,17 @@ internal record HabitResponse(
     int TargetAttempts,
     CompletionResponse[] Completions)
 {
-    public static HabitResponse FromEntity(Habit habit) =>
+    //public static HabitResponse FromEntity(Habit habit) =>
+    //    new(
+    //        habit.HabitId,
+    //        habit.Name,
+    //        habit.Description,
+    //        habit.UserId,
+    //        CategoryResponse.FromEntity(habit.Category!),
+    //        habit.TargetAttempts,
+    //        [.. habit.DailyCompletions.Select(c => CompletionResponse.FromEntity(c))]);
+
+    public static HabitResponse FromEntity(Habit habit, IEnumerable<HabitCompletion> completions) =>
         new(
             habit.HabitId,
             habit.Name,
@@ -20,7 +30,7 @@ internal record HabitResponse(
             habit.UserId,
             CategoryResponse.FromEntity(habit.Category!),
             habit.TargetAttempts,
-            [.. habit.DailyCompletions.Select(c => CompletionResponse.FromEntity(c))]);
+            [.. completions.Select(c => CompletionResponse.FromEntity(c))]);
 }
 
 internal record CompletionResponse(int Id, DateTimeOffset Date, int Count)

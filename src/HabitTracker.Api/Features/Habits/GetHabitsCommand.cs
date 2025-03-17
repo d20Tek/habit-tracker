@@ -6,10 +6,10 @@ internal class GetHabitsCommand
 
     public GetHabitsCommand(AppDbContext db) => _db = db;
 
-    public async Task<Result<IList<HabitResponse>>> Handle(string userId) =>
+    public async Task<Result<IList<HabitResponse>>> Handle(string userId, int takeCompletions = 1) =>
         await TryExcept.RunAsync(
             async () => await Validate(userId)
-                                  .MapAsync(() => GetEntitiesForUser(_db, userId)),
+                                  .MapAsync(() => GetEntitiesForUser(_db, userId, takeCompletions)),
             ex => Result<IList<HabitResponse>>.Failure(ex));
 
     private static ValidationErrors Validate(string userId) =>
@@ -19,11 +19,8 @@ internal class GetHabitsCommand
 
     private static async Task<IList<HabitResponse>> GetEntitiesForUser(
         AppDbContext db,
-        string userId) =>
-        await db.Habits.Where(h => h.UserId == userId)
-                       .Include(h => h.Category)
-                       .Include(h => h.DailyCompletions)
-                       .Select(h => HabitResponse.FromEntity(h))
-                       .AsNoTracking()
+        string userId,
+        int takeCompletions) =>
+        await db.Habits.QueryHabitsForUser(userId, takeCompletions)
                        .ToListAsync();
 }

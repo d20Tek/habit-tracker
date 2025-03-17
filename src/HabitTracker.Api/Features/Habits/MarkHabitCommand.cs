@@ -40,9 +40,6 @@ internal class MarkHabitCommand
         habit.MarkCompleted(request.Date, request.Increment);
         await db.SaveChangesAsync();
 
-        var updated = await db.Habits.Include(h => h.Category)
-                                     .Include(h => h.DailyCompletions)
-                                     .SingleAsync(x => x.HabitId == request.HabitId && x.UserId == request.UserId);
-        return HabitResponse.FromEntity(updated);
+        return await db.Habits.QueryHabitById(request.HabitId, request.UserId).SingleAsync();
     }
 }
