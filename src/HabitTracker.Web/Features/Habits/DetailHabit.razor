@@ -1,0 +1,23 @@
+﻿@page "/habit/detail/{Id:int}"
+@inject HttpClient _http;
+@inject NavigationManager _nav;
+@inject ILogger<EditHabit> _log;
+@attribute [Authorize]
+
+<PageTitle>Budget Tracker - Habits</PageTitle>
+<h3>Habit Details</h3>
+
+@if (_habit.IsSome && _habit.Get() is HabitResponse habit)
+{
+    <div><b>Id:</b> @habit.Id</div>
+    <div><b>Name:</b> @habit.Name</div>
+    <div><b>Description:</b> @habit.Description</div>
+    <div><b>Category:</b> @habit.Category.Name</div>
+    <div><b>Target Attempts:</b> @habit.TargetAttempts</div>
+    <hr />
+}
+
+@if (_errorMessage.IsSome && _errorMessage.Get() is string error)
+{
+    <div class="mt-3">@error</div>
+}

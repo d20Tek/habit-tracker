@@ -16,6 +16,7 @@ internal static class Constants
 
         public const string ListUrl = "/category";
         public const string AddUrl = "/category/add";
+
         public static string EditUrl(int id) => $"/category/edit/{id}";
         public static string DeleteUrl(int id) => $"/category/delete/{id}";
 
@@ -29,6 +30,8 @@ internal static class Constants
 
         public const string ListUrl = "/habit";
         public const string AddUrl = "/habit/add";
+
+        public static string DetailsUrl(int id) => $"/habit/detail/{id}";
         public static string EditUrl(int id) => $"/habit/edit/{id}";
         public static string DeleteUrl(int id) => $"/habit/delete/{id}";
 

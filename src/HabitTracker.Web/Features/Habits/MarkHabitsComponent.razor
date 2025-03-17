@@ -29,7 +29,7 @@ else
                 @foreach (var habit in _habits)
                 {
                     <tr>
-                        <td>@habit.Name</td>
+                        <td><a href=@Constants.Habits.DetailsUrl(habit.Id)>@habit.Name</a></td>
                         <td class="text-center">@habit.GetCompletionCount(Date) / @habit.TargetAttempts</td>
                         <td class="text-center">
                             <button class="btn btn-sm btn-outline-light" onclick=@(() => OnMarkClicked(habit.Id))>
