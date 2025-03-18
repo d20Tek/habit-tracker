@@ -2,7 +2,7 @@
 
 namespace HabitTracker.Web.Features.Habits;
 
-internal record HabitResponse(
+public record HabitResponse(
     int Id,
     string Name,
     string? Description,
@@ -24,7 +24,7 @@ internal record HabitResponse(
     }
 }
 
-internal record CompletionResponse(int Id, DateTimeOffset Date, int Count);
+public record CompletionResponse(int Id, DateTimeOffset Date, int Count);
 
 internal record CreateHabitRequest(
     string Name,

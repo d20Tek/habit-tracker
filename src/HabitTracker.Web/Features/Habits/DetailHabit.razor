@@ -15,6 +15,7 @@
     <div><b>Category:</b> @habit.Category.Name</div>
     <div><b>Target Attempts:</b> @habit.TargetAttempts</div>
     <hr />
+    <WeeklyCompletionTable Habit=@habit />
 }
 
 @if (_errorMessage.IsSome && _errorMessage.Get() is string error)
