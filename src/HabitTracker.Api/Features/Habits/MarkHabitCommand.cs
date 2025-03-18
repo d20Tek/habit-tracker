@@ -6,14 +6,14 @@ internal class MarkHabitCommand
 
     public MarkHabitCommand(AppDbContext db) => _db = db;
 
-    public async Task<Result<HabitResponse>> Handle(MarkHabitRequest request) =>
+    public async Task<Result<HabitResponse>> Handle(MarkHabitRequest request, int limitCompletions) =>
         await TryExcept.RunAsync(
             async () =>
             {
                 var validations = Validate(request);
                 if (validations.HasErrors) return Result<HabitResponse>.Failure(validations.ToArray());
 
-                var result = await UpdateEntity(_db, request);
+                var result = await UpdateEntity(_db, request, limitCompletions);
                 return result.Match(
                     response => response,
                     () => Result<HabitResponse>.Failure(Constants.EntityNotFound(nameof(Habit), request.HabitId)));
@@ -31,7 +31,10 @@ internal class MarkHabitCommand
                         .AddIfError(() => request.Increment < 1 || request.Increment > 100,
                                   Constants.HabitCompletions.IncrementRangeError);
 
-    private static async Task<Option<HabitResponse>> UpdateEntity(AppDbContext db, MarkHabitRequest request)
+    private static async Task<Option<HabitResponse>> UpdateEntity(
+        AppDbContext db,
+        MarkHabitRequest request,
+        int limitCompletions)
     {
         var habit = await db.Habits.Include(h => h.DailyCompletions)
                                    .SingleOrDefaultAsync(x => x.HabitId == request.HabitId && x.UserId == request.UserId);
@@ -40,6 +43,6 @@ internal class MarkHabitCommand
         habit.MarkCompleted(request.Date, request.Increment);
         await db.SaveChangesAsync();
 
-        return await db.Habits.QueryHabitById(request.HabitId, request.UserId).SingleAsync();
+        return await db.Habits.QueryHabitById(request.HabitId, request.UserId, limitCompletions).SingleAsync();
     }
 }

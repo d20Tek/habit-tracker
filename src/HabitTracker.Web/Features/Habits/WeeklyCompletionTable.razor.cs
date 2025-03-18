@@ -14,7 +14,7 @@ public partial class WeeklyCompletionTable
     private async Task OnMarkClicked(int habitId, DateTimeOffset date)
     {
         await _http.TryPutAsJsonAsync<MarkHabitRequest, HabitResponse>(
-                        Constants.HabitCompletions.MarkServiceUrl(habitId),
+                        Constants.HabitCompletions.MarkServiceUrl(habitId, Constants.Habits.LimitWeekly),
                         new(date.Date, 1),
                         _log)
                    .HandleResultAsync(s => Habit = s, e => _errorMessage = e);
@@ -24,7 +24,7 @@ public partial class WeeklyCompletionTable
     private async Task OnUnmarkClicked(int habitId, DateTimeOffset date)
     {
         await _http.TryPutAsJsonAsync<UnmarkHabitRequest, HabitResponse>(
-                        Constants.HabitCompletions.UnmarkServiceUrl(habitId),
+                        Constants.HabitCompletions.UnmarkServiceUrl(habitId, Constants.Habits.LimitWeekly),
                         new(date.Date, 1),
                         _log)
                    .HandleResultAsync(s => Habit = s, e => _errorMessage = e);
