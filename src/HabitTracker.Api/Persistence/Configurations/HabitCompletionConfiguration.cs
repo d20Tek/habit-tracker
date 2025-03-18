@@ -16,5 +16,7 @@ internal class HabitCompletionConfiguration : IEntityTypeConfiguration<HabitComp
 
         builder.Property(hc => hc.CompletionCount)
                .IsRequired();
+
+        builder.HasIndex(hc => hc.CompletionDate);
     }
 }

@@ -32,7 +32,7 @@ internal static partial class Constants
         public const string DeleteName = "DeleteCategory";
         public const string DeleteDesc = "Deletes a single category identified by its unique id.";
         public const int NameLength = 100;
-        public const int UserIdLength = 32;
+        public const int UserIdLength = 48;
 
         public static Error RequiredNameError = Error.Validation("Category.Name", "Category name is a required.");
         public static Error NameLengthError = Error.Validation("Category.Name", "Category name must be less than 100 characters.");
@@ -54,7 +54,7 @@ internal static partial class Constants
         public const string DeleteDesc = "Deletes a single habit identified by its unique id.";
         public const int NameLength = 100;
         public const int DescLength = 500;
-        public const int UserIdLength = 32;
+        public const int UserIdLength = 48;
 
         public static Error RequiredNameError = Error.Validation("Habit.Name", "Habit name is a required.");
         public static Error NameLengthError = Error.Validation("Habit.Name", "Habit name must be less than 100 characters.");
