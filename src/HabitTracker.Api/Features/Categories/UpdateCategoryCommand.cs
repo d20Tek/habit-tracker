@@ -24,6 +24,8 @@ internal class UpdateCategoryCommand
         ValidationErrors.Create()
                         .AddIfError(() => request.Id <= 0,
                                   Constants.EntityIdRequiredError(Constants.Categories.UpdateName))
+                        .AddIfError(() => request.UserId.Length > Constants.Categories.UserIdLength,
+                                  Constants.UserIdLengthError(Constants.Categories.UpdateName))
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError(Constants.Categories.UpdateName))
                         .AddIfError(() => string.IsNullOrEmpty(request.Name),

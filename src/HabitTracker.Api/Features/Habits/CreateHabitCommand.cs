@@ -16,6 +16,8 @@ internal class CreateHabitCommand
         ValidationErrors.Create()
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError(Constants.Habits.CreateName))
+                        .AddIfError(() => request.UserId.Length > Constants.Habits.UserIdLength,
+                                  Constants.UserIdLengthError(Constants.Habits.CreateName))
                         .AddIfError(() => string.IsNullOrEmpty(request.Name),
                                   Constants.Habits.RequiredNameError)
                         .AddIfError(() => request.Name.Length > Constants.Habits.NameLength,

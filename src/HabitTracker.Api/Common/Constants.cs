@@ -8,6 +8,9 @@ internal static partial class Constants
     public static Error UserIdRequiredError(string entityType) =>
         Error.Validation($"{entityType}.UserId", "UserId is required.");
 
+    public static Error UserIdLengthError(string entityType) =>
+        Error.Validation($"{entityType}.UserId", "UserId must be less than 48 characters.");
+
     public static Error EntityNotFound(string entityType, int id) => 
         Error.NotFound($"{entityType}.NotFound", $"Entity with id: {id} doesn't exist for user.");
 

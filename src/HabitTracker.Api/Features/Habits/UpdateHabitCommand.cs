@@ -24,6 +24,8 @@ internal class UpdateHabitCommand
         ValidationErrors.Create()
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError(Constants.Habits.UpdateName))
+                        .AddIfError(() => request.UserId.Length > Constants.Habits.UserIdLength,
+                                  Constants.UserIdLengthError(Constants.Habits.UpdateName))
                         .AddIfError(() => string.IsNullOrEmpty(request.Name),
                                   Constants.Habits.RequiredNameError)
                         .AddIfError(() => request.Name.Length > Constants.Habits.NameLength,

@@ -16,6 +16,8 @@ internal class CreateCategoryCommand
         ValidationErrors.Create()
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError(Constants.Categories.CreateName))
+                        .AddIfError(() => request.UserId.Length > Constants.Categories.UserIdLength,
+                                  Constants.UserIdLengthError(Constants.Categories.CreateName))
                         .AddIfError(() => string.IsNullOrEmpty(request.Name),
                                   Constants.Categories.RequiredNameError)
                         .AddIfError(() => request.Name.Length > Constants.Categories.NameLength,
