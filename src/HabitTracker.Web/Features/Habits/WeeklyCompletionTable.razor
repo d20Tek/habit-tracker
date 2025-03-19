@@ -21,10 +21,12 @@
                         <td>@date.ToString("MMM dd, yyyy")</td>
                         <td class="text-center">@habit.GetCompletionCount(date) / @habit.TargetAttempts</td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-outline-light" onclick=@(() => OnMarkClicked(habit.Id, date))>
+                            <button class="btn btn-sm btn-outline-light" title="Mark habit completion"
+                                    onclick=@(() => OnMarkClicked(habit.Id, date))>
                                 <img class="bi bi-clipboard2-check" />
                             </button>
-                            <button class="btn btn-sm btn-outline-light" onclick=@(() => OnUnmarkClicked(habit.Id, date))>
+                            <button class="btn btn-sm btn-outline-light" title="Unmark habit completion"
+                                    onclick=@(() => OnUnmarkClicked(habit.Id, date))>
                                 <img class="bi bi-clipboard2-minus" />
                             </button>
                         </td>

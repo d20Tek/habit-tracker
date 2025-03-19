@@ -1,8 +1,10 @@
 ﻿@page "/report/today";
+@using HabitTracker.Web.Features.Habits
+@attribute [Authorize]
 
+<PageTitle>Habit Tracker - Today Report</PageTitle>
 <h3>Today's Report</h3>
-<p>Coming soon...</p>
+<p>Here is a list of all of your habits and how they are tracking today.</p>
+<p>You can track your progress on your habits by marking and unmarking completion counters per line item.</p>
 
-@code {
-
-}
+<MarkHabitsComponent ShowHeader=false />

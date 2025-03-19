@@ -8,6 +8,9 @@ public partial class MarkHabitsComponent
     [Parameter]
     public DateTimeOffset Date { get; set; } = DateTimeOffset.Now;
 
+    [Parameter]
+    public bool ShowHeader { get; set; } = true;
+
     protected override async Task OnInitializedAsync() =>
         _habits = await _http.TryGetFromJsonAsync<HabitResponse[]>(Constants.Habits.ServiceUrl, [], _log)
                              .HandleErrorAsync(e => _errorMessage = e, []);

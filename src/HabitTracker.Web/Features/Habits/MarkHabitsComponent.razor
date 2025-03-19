@@ -2,8 +2,11 @@
 @inject ILogger<ListHabits> _log;
 @attribute [Authorize]
 
+@if (ShowHeader)
+{
 <h3>My Habits</h3>
 <p>Track the completion of your habits on a daily basis.</p>
+}
 
 @if (_habits is null)
 {
@@ -29,13 +32,18 @@ else
                 @foreach (var habit in _habits)
                 {
                     <tr>
-                        <td>@habit.Name<a href=@Constants.Habits.DetailsUrl(habit.Id)><i class="bi bi-link-45deg mx-2"></i></a></td>
+                        <td>
+                            @habit.Name<a href=@Constants.Habits.DetailsUrl(habit.Id)>
+                            <i class="bi bi-link-45deg mx-2"></i></a>
+                        </td>
                         <td class="text-center">@habit.GetCompletionCount(Date) / @habit.TargetAttempts</td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-outline-light" onclick=@(() => OnMarkClicked(habit.Id))>
+                            <button class="btn btn-sm btn-outline-light" title="Mark habit completion"
+                                    onclick=@(() => OnMarkClicked(habit.Id))>
                                 <img class="bi bi-clipboard2-check" />
                             </button>
-                            <button class="btn btn-sm btn-outline-light" onclick=@(() => OnUnmarkClicked(habit.Id))>
+                            <button class="btn btn-sm btn-outline-light" title="Unmark habit completion" 
+                                    onclick=@(() => OnUnmarkClicked(habit.Id))>
                                 <img class="bi bi-clipboard2-minus" />
                             </button>
                         </td>
