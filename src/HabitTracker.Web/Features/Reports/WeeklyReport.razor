@@ -33,23 +33,16 @@ else
                 {
                     <tr>
                         <td>
-                            @habit.Name<a href=@Constants.Habits.DetailsUrl(habit.Id)>
+                            @habit.Name
+                            <a href=@Constants.Habits.DetailsUrl(habit.Id)>
                                 <i class="bi bi-link-45deg mx-2"></i>
                             </a>
                         </td>
                         @foreach(var date in _dateRange)
                         {
-                            <td class="text-center">
-                            @if(habit.IsCompleted(date))
-                            {
-                                <i class="bi bi-check-circle-fill" style="color: green"
-                                   title="@habit.ToCompletionString(date)"/>
-                            }
-                            else
-                            {
-                                <span>@habit.ToCompletionString(date)</span>
-                            }
-                            </td>
+                        <td class="text-center">
+                            <CompletionMark Habit=habit Date=date />
+                        </td>
                         }
                     </tr>
                 }

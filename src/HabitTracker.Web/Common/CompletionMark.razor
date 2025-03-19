@@ -1,0 +1,27 @@
+﻿@using HabitTracker.Web.Features.Habits
+
+@if (Habit.IsSome && Habit.Get() is HabitResponse habit)
+{
+    @if (habit.IsCompleted(Date))
+    {
+    <i class="bi bi-check-circle-fill" style="color: green" title="@GetTitle(habit)" />
+    }
+    else if (ShowCompletionTitle)
+    {
+    <span>@habit.ToCompletionString(Date)</span>
+    }
+}
+
+@code {
+    [Parameter]
+    public Option<HabitResponse> Habit { get; set; } = Option<HabitResponse>.None();
+
+    [Parameter]
+    public DateTimeOffset Date { get; set; }
+
+    [Parameter]
+    public bool ShowCompletionTitle { get; set; } = true;
+
+    private string? GetTitle(HabitResponse habit) =>
+        ShowCompletionTitle ? habit.ToCompletionString(Date) : null;
+}
