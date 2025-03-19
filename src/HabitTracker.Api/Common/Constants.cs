@@ -31,14 +31,16 @@ internal static partial class Constants
         public const string CreateName = "CreateCategory";
         public const string CreateDesc = "Creates a new category with data from the message body.";
         public const string UpdateName = "UpdateCategory";
-        public const string UpdateDesc = "Modifies a single category identified by its unique id with data from the message body.";
+        public const string UpdateDesc = 
+            "Modifies a single category identified by its unique id with data from the message body.";
         public const string DeleteName = "DeleteCategory";
         public const string DeleteDesc = "Deletes a single category identified by its unique id.";
         public const int NameLength = 100;
         public const int UserIdLength = 48;
 
         public static Error RequiredNameError = Error.Validation("Category.Name", "Category name is a required.");
-        public static Error NameLengthError = Error.Validation("Category.Name", "Category name must be less than 100 characters.");
+        public static Error NameLengthError = 
+            Error.Validation("Category.Name", "Category name must be less than 100 characters.");
     }
 
     internal static class Habits
@@ -52,7 +54,8 @@ internal static partial class Constants
         public const string CreateName = "CreateHabit";
         public const string CreateDesc = "Creates a new habit with data from the message body.";
         public const string UpdateName = "UpdateHabit";
-        public const string UpdateDesc = "Modifies a habit identified by its unique id with data from the message body.";
+        public const string UpdateDesc = 
+            "Modifies a habit identified by its unique id with data from the message body.";
         public const string DeleteName = "DeleteHabit";
         public const string DeleteDesc = "Deletes a single habit identified by its unique id.";
         public const int NameLength = 100;
@@ -60,10 +63,14 @@ internal static partial class Constants
         public const int UserIdLength = 48;
 
         public static Error RequiredNameError = Error.Validation("Habit.Name", "Habit name is a required.");
-        public static Error NameLengthError = Error.Validation("Habit.Name", "Habit name must be less than 100 characters.");
-        public static Error DescLengthError = Error.Validation("Habit.Description", "Habit description must be less than 500 characters.");
-        public static Error TargetAttemptsError = Error.Validation("Habit.TargetAttempts", "Target attempts must be greater than 0.");
-        public static Error CategoryIdError = Error.Validation("Habit.CategoryId", "Habit's CategoryId must be greater than 0.");
+        public static Error NameLengthError =
+            Error.Validation("Habit.Name", "Habit name must be less than 100 characters.");
+        public static Error DescLengthError =
+            Error.Validation("Habit.Description", "Habit description must be less than 500 characters.");
+        public static Error TargetAttemptsError =
+            Error.Validation("Habit.TargetAttempts", "Target attempts must be greater than 0.");
+        public static Error CategoryIdError =
+            Error.Validation("Habit.CategoryId", "Habit's CategoryId must be greater than 0.");
     }
 
     internal static class HabitCompletions
@@ -76,8 +83,11 @@ internal static partial class Constants
         public const string UnmarkName = "UnmarkHabit";
         public const string UnmarkDesc = "Update the habit to remove a completion count for a date.";
 
-        public static Error IncrementRangeError = Error.Validation("HabitCompletion.Increment", "Habit completion increment out of range (1-100).");
-        public static Error DecrementRangeError = Error.Validation("HabitCompletion.Decrement", "Habit completion decrement out of range (1-100).");
-        public static Error FutureDateError = Error.Validation("HabitCompletion.Date", "Habit completion date cannot be in the future.");
+        public static Error IncrementRangeError = 
+            Error.Validation("HabitCompletion.Increment", "Habit completion increment out of range (1-100).");
+        public static Error DecrementRangeError =
+            Error.Validation("HabitCompletion.Decrement", "Habit completion decrement out of range (1-100).");
+        public static Error FutureDateError =
+            Error.Validation("HabitCompletion.Date", "Habit completion date cannot be in the future.");
     }
 }

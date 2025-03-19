@@ -48,6 +48,7 @@ internal static class Constants
         public static string MarkServiceUrl(int id) => $"/api/v1/habit/{id}/mark";
         public static string MarkServiceUrl(int id, int limit) => $"/api/v1/habit/{id}/mark?limitCompletions={limit}";
         public static string UnmarkServiceUrl(int id) => $"/api/v1/habit/{id}/unmark";
-        public static string UnmarkServiceUrl(int id, int limit) => $"/api/v1/habit/{id}/unmark?limitCompletions={limit}";
+        public static string UnmarkServiceUrl(int id, int limit) =>
+            $"/api/v1/habit/{id}/unmark?limitCompletions={limit}";
     }
 }

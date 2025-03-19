@@ -24,7 +24,8 @@
 
         <div class="mb-3">
             <label for="habitAttempts" class="form-label">Target Attempts</label>
-            <InputNumber id="habitAttempts" class="form-control" required @bind-Value="_vm.TargetAttempts" min=1 />
+            <InputNumber id="habitAttempts" class="form-control" required @bind-Value="_vm.TargetAttempts"
+                         min=1 max="100" />
         </div>
 
         <div class="mb-3">
