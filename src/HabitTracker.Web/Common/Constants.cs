@@ -41,6 +41,7 @@ internal static class Constants
         public const int NameLength = 100;
         public const int DescLength = 500;
         public const int LimitWeekly = 7;
+        public const int LimitMonthly = 30;
     }
 
     internal static class HabitCompletions

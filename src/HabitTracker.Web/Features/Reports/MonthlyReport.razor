@@ -1,9 +1,52 @@
 ﻿@page "/report/monthly";
+@using HabitTracker.Web.Features.Habits
+@inject HttpClient _http;
+@inject ILogger<WeeklyReport> _log;
+@attribute [Authorize]
 
 <PageTitle>Habit Tracker - Monthly Report</PageTitle>
 <h3>Monthly Report</h3>
-<p>Coming soon...</p>
+<p>Review that status of your habits for the last month.</p>
 
-@code {
+@if (_habits is null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (_habits.Length <= 0)
+{
+    <div>There are no habits defined... <a href="habit/add">let's add some</a>.</div>
+}
+else
+{
+    <div class="col-12 col-xl-8 d-flex justify-content-center">
+        <table class="table table-sm table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="col">Name</th>
+                    <th class="col">Month's Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var habit in _habits)
+                {
+                    <tr>
+                        <td>
+                            @habit.Name
+                            <a href=@Constants.Habits.DetailsUrl(habit.Id)>
+                                <i class="bi bi-link-45deg mx-2"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <MonthCompletionGrid Habit=habit />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
 
+@if (_errorMessage.IsSome && _errorMessage.Get() is string error)
+{
+    <div class="mt-3">@error</div>
 }
