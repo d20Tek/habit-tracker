@@ -19,7 +19,7 @@
                 {
                     <tr>
                         <td>@date.ToString("MMM dd, yyyy")</td>
-                        <td class="text-center">@habit.GetCompletionCount(date) / @habit.TargetAttempts</td>
+                        <td class="text-center">@habit.ToCompletionString(date)</td>
                         <td class="text-center">
                             <button class="btn btn-sm btn-outline-light" title="Mark habit completion"
                                     onclick=@(() => OnMarkClicked(habit.Id, date))>

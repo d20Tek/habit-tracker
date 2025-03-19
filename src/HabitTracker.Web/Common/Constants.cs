@@ -26,6 +26,8 @@ internal static class Constants
     internal static class Habits
     {
         public const string ServiceUrl = "/api/v1/habit";
+        public static string ServiceUrlWithLimit(int limit) => $"{ServiceUrl}?limitCompletions={limit}";
+
         public static string ServiceUrlWithId(int id) => $"{ServiceUrl}/{id}";
         public static string ServiceUrlWithLimit(int id, int limit) => $"{ServiceUrl}/{id}?limitCompletions={limit}";
 

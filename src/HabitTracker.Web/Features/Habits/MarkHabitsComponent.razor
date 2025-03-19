@@ -36,7 +36,7 @@ else
                             @habit.Name<a href=@Constants.Habits.DetailsUrl(habit.Id)>
                             <i class="bi bi-link-45deg mx-2"></i></a>
                         </td>
-                        <td class="text-center">@habit.GetCompletionCount(Date) / @habit.TargetAttempts</td>
+                        <td class="text-center">@habit.ToCompletionString(Date)</td>
                         <td class="text-center">
                             <button class="btn btn-sm btn-outline-light" title="Mark habit completion"
                                     onclick=@(() => OnMarkClicked(habit.Id))>

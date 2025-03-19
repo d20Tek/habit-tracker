@@ -22,6 +22,9 @@ public record HabitResponse(
         var completion = Completions.SingleOrDefault(c => c.Date == date.Date);
         return completion is not null && completion.Count >= TargetAttempts;
     }
+
+    public string ToCompletionString(DateTimeOffset date) =>
+        $"{GetCompletionCount(date.Date)} / {TargetAttempts}";
 }
 
 public record CompletionResponse(int Id, DateTimeOffset Date, int Count);
