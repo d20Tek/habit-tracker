@@ -9,7 +9,8 @@ public partial class DeleteCategory
     public int Id { get; set; }
 
     protected override async Task OnInitializedAsync() =>
-        _category = await _http.TryGetByIdFromJsonAsync<CategoryResponse>(Constants.Categories.ServiceUrlWithId(Id), _log)
+        _category = await _http.TryGetByIdFromJsonAsync<CategoryResponse>(
+                                    Constants.Categories.ServiceUrlWithId(Id), _log)
                                .HandleErrorAsync(e => _errorMessage = e, default!);
 
     private async Task DeleteHandler() =>

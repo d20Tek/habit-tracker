@@ -30,23 +30,23 @@ else
                 </tr>
             </thead>
             <tbody>
-                @foreach (var habit in _habits)
-                {
-                    <tr>
-                        <td>
-                            @habit.Name
-                            <a href=@Constants.Habits.DetailsUrl(habit.Id)>
-                                <i class="bi bi-link-45deg mx-2"></i>
-                            </a>
-                        </td>
-                        @foreach(var date in _dateRange)
-                        {
-                        <td class="text-center">
-                            <CompletionMark Habit=habit Date=date />
-                        </td>
-                        }
-                    </tr>
-                }
+            @foreach (var habit in _habits)
+            {
+                <tr>
+                    <td>
+                        @habit.Name
+                        <a href=@Constants.Habits.DetailsUrl(habit.Id)>
+                            <i class="bi bi-link-45deg mx-2"></i>
+                        </a>
+                    </td>
+                    @foreach(var date in _dateRange)
+                    {
+                    <td class="text-center">
+                        <CompletionMark Habit=habit Date=date />
+                    </td>
+                    }
+                </tr>
+            }
             </tbody>
         </table>
     </div>
