@@ -13,8 +13,7 @@
     {
         <EditForm class="mx-2" Model="@cat" OnValidSubmit="SaveCategory">
             <div class="mb-3">
-                <label for="categoryId" class="form-label">Id</label>
-                <InputNumber id="categoryId" class="form-control" readonly @bind-Value="cat.Id" />
+                <label for="categoryId" class="form-label"><span class="me-2">Id:</span> @cat.Id</label>
             </div>
 
             <div class="mb-3">

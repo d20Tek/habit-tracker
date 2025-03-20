@@ -13,8 +13,7 @@
     {
         <EditForm class="mx-2" Model="@habit" OnValidSubmit="SaveHabit">
             <div class="mb-3">
-                <label for="habitId" class="form-label">Id</label>
-                <InputNumber id="habitId" class="form-control" readonly @bind-Value="habit.Id" />
+                <label for="habitId" class="form-label"><span class="me-2">Id:</span> @habit.Id</label>
             </div>
             <div class="mb-3">
                 <label for="habitName" class="form-label">Name</label>
