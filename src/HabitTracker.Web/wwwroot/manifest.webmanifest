@@ -1,6 +1,6 @@
 {
-  "name": "HabitTracker.Web",
-  "short_name": "HabitTracker.Web",
+  "name": "Habit Tracker App",
+  "short_name": "Habits",
   "id": "./",
   "start_url": "./",
   "display": "standalone",
