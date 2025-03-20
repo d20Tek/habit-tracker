@@ -39,6 +39,9 @@ internal static class Constants
         public static string DeleteUrl(int id) => $"/habit/delete/{id}";
 
         public const string ActiveButton = "active";
+        public const string MinDate = "2024-01-01";
+        public static string MaxDate = DateTime.Today.ToString("yyyy-MM-dd");
+
         public const int NameLength = 100;
         public const int DescLength = 500;
         public const int LimitWeekly = 7;
@@ -52,6 +55,11 @@ internal static class Constants
         public static string UnmarkServiceUrl(int id) => $"/api/v1/habit/{id}/unmark";
         public static string UnmarkServiceUrl(int id, int limit) =>
             $"/api/v1/habit/{id}/unmark?limitCompletions={limit}";
+
+        public static string SuccessMarkIncremented(DateTimeOffset date) =>
+            $"Completion incremented by 1 for {date:MMM dd, yyyy}.";
+        public static string SuccessUnmarkDecremented(DateTimeOffset date) =>
+            $"Completion decremented by 1 for {date:MMM dd, yyyy}.";
     }
 
     internal static class HabitStatus
