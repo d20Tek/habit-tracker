@@ -1,4 +1,4 @@
-﻿namespace HabitTracker.Web.Features.Habits;
+﻿namespace HabitTracker.Web.Features.Habits.Components;
 
 public partial class MonthCompletionGrid
 {
@@ -14,9 +14,9 @@ public partial class MonthCompletionGrid
     {
         _calendarGrid = new CalendarDay[Constants.HabitMonth.Rows, Constants.HabitMonth.Columns];
 
-        for (int r = 0; r < Constants.HabitMonth.Rows; r++)
+        for (var r = 0; r < Constants.HabitMonth.Rows; r++)
         {
-            for (int c = 0; c < Constants.HabitMonth.Columns; c++)
+            for (var c = 0; c < Constants.HabitMonth.Columns; c++)
             {
                 _calendarGrid[r, c] = CalendarDay.Empty;
             }
@@ -30,7 +30,7 @@ public partial class MonthCompletionGrid
 
     private void FillCalendarGrid(DateTimeOffset[] dates, GridPosition pos)
     {
-        for (int i = dates.Length - 1; i >= 0; i--)
+        for (var i = dates.Length - 1; i >= 0; i--)
         {
             _calendarGrid[pos.Row, pos.Col] = CalendarDay.Create(dates[i], Habit.Get());
             pos.Decrement();

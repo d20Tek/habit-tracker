@@ -1,4 +1,4 @@
-﻿namespace HabitTracker.Web.Features.Habits;
+﻿namespace HabitTracker.Web.Features.Habits.Components;
 
 public class CalendarDay
 {
