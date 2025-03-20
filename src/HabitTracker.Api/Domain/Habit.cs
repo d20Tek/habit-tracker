@@ -2,21 +2,21 @@
 
 internal class Habit
 {
-    public int HabitId { get; set; }
+    public int HabitId { get; private set; }
 
-    public string UserId { get; set; } = string.Empty;
+    public string UserId { get; private set; } = string.Empty;
 
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; private set; } = string.Empty;
 
-    public string? Description { get; set; }
+    public string? Description { get; private set; }
 
-    public int CategoryId { get; set; }
+    public int CategoryId { get; private set; }
 
-    public Category? Category { get;  set; }
+    public Category? Category { get; private set; }
 
-    public int TargetAttempts { get; set; }
+    public int TargetAttempts { get; private set; }
 
-    public List<HabitCompletion> DailyCompletions { get; set; } = [];
+    public List<HabitCompletion> DailyCompletions { get; private set; } = [];
 
     public static Habit Create(string name, string? desc, string userId, int categoryId, int targetAttempts = 1) =>
         new()
@@ -27,6 +27,14 @@ internal class Habit
             CategoryId = categoryId,
             TargetAttempts = targetAttempts
         };
+
+    public void UpdateHabitInfo(string name, string? desc, int categoryId, int targetAttempts)
+    {
+        Name = name;
+        Description = desc;
+        CategoryId = categoryId;
+        TargetAttempts = targetAttempts;
+    }
 
     internal void MarkCompleted(DateTimeOffset date, int incrementAmount)
     {

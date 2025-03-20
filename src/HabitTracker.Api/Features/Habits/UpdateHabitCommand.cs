@@ -41,10 +41,7 @@ internal class UpdateHabitCommand
         var habit = await db.Habits.SingleOrDefaultAsync(x => x.HabitId == request.Id && x.UserId == request.UserId);
         if (habit is null) return Option<HabitResponse>.None();
 
-        habit.Name = request.Name;
-        habit.Description = request.Description;
-        habit.TargetAttempts = request.TargetAttempts;
-        habit.CategoryId = request.CategoryId;
+        habit.UpdateHabitInfo(request.Name, request.Description, request.CategoryId, request.TargetAttempts);
 
         await db.SaveChangesAsync();
         return await db.Habits.QueryHabitById(request.Id, request.UserId).SingleAsync();
