@@ -1,8 +1,5 @@
 ﻿@page "/"
-@inject AuthenticationStateProvider AuthenticationStateProvider
 @using HabitTracker.Web.Features.Habits
-@using Microsoft.AspNetCore.Components.Authorization
-@using System.Security.Claims
 
 <PageTitle>Habit Tracker - Home</PageTitle>
 
@@ -16,31 +13,11 @@
     <Authorized>
         <MarkHabitsComponent />
         <hr />
-
-        <p>UserId: @id</p>
-        <p>Email: @email</p>
     </Authorized>
     <NotAuthorized>
-        <p>You are not logged in.</p>
+        <p>You are not logged in. Please <a href="authentication/login">log in</a> to see your data.</p>
     </NotAuthorized>
 </AuthorizeView>
 
 @code {
-    private ClaimsPrincipal? user;
-    private string? email;
-    private string? claims;
-    private string? id;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        user = authState.User;
-
-        if (user.Identity is { IsAuthenticated: true })
-        {
-            email = user.FindFirst(c => c.Type == "email")?.Value;
-            id = user.FindFirst(c => c.Type == "sub")?.Value;
-            claims = string.Join(", ", user.Claims.Select(c => $"{c.Type}: {c.Value}"));
-        }
-    }
 }
