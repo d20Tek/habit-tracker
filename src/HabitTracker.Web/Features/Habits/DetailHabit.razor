@@ -15,7 +15,33 @@
     <div><b>Category:</b> @habit.Category.Name</div>
     <div><b>Target Attempts:</b> @habit.TargetAttempts</div>
     <hr />
-    <WeeklyCompletionTable Habit=@habit />
+
+    <div class="btn-group" role="group" aria-label="Component selector">
+        <button class="btn btn-outline-light @GetButtonCss(ViewType.Weekly)"
+                @onclick="() => ChangeView(ViewType.Weekly)">
+            Weekly</button>
+        <button class="btn btn-outline-light @GetButtonCss(ViewType.Monthly)"
+                @onclick="() => ChangeView(ViewType.Monthly)">
+            Monthly</button>
+        <button class="btn btn-outline-light @GetButtonCss(ViewType.PastDate)"
+                @onclick="() => ChangeView(ViewType.PastDate)">
+            Mark Past Dates</button>
+    </div>
+
+    <div class="mt-3">
+        @if (SelectedView == ViewType.Weekly)
+        {
+        <WeeklyCompletionTable Habit=@habit />
+        }
+        else if (SelectedView == ViewType.Monthly)
+        {
+        <div>Monthly view</div>
+        }
+        else if (SelectedView == ViewType.PastDate)
+        {
+        <div>Mark past dates view</div>
+        }
+    </div>
 }
 
 @if (_errorMessage.IsSome && _errorMessage.Get() is string error)

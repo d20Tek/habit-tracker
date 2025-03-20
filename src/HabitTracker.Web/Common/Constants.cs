@@ -38,6 +38,7 @@ internal static class Constants
         public static string EditUrl(int id) => $"/habit/edit/{id}";
         public static string DeleteUrl(int id) => $"/habit/delete/{id}";
 
+        public const string ActiveButton = "active";
         public const int NameLength = 100;
         public const int DescLength = 500;
         public const int LimitWeekly = 7;
