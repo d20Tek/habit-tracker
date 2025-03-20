@@ -37,12 +37,14 @@ internal class MarkHabitCommand
         int limitCompletions)
     {
         var habit = await db.Habits.Include(h => h.DailyCompletions)
-                                   .SingleOrDefaultAsync(x => x.HabitId == request.HabitId && x.UserId == request.UserId);
+                                   .SingleOrDefaultAsync(
+                                        x => x.HabitId == request.HabitId && x.UserId == request.UserId);
         if (habit is null) return Option<HabitResponse>.None();
 
         habit.MarkCompleted(request.Date, request.Increment);
         await db.SaveChangesAsync();
 
-        return await db.Habits.QueryHabitById(request.HabitId, request.UserId, limitCompletions).SingleAsync();
+        return await db.Habits.QueryHabitById(request.HabitId, request.UserId, limitCompletions)
+                              .SingleAsync();
     }
 }

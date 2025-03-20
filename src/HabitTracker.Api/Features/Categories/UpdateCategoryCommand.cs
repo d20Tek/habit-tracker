@@ -35,7 +35,8 @@ internal class UpdateCategoryCommand
 
     private static async Task<Option<CategoryResponse>> UpdateEntity(AppDbContext db, UpdateCategoryRequest request)
     {
-        var cat = await db.Categories.SingleOrDefaultAsync(x => x.CategoryId == request.Id && x.UserId == request.UserId);
+        var cat = await db.Categories.SingleOrDefaultAsync(
+            x => x.CategoryId == request.Id && x.UserId == request.UserId);
         if (cat is null) return Option<CategoryResponse>.None();
 
         cat.Rename(request.Name);

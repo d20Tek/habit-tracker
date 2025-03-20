@@ -10,7 +10,8 @@ internal static class DependencyInjection
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
 
-        builder.Services.AddCategoryCommands();
+        builder.Services.AddCategoryCommands()
+                        .AddHabitCommands();
 
         return builder;
     }
@@ -20,9 +21,10 @@ internal static class DependencyInjection
                 .AddScoped<GetCategoryByIdCommand>()
                 .AddScoped<CreateCategoryCommand>()
                 .AddScoped<UpdateCategoryCommand>()
-                .AddScoped<DeleteCategoryCommand>()
+                .AddScoped<DeleteCategoryCommand>();
 
-                .AddScoped<GetHabitsCommand>()
+    private static IServiceCollection AddHabitCommands(this IServiceCollection services) =>
+        services.AddScoped<GetHabitsCommand>()
                 .AddScoped<GetHabitByIdCommand>()
                 .AddScoped<CreateHabitCommand>()
                 .AddScoped<UpdateHabitCommand>()

@@ -17,15 +17,7 @@ internal static class GetHabitByIdEndpoint
               .RequireAuthorization()
               .WithOpenApi(operation =>
               {
-                  operation.Parameters.Add(new OpenApiParameter
-                  {
-                      Name = "limitCompletions",
-                      In = ParameterLocation.Query,
-                      Required = false,
-                      Schema = new OpenApiSchema { Type = "integer", Format = "int32" },
-                      Description = "Optional limit on number of DailyCompletions retrieved for the Habit."
-                  });
-
+                  operation.Parameters.Add(Constants.Habits.LimitCompletionsParameter);
                   return operation;
               });
 
