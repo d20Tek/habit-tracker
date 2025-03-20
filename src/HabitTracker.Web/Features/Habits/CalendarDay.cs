@@ -31,7 +31,7 @@ public class CalendarDay
             Date = date,
             Status = status,
             Color = GetStatusColor(status),
-            CompletionDisplay = $"{habit.ToCompletionString(date)} on {date.ToString("MMM d")}"
+            CompletionDisplay = Constants.HabitStatus.CompletionDisplay(habit.ToCompletionString(date), date)
         };
     }
 
@@ -47,10 +47,10 @@ public class CalendarDay
     private static string GetStatusColor(HabitStatus status) =>
         status switch
         {
-            HabitStatus.NotStarted => "rgb(65,65,65)",
-            HabitStatus.InProgress => "rgb(51,107,57)",
-            HabitStatus.Completed => "rgb(88,163,79)",
-            HabitStatus.OverAchieved => "lime",
-            _ => "transparent"
+            HabitStatus.NotStarted => Constants.HabitStatus.NotStartedColor,
+            HabitStatus.InProgress => Constants.HabitStatus.InProgressColor,
+            HabitStatus.Completed => Constants.HabitStatus.CompletedColor,
+            HabitStatus.OverAchieved => Constants.HabitStatus.OverAchievedColor,
+            _ => Constants.HabitStatus.EmptyColor
         };
 }

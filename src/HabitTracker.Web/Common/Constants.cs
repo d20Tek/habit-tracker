@@ -52,4 +52,16 @@ internal static class Constants
         public static string UnmarkServiceUrl(int id, int limit) =>
             $"/api/v1/habit/{id}/unmark?limitCompletions={limit}";
     }
+
+    internal static class HabitStatus
+    {
+        public const string NotStartedColor = "rgb(65,65,65)";
+        public const string InProgressColor = "rgb(51,107,57)";
+        public const string CompletedColor = "rgb(88,163,79)";
+        public const string OverAchievedColor = "lime";
+        public const string EmptyColor = "transparent";
+
+        public static string CompletionDisplay(string completion, DateTimeOffset date) =>
+            $"{completion} on {date:MMM d}";
+    }
 }

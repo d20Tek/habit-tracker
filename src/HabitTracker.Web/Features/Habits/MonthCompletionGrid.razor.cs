@@ -32,18 +32,14 @@ public partial class MonthCompletionGrid
     private void FillCalendarGrid()
     {
         var today = DateTime.Today;
-        var startDate = today.AddDays(-Constants.Habits.LimitMonthly);
-        var dates = Enumerable.Range(0, Constants.Habits.LimitMonthly + 1)
-                              .Select(offset => startDate.AddDays(offset))
-                              .ToList();
+        var dates = DateRangeFactory.GetDateRangeForMonth(today);
 
         int currentCol = (int)today.DayOfWeek;
-        int currentRow = currentCol < 2 ? 5 : 4;
+        int currentRow = CalculateStartingRow(currentCol);
 
-        for (int i = dates.Count - 1; i >= 0; i--)
+        for (int i = dates.Length - 1; i >= 0; i--)
         {
-            var date = dates[i];
-            _calendarGrid[currentRow, currentCol] = CalendarDay.Create(date, Habit.Get());
+            _calendarGrid[currentRow, currentCol] = CalendarDay.Create(dates[i], Habit.Get());
 
             if (currentCol == 0)
             {
@@ -56,4 +52,6 @@ public partial class MonthCompletionGrid
             }
         }
     }
+
+    private int CalculateStartingRow(int col) => col < 2 ? 5 : 4;
 }

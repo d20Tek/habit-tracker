@@ -19,16 +19,11 @@ internal static class DateRangeFactory
 
     public static DateTimeOffset[] GetDateRangeForMonth() => GetDateRangeForMonth(DateTimeOffset.Now);
 
-    public static DateTimeOffset[] GetDateRangeForMonth(DateTimeOffset weekEndDate)
+    public static DateTimeOffset[] GetDateRangeForMonth(DateTimeOffset endDate)
     {
-        DateTimeOffset[] dates = new DateTimeOffset[Constants.Habits.LimitMonthly];
-        var decReverse = -Constants.Habits.LimitMonthly + 1;
-
-        for (int i = 0; i < dates.Length; i++)
-        {
-            dates[i] = weekEndDate.AddDays(decReverse + i);
-        }
-
-        return dates;
+        var startDate = endDate.AddDays(-Constants.Habits.LimitMonthly);
+        return Enumerable.Range(0, Constants.Habits.LimitMonthly + 1)
+                         .Select(offset => startDate.AddDays(offset))
+                         .ToArray();
     }
 }
