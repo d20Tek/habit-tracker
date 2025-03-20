@@ -2,15 +2,6 @@
 
 public class CalendarDay
 {
-    public enum HabitStatus
-    {
-        Empty,
-        NotStarted,
-        InProgress,
-        Completed,
-        OverAchieved
-    }
-
     public DateTimeOffset? Date { get; init; }
 
     public HabitStatus Status { get; init; } = HabitStatus.Empty;
@@ -19,21 +10,22 @@ public class CalendarDay
 
     public string? CompletionDisplay { get; init; }
 
+    private CalendarDay(DateTimeOffset date, HabitStatus status, string display)
+    {
+        Date = date;
+        Status = status;
+        Color = GetStatusColor(status);
+        CompletionDisplay = display;
+    }
+
     private CalendarDay() { }
 
     public static CalendarDay Empty => new();
 
-    public static CalendarDay Create(DateTimeOffset date, HabitResponse habit)
-    {
-        var status = CalculateHabitStatus(habit.GetCompletionCount(date), habit.TargetAttempts);
-        return new CalendarDay
-        {
-            Date = date,
-            Status = status,
-            Color = GetStatusColor(status),
-            CompletionDisplay = Constants.HabitStatus.CompletionDisplay(habit.ToCompletionString(date), date)
-        };
-    }
+    public static CalendarDay Create(DateTimeOffset date, HabitResponse habit) => new(
+        date,
+        CalculateHabitStatus(habit.GetCompletionCount(date), habit.TargetAttempts),
+        Constants.HabitStatus.CompletionDisplay(habit.ToCompletionString(date), date));
 
     private static HabitStatus CalculateHabitStatus(int completions, int target) =>
         completions switch

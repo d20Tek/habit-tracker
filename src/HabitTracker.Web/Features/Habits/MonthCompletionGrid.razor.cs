@@ -2,8 +2,7 @@
 
 public partial class MonthCompletionGrid
 {
-    private const int _rows = 6;
-    private const int _columns = 7;
+    private readonly CalendarDay[,] _calendarGrid;
 
     [Parameter]
     public Option<HabitResponse> Habit { get; set; } = Option<HabitResponse>.None();
@@ -11,47 +10,30 @@ public partial class MonthCompletionGrid
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
-    private readonly CalendarDay[,] _calendarGrid = new CalendarDay[_rows, _columns];
-
     public MonthCompletionGrid()
     {
-        for (int r = 0; r < _rows; r++)
+        _calendarGrid = new CalendarDay[Constants.HabitMonth.Rows, Constants.HabitMonth.Columns];
+
+        for (int r = 0; r < Constants.HabitMonth.Rows; r++)
         {
-            for (int c = 0; c < _columns; c++)
+            for (int c = 0; c < Constants.HabitMonth.Columns; c++)
             {
                 _calendarGrid[r, c] = CalendarDay.Empty;
             }
         }
     }
 
-    protected override void OnInitialized()
+    protected override void OnInitialized() => FillCalendarGrid(DateTime.Today);
+
+    private void FillCalendarGrid(DateTimeOffset today) =>
+        FillCalendarGrid(DateRangeFactory.GetDateRangeForMonth(today), new GridPosition(today.DayOfWeek));
+
+    private void FillCalendarGrid(DateTimeOffset[] dates, GridPosition pos)
     {
-        FillCalendarGrid();
-    }
-
-    private void FillCalendarGrid()
-    {
-        var today = DateTime.Today;
-        var dates = DateRangeFactory.GetDateRangeForMonth(today);
-
-        int currentCol = (int)today.DayOfWeek;
-        int currentRow = CalculateStartingRow(currentCol);
-
         for (int i = dates.Length - 1; i >= 0; i--)
         {
-            _calendarGrid[currentRow, currentCol] = CalendarDay.Create(dates[i], Habit.Get());
-
-            if (currentCol == 0)
-            {
-                currentCol = 6;
-                currentRow--;
-            }
-            else
-            {
-                currentCol--;
-            }
+            _calendarGrid[pos.Row, pos.Col] = CalendarDay.Create(dates[i], Habit.Get());
+            pos.Decrement();
         }
     }
-
-    private int CalculateStartingRow(int col) => col < 2 ? 5 : 4;
 }

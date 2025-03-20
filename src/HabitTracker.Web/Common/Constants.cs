@@ -64,4 +64,12 @@ internal static class Constants
         public static string CompletionDisplay(string completion, DateTimeOffset date) =>
             $"{completion} on {date:MMM d}";
     }
+
+    internal static class HabitMonth
+    {
+        public const int Rows = 6;
+        public const int Columns = 7;
+        public const int StartRowFull = 5;
+        public const int StartRowShort = 4;
+    }
 }

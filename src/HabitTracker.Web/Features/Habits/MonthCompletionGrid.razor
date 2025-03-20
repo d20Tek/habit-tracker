@@ -1,7 +1,7 @@
 ﻿<div class="grid-container" @attributes=AdditionalAttributes>
-@for (int row = 0; row < _rows; row++)
+@for (int row = 0; row < Constants.HabitMonth.Rows; row++)
 {
-    @for (int col = 0; col < _columns; col++)
+        @for (int col = 0; col < Constants.HabitMonth.Columns; col++)
     {
         var day = _calendarGrid[row, col];
         <div class="grid-cell" style="background-color: @day.Color" title="@day.CompletionDisplay"></div>
