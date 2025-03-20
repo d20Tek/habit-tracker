@@ -18,8 +18,13 @@ internal class Habit
 
     public List<HabitCompletion> DailyCompletions { get; private set; } = [];
 
-    public static Habit Create(string name, string? desc, string userId, int categoryId, int targetAttempts = 1) =>
-        new()
+    public static Habit Create(string name, string? desc, string userId, int categoryId, int targetAttempts = 1)
+    {
+        ArgumentNullException.ThrowIfNullOrEmpty(name);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(categoryId);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(targetAttempts);
+
+        return new()
         {
             Name = name,
             Description = desc,
@@ -27,9 +32,14 @@ internal class Habit
             CategoryId = categoryId,
             TargetAttempts = targetAttempts
         };
+    }
 
     public void UpdateHabitInfo(string name, string? desc, int categoryId, int targetAttempts)
     {
+        ArgumentNullException.ThrowIfNullOrEmpty(name);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(categoryId);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(targetAttempts);
+
         Name = name;
         Description = desc;
         CategoryId = categoryId;
@@ -38,6 +48,8 @@ internal class Habit
 
     internal void MarkCompleted(DateTimeOffset date, int incrementAmount)
     {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(incrementAmount);
+
         var completion = DailyCompletions.SingleOrDefault(c => c.CompletionDate.Date == date);
         if (completion is null)
         {
@@ -49,18 +61,20 @@ internal class Habit
         }
     }
 
-    internal void UnmarkCompleted(DateTimeOffset date, int decrement)
+    internal void UnmarkCompleted(DateTimeOffset date, int decrementAmount)
     {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(decrementAmount);
+
         var completion = DailyCompletions.SingleOrDefault(c => c.CompletionDate.Date == date);
         if (completion is not null)
         {
-            if (decrement > completion.CompletionCount)
+            if (decrementAmount > completion.CompletionCount)
             {
                 DailyCompletions.Remove(completion);
             }
             else
             {
-                completion.Decrement(decrement);
+                completion.Decrement(decrementAmount);
             }
         }
     }

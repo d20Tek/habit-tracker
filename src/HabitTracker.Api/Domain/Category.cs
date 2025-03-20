@@ -23,5 +23,9 @@ internal class Category
 
     public static Category Create(string name, string userId) => new(0, name, userId);
 
-    public void Rename(string name) => Name = name;
+    public void Rename(string name)
+    {
+        ArgumentNullException.ThrowIfNullOrEmpty(name);
+        Name = name;
+    }
 }

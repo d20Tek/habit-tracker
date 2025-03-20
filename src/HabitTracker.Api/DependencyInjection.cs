@@ -55,22 +55,20 @@ internal static class DependencyInjection
         return app;
     }
 
-    public static WebApplication MapEndpoints(this WebApplication app)
-    {
-        GetCategoriesEndpoint.MapEndpoint(app);
-        GetCategoryByIdEndpoint.MapEndpoint(app);
-        CreateCategoryEndpoint.MapEndpoint(app);
-        UpdateCategoryEndpoint.MapEndpoint(app);
-        DeleteCategoryEndpoint.MapEndpoint(app);
+    public static WebApplication MapEndpoints(this WebApplication app) =>
+        app.MapEndpointFunc(GetCategoriesEndpoint.MapEndpoint)
+           .MapEndpointFunc(GetCategoryByIdEndpoint.MapEndpoint)
+           .MapEndpointFunc(CreateCategoryEndpoint.MapEndpoint)
+           .MapEndpointFunc(UpdateCategoryEndpoint.MapEndpoint)
+           .MapEndpointFunc(DeleteCategoryEndpoint.MapEndpoint)
 
-        GetHabitsEndpoint.MapEndpoint(app);
-        GetHabitByIdEndpoint.MapEndpoint(app);
-        CreateHabitEndpoint.MapEndpoint(app);
-        UpdateHabitEndpoint.MapEndpoint(app);
-        DeleteHabitEndpoint.MapEndpoint(app);
-        MarkHabitEndpoint.MapEndpoint(app);
-        UnmarkHabitEndpoint.MapEndpoint(app);
+           .MapEndpointFunc(GetHabitsEndpoint.MapEndpoint)
+           .MapEndpointFunc(GetHabitByIdEndpoint.MapEndpoint)
+           .MapEndpointFunc(CreateHabitEndpoint.MapEndpoint)
+           .MapEndpointFunc(UpdateHabitEndpoint.MapEndpoint)
+           .MapEndpointFunc(DeleteHabitEndpoint.MapEndpoint)
+           .MapEndpointFunc(MarkHabitEndpoint.MapEndpoint)
+           .MapEndpointFunc(UnmarkHabitEndpoint.MapEndpoint)
 
-        return app.MapWeatherEndpoints();
-    }
+           .MapWeatherEndpoints();
 }
