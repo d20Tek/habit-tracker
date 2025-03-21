@@ -2,6 +2,15 @@
 
 internal static partial class Constants
 {
+    internal class ServiceHealth
+    {
+        public const string ServiceBase = "/api/v1/health";
+        public const string SuccessResult = "HabitTracker.Api => Ok";
+        public const string ServiceHealthType = "ServiceHealth";
+        public const string GetHealthName = "GetServiceHealth";
+        public const string GetHealthDesc = "Gets the current status of the service health.";
+    }
+
     public static Error EntityIdRequiredError(string entityType) =>
         Error.Validation($"{entityType}.Id", "Entity id is required.");
 

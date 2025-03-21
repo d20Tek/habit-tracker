@@ -70,5 +70,6 @@ internal static class DependencyInjection
            .MapEndpointFunc(MarkHabitEndpoint.MapEndpoint)
            .MapEndpointFunc(UnmarkHabitEndpoint.MapEndpoint)
 
+           .MapEndpointFunc(ServiceHealthEndpoint.MapEndpoint)
            .MapWeatherEndpoints();
 }
