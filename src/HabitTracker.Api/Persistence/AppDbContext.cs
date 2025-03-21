@@ -10,6 +10,8 @@ internal class AppDbContext : DbContext
 
     public DbSet<HabitCompletion> HabitCompletions { get; set; }
 
+    public DbSet<Weighing> Weighings { get; set; }
+
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
@@ -17,5 +19,6 @@ internal class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder) =>
         modelBuilder.ApplyConfiguration(new CategoryConfiguration())
                     .ApplyConfiguration(new HabitConfiguration())
-                    .ApplyConfiguration(new HabitCompletionConfiguration());
+                    .ApplyConfiguration(new HabitCompletionConfiguration())
+                    .ApplyConfiguration(new WeighingConfiguration());
 }
