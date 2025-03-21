@@ -4,11 +4,11 @@
     @if (Errors.Length == 1)
     {
         var error = Errors.First();
-        <div><strong>@ErrorTitle</strong> @error.Message [@error.Code]</div>
+        <div><strong>@ErrorTitle:</strong> @error.Message [@error.Code]</div>
     }
     else
     {
-        <div><strong>@ErrorTitle</strong> Multiple error messages:</div>
+        <div><strong>@ErrorTitle:</strong> Multiple error messages:</div>
         foreach (var error in Errors)
         {
         <div> * @error.Message [@error.Code]</div>
@@ -20,7 +20,7 @@
 @code {
 
     [Parameter]
-    public string ErrorTitle { get; set; } = "Application error:";
+    public string ErrorTitle { get; set; } = Constants.DefaultErrorTitle;
 
     [Parameter]
     public Error[] Errors { get; set; } = [];

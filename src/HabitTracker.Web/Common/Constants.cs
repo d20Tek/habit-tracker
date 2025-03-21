@@ -2,6 +2,8 @@
 
 internal static partial class Constants
 {
+    public const string DefaultErrorTitle = "Application error";
+
     public const string DefaultErrorCode = "ServiceApi";
 
     public const string UnexpectedServiceMessage = "Unexpected server error from backend service.";

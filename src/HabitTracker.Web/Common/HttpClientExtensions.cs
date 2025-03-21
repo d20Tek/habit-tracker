@@ -11,7 +11,7 @@ internal static partial class HttpClientExtensions
         ILogger logger)
         where T : notnull =>
         await TrySendMessageAsync<T>(
-            async () => await http.GetFromJsonAsync<T>(requestUri) ?? defaultValue, logger, $"{typeof(T).Name}.Get");
+            async () => await http.GetAsync(requestUri), logger, $"{typeof(T).Name}.Get");
 
     public static async Task<Result<T>> TryGetByIdFromJsonAsync<T>(
         this HttpClient http,
@@ -19,7 +19,7 @@ internal static partial class HttpClientExtensions
         ILogger logger)
         where T : notnull =>
         await TrySendMessageAsync<T>(
-            async () => (await http.GetFromJsonAsync<T>(requestUri))!, logger, $"{typeof(T).Name}.GetById");
+            async () => await http.GetAsync(requestUri), logger, $"{typeof(T).Name}.GetById");
 
     public static async Task<Result<TResponse>> TryPostAsJsonAsync<TRequest, TResponse>(
         this HttpClient httpClient,
@@ -29,8 +29,7 @@ internal static partial class HttpClientExtensions
         where TRequest : notnull
         where TResponse : notnull =>
         await TrySendMessageAsync<TResponse>(
-            async () => await httpClient.PostAsJsonAsync<TRequest>(requestUri, value)
-                                        .MapMessageToResponse<TResponse>(),
+            async () => await httpClient.PostAsync(requestUri, JsonContent.Create(value)),
             logger,
             $"{typeof(TRequest).Name}.Post");
 
@@ -42,8 +41,7 @@ internal static partial class HttpClientExtensions
         where TRequest : notnull
         where TResponse : notnull =>
         await TrySendMessageAsync<TResponse>(
-            async () => await httpClient.PutAsJsonAsync<TRequest>(requestUri, value)
-                                        .MapMessageToResponse<TResponse>(),
+            async () => await httpClient.PutAsync(requestUri, JsonContent.Create(value)),
             logger,
             $"{typeof(TRequest).Name}.Put");
 
@@ -53,8 +51,7 @@ internal static partial class HttpClientExtensions
         ILogger logger)
         where T : notnull =>
         await TrySendMessageAsync<T>(
-            async () => await httpClient.DeleteAsync(requestUri)
-                                        .MapMessageToResponse<T>(),
+            async () => await httpClient.DeleteAsync(requestUri),
             logger,
             $"{typeof(T).Name}.Delete");
 }

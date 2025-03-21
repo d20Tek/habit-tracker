@@ -7,7 +7,7 @@ namespace HabitTracker.Web.Common;
 internal static partial class HttpClientExtensions
 {
     private static async Task<Result<TResponse>> TrySendMessageAsync<TResponse>(
-        Func<Task<Result<TResponse>>> operation,
+        Func<Task<HttpResponseMessage>> operation,
         ILogger logger,
         [CallerMemberName] string errorCode = Constants.DefaultErrorCode)
         where TResponse : notnull
@@ -15,7 +15,8 @@ internal static partial class HttpClientExtensions
         try
         {
             logger.LogInformation($"Making service request: {errorCode}");
-            var result = await operation();
+            var httpMessage = await operation();
+            var result = await MapMessageToResponse<TResponse>(httpMessage);
             logger.LogInformation("Service request result: {msg}", result.ToString());
             return result;
         }
@@ -37,9 +38,17 @@ internal static partial class HttpClientExtensions
         }
     }
 
-    private static async Task<TResponse> MapMessageToResponse<TResponse>(this Task<HttpResponseMessage> messageTask)
-        where TResponse : notnull =>
-        (await (await messageTask)
-            .EnsureSuccessStatusCode()
-            .Content.ReadFromJsonAsync<TResponse>())!;
+    private static async Task<Result<TResponse>> MapMessageToResponse<TResponse>(this HttpResponseMessage message)
+        where TResponse : notnull
+    {
+        if (message.IsSuccessStatusCode)
+        {
+            return (await message.Content.ReadFromJsonAsync<TResponse>())!;
+        }
+        else
+        {
+            var problem = await message.Content.ReadFromJsonAsync<ProblemDetails>();
+            return Result<TResponse>.Failure(problem!.ToErrors());
+        }
+    }
 }
