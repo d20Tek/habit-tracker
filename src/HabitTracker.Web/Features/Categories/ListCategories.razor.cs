@@ -3,9 +3,9 @@
 public partial class ListCategories
 {
     private CategoryResponse[]? _categories;
-    private Option<string> _errorMessage = Option<string>.None();
+    private Error[] _errors = [];
 
     protected override async Task OnInitializedAsync() =>
         _categories = await _http.TryGetFromJsonAsync<CategoryResponse[]>(Constants.Categories.ServiceUrl, [], _log)
-                                 .HandleErrorAsync(e => _errorMessage = e, []);
+                                 .HandleErrorAsync(e => _errors = e, []);
 }

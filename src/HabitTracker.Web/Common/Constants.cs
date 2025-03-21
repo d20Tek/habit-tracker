@@ -10,6 +10,9 @@ internal static partial class Constants
 
     public static Error UnexpectedServiceError(string code) => Error.Unexpected(code, UnexpectedServiceMessage);
 
+    public static Error ServiceRequestError(string code) =>
+        Error.Failure(code, "Unable to connect with HabitTracker service. Please try again later.");
+
     public static string UnexpectedRequestMessage(string requestName) =>
         $"Unexpected error... {requestName} request could not be created.";
 

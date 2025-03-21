@@ -7,7 +7,7 @@ public partial class AddCategory
         public string Name { get; set; } = string.Empty;
     }
 
-    private Option<string> _errorMessage = Option<string>.None();
+    private Error[] _errors = [];
     private readonly ViewModel _vm = new();
 
     private async Task CreateCategory() =>
@@ -15,7 +15,7 @@ public partial class AddCategory
                         Constants.Categories.ServiceUrl,
                         new CreateCategoryRequest(_vm.Name),
                         _log)
-                   .HandleResultAsync(s => _nav.NavigateTo(Constants.Categories.ListUrl), e => _errorMessage = e);
+                   .HandleResultAsync(s => _nav.NavigateTo(Constants.Categories.ListUrl), e => _errors = e);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Categories.ListUrl);
 }

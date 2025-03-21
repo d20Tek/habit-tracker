@@ -29,7 +29,7 @@ internal static partial class HttpClientExtensions
         catch (HttpRequestException ex)
         {
             logger.LogError("Error: http request failure - {ex}", ex);
-            return Result<TResponse>.Failure(ex);
+            return Result<TResponse>.Failure(Constants.ServiceRequestError(errorCode));
         }
         catch (Exception ex)
         {

@@ -49,6 +49,22 @@ internal static class ResultExtensions
         }
     }
 
+    internal static async Task<T> HandleErrorAsync<T>(
+        this Task<Result<T>> result, Action<Error[]> onFailure, T defaultValue)
+        where T : notnull
+    {
+        var r = await result;
+        if (r.IsSuccess)
+        {
+            return r.GetValue();
+        }
+        else
+        {
+            onFailure(r.GetErrors());
+            return defaultValue;
+        }
+    }
+
     internal static void MatchAction<T>(this Option<T> option, Action<T> onSome, Action onNone)
         where T : notnull
     {
