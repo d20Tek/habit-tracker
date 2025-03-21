@@ -6,7 +6,7 @@ public partial class WeeklyReport
 {
     private DateTimeOffset[] _dateRange = [];
     private HabitResponse[]? _habits;
-    private Option<string> _errorMessage = Option<string>.None();
+    private Error[] _errors = [];
 
     protected override async Task OnInitializedAsync()
     {
@@ -14,6 +14,6 @@ public partial class WeeklyReport
 
         var fullUrl = Constants.Habits.ServiceUrlWithLimit(Constants.Habits.LimitWeekly);
         await _http.TryGetFromJsonAsync<HabitResponse[]>(fullUrl, [], _log)
-                   .HandleResultAsync(h => _habits = h, e => _errorMessage = e);
+                   .HandleResultAsync(h => _habits = h, e => _errors = e);
     }
 }

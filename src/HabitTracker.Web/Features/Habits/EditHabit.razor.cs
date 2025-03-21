@@ -17,7 +17,7 @@ public partial class EditHabit
         public int TargetAttempts { get; set; } = 1;
     }
 
-    private Option<string> _errorMessage = Option<string>.None();
+    private Error[] _errors = [];
     private Option<ViewModel> _vm = Option<ViewModel>.None();
     private CategoryResponse[] _categories = [];
 
@@ -27,10 +27,10 @@ public partial class EditHabit
     protected override async Task OnInitializedAsync()
     {
         await _http.TryGetFromJsonAsync<CategoryResponse[]>(Constants.Categories.ServiceUrl, [], _log)
-                   .HandleResultAsync(c => _categories = c, e => _errorMessage = e);
+                   .HandleResultAsync(c => _categories = c, e => _errors = e);
 
         await _http.TryGetByIdFromJsonAsync<HabitResponse>(Constants.Habits.ServiceUrlWithId(Id), _log)
-                   .HandleResultAsync(h => _vm = CreateViewModel(h), e => _errorMessage = e);
+                   .HandleResultAsync(h => _vm = CreateViewModel(h), e => _errors = e);
     }
 
     private async Task SaveHabit() =>
@@ -38,7 +38,7 @@ public partial class EditHabit
                         Constants.Habits.ServiceUrlWithId(Id),
                         CreateUpdateRequest(),
                         _log)
-                   .HandleResultAsync(s => _nav.NavigateTo(Constants.Habits.ListUrl), e => _errorMessage = e);
+                   .HandleResultAsync(s => _nav.NavigateTo(Constants.Habits.ListUrl), e => _errors = e);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Habits.ListUrl);
 
@@ -52,11 +52,9 @@ public partial class EditHabit
             TargetAttempts = response.TargetAttempts
         };
 
-    private UpdateHabitRequest CreateUpdateRequest() =>
-        _vm.Match(vm => new UpdateHabitRequest(vm.Id, vm.Name, vm.Description, vm.CategoryId, vm.TargetAttempts),
-                  () =>
-                  {
-                      _errorMessage = Constants.UnexpectedRequestMessage("UpdateHabit");
-                      return new UpdateHabitRequest(0, string.Empty, string.Empty, 0, 0);
-                  });
+    private UpdateHabitRequest CreateUpdateRequest()
+    {
+        var edited = _vm.Get();
+        return new(edited.Id, edited.Name, edited.Description, edited.CategoryId, edited.TargetAttempts);
+    }
 }

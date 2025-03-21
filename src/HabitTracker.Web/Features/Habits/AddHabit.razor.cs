@@ -15,7 +15,7 @@ public partial class AddHabit
         public int TargetAttempts { get; set; } = 1;
     }
 
-    private Option<string> _errorMessage = Option<string>.None();
+    private Error[] _errors = [];
     private CategoryResponse[] _categories = [];
     private readonly ViewModel _vm = new();
 
@@ -26,12 +26,12 @@ public partial class AddHabit
                        _categories = c;
                        _vm.CategoryId = c.FirstOrDefault()?.Id ?? 0;
                    }
-                   , e => _errorMessage = e);
+                   , e => _errors = e);
 
     private async Task CreateHabit() =>
         await _http.TryPostAsJsonAsync<CreateHabitRequest, HabitResponse>(
                         Constants.Habits.ServiceUrl, CreateRequest(), _log)
-                   .HandleResultAsync(s => _nav.NavigateTo(Constants.Habits.ListUrl), e => _errorMessage = e);
+                   .HandleResultAsync(s => _nav.NavigateTo(Constants.Habits.ListUrl), e => _errors = e);
 
     private void CancelHandler() => _nav.NavigateTo(Constants.Habits.ListUrl);
 

@@ -2,7 +2,7 @@
 
 public partial class DetailHabit
 {
-    private Option<string> _errorMessage = Option<string>.None();
+    private Error[] _errors = [];
     private Option<HabitResponse> _habit = Option<HabitResponse>.None();
     private ViewType SelectedView = ViewType.Weekly;
 
@@ -13,7 +13,7 @@ public partial class DetailHabit
     {
         var fullUrl = Constants.Habits.ServiceUrlWithLimit(Id, Constants.Habits.LimitWeekly);
         await _http.TryGetByIdFromJsonAsync<HabitResponse>(fullUrl, _log)
-                   .HandleResultAsync(h => _habit = h, e => _errorMessage = e);
+                   .HandleResultAsync(h => _habit = h, e => _errors = e);
     }
 
     private string GetButtonCss(ViewType id) => SelectedView == id ? Constants.Habits.ActiveButton : string.Empty;

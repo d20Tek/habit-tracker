@@ -5,12 +5,12 @@ namespace HabitTracker.Web.Features.Reports;
 public partial class MonthlyReport
 {
     private HabitResponse[]? _habits;
-    private Option<string> _errorMessage = Option<string>.None();
+    private Error[] _errors = [];
 
     protected override async Task OnInitializedAsync()
     {
         var fullUrl = Constants.Habits.ServiceUrlWithLimit(Constants.Habits.LimitMonthly);
         await _http.TryGetFromJsonAsync<HabitResponse[]>(fullUrl, [], _log)
-                   .HandleResultAsync(h => _habits = h, e => _errorMessage = e);
+                   .HandleResultAsync(h => _habits = h, e => _errors = e);
     }
 }

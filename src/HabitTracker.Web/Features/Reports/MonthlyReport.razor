@@ -46,7 +46,4 @@ else
     </div>
 }
 
-@if (_errorMessage.IsSome && _errorMessage.Get() is string error)
-{
-    <div class="mt-3">@error</div>
-}
+<DisplayErrors Errors=@_errors />
