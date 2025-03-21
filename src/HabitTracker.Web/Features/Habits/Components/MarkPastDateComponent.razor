@@ -21,7 +21,7 @@
 </div>
 }
 
-@if (displayMessage.IsSome && displayMessage.Get() is string error)
+@if (displayMessage.IsSome && displayMessage.Get() is string msg)
 {
-    <div class="mt-3">@error</div>
+    <div class="mt-3">@msg</div>
 }

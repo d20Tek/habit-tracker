@@ -2,7 +2,7 @@
 
 public partial class DetailsMonthlyView
 {
-    private Option<string> _errorMessage = Option<string>.None();
+    private Error[] _errors = [];
     private Option<HabitResponse> _habit = Option<HabitResponse>.None();
 
     [Parameter]
@@ -12,6 +12,6 @@ public partial class DetailsMonthlyView
     {
         var fullUrl = Constants.Habits.ServiceUrlWithLimit(HabitId, Constants.Habits.LimitMonthly);
         await _http.TryGetByIdFromJsonAsync<HabitResponse>(fullUrl, _log)
-                   .HandleResultAsync(h => _habit = h, e => _errorMessage = e);
+                   .HandleResultAsync(h => _habit = h, e => _errors = e);
     }
 }

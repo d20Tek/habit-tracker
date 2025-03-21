@@ -3,7 +3,7 @@
 public partial class MarkHabitsComponent
 {
     private HabitResponse[]? _habits;
-    private Option<string> _errorMessage = Option<string>.None();
+    private Error[] _errors = [];
 
     [Parameter]
     public DateTimeOffset Date { get; set; } = DateTimeOffset.Now;
@@ -13,7 +13,7 @@ public partial class MarkHabitsComponent
 
     protected override async Task OnInitializedAsync() =>
         _habits = await _http.TryGetFromJsonAsync<HabitResponse[]>(Constants.Habits.ServiceUrl, [], _log)
-                             .HandleErrorAsync(e => _errorMessage = e, []);
+                             .HandleErrorAsync(e => _errors = e, []);
 
     private async Task OnMarkClicked(int habitId)
     {
@@ -21,7 +21,7 @@ public partial class MarkHabitsComponent
                         Constants.HabitCompletions.MarkServiceUrl(habitId),
                         new(DateTimeOffset.Now.Date, 1),
                         _log)
-                   .HandleResultAsync(s => ReplaceLocalHabit(s), e => _errorMessage = e);
+                   .HandleResultAsync(s => ReplaceLocalHabit(s), e => _errors = e);
     }
 
     private async Task OnUnmarkClicked(int habitId)
@@ -30,13 +30,13 @@ public partial class MarkHabitsComponent
                         Constants.HabitCompletions.UnmarkServiceUrl(habitId),
                         new(DateTimeOffset.Now.Date, 1),
                         _log)
-                   .HandleResultAsync(s => ReplaceLocalHabit(s), e => _errorMessage = e);
+                   .HandleResultAsync(s => ReplaceLocalHabit(s), e => _errors = e);
     }
 
     private void ReplaceLocalHabit(HabitResponse newHabit)
     {
         _habits?.ReplaceFirst(h => h.Id == newHabit.Id, newHabit);
-        _errorMessage = Option<string>.None();
+        _errors = [];
         StateHasChanged();
     }
 }

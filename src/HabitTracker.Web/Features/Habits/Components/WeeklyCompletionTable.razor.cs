@@ -3,7 +3,7 @@
 public partial class WeeklyCompletionTable
 {
     private DateTimeOffset[] _dateRange = [];
-    private Option<string> _errorMessage = Option<string>.None();
+    private Error[] _errors = [];
 
     [Parameter]
     public Option<HabitResponse> Habit { get; set; } = Option<HabitResponse>.None();
@@ -17,7 +17,7 @@ public partial class WeeklyCompletionTable
                         Constants.HabitCompletions.MarkServiceUrl(habitId, Constants.Habits.LimitWeekly),
                         new(date.Date, 1),
                         _log)
-                   .HandleResultAsync(s => Habit = s, e => _errorMessage = e);
+                   .HandleResultAsync(s => Habit = s, e => _errors = e);
         StateHasChanged();
     }
 
@@ -27,7 +27,7 @@ public partial class WeeklyCompletionTable
                         Constants.HabitCompletions.UnmarkServiceUrl(habitId, Constants.Habits.LimitWeekly),
                         new(date.Date, 1),
                         _log)
-                   .HandleResultAsync(s => Habit = s, e => _errorMessage = e);
+                   .HandleResultAsync(s => Habit = s, e => _errors = e);
         StateHasChanged();
     }
 }
