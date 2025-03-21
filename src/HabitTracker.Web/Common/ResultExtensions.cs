@@ -22,6 +22,17 @@ internal static class ResultExtensions
             onFailure(r.GetErrors().First().ToString());
     }
 
+    internal static async Task HandleResultAsync<T>(
+        this Task<Result<T>> result, Action<T> onSuccess, Action<Error[]> onFailure)
+        where T : notnull
+    {
+        var r = await result;
+        if (r.IsSuccess)
+            onSuccess(r.GetValue());
+        else
+            onFailure(r.GetErrors());
+    }
+
     internal static async Task<T> HandleErrorAsync<T>(
         this Task<Result<T>> result, Action<string> onFailure, T defaultValue)
         where T : notnull

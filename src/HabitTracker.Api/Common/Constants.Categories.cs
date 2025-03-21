@@ -29,7 +29,7 @@ internal static partial class Constants
 
         public const string DeleteDesc = "Deletes a single category identified by its unique id.";
 
-        public const int NameLength = 100;
+        public const int NameLength = 10;
 
         public const int UserIdLength = 48;
 
