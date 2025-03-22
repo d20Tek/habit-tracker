@@ -4,7 +4,7 @@ internal static class DeleteWeighingEndpoint
 {
     public static WebApplication MapEndpoint(WebApplication routes)
     {
-        routes.MapDelete(Constants.Weighings.ServiceBaseWithId, Delete)
+        routes.MapDelete(Constants.Weighings.ServiceBaseWithDate, Delete)
               .WithTags(nameof(Weighing))
               .WithName(Constants.Weighings.DeleteName)
               .WithDescription(Constants.Weighings.DeleteDesc)

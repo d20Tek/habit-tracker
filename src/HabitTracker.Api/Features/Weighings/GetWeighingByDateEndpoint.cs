@@ -4,7 +4,7 @@ internal static class GetWeighingByDateEndpoint
 {
     public static WebApplication MapEndpoint(WebApplication routes)
     {
-        routes.MapGet(Constants.Weighings.ServiceBaseWithId, Get)
+        routes.MapGet(Constants.Weighings.ServiceBaseWithDate, Get)
               .WithTags(nameof(Weighing))
               .WithName(Constants.Weighings.GetByDateName)
               .WithDescription(Constants.Weighings.GetByDateDesc)

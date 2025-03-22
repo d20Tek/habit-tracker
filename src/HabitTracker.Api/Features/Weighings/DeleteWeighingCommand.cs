@@ -30,7 +30,7 @@ internal class DeleteWeighingCommand
     private static async Task<Option<WeighingResponse>> DeleteEntity(AppDbContext db, DeleteWeighingRequest request)
     {
         var date = DateTimeOffset.Parse(request.DateString).Date;
-        var w = await db.Weighings.SingleOrDefaultAsync(x => x.Date == date);
+        var w = await db.Weighings.SingleOrDefaultAsync(x => x.Date == date && x.UserId == request.UserId);
         if (w is null) return Option<WeighingResponse>.None();
 
         var result = db.Weighings.Remove(w);
