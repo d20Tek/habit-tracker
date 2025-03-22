@@ -31,6 +31,12 @@ internal partial class Constants
 
         public const decimal MaxWeight = 1000;
 
+        public static Error WeighingNotFound =
+            Error.NotFound("Weighing.Date", "Weighing for the specified date was not found.");
+
+        public static Error InvalidDateFormat =
+            Error.Validation("Weighing.Date", "Weighing date string is an invalid format.");
+
         public static Error FutureDateError =
             Error.Validation("Weighing.Date", "Weighing date cannot be in the future.");
 
