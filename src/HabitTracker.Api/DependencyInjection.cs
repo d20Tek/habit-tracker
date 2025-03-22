@@ -1,6 +1,7 @@
 ﻿using HabitTracker.Api.Features.Categories;
 using HabitTracker.Api.Features.Habits;
 using HabitTracker.Api.Features.Weather;
+using HabitTracker.Api.Features.Weighings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
@@ -69,6 +70,8 @@ internal static class DependencyInjection
            .MapEndpointFunc(DeleteHabitEndpoint.MapEndpoint)
            .MapEndpointFunc(MarkHabitEndpoint.MapEndpoint)
            .MapEndpointFunc(UnmarkHabitEndpoint.MapEndpoint)
+
+           .MapEndpointFunc(UpsertWeighingEndpoint.MapEndpoint)
 
            .MapEndpointFunc(ServiceHealthEndpoint.MapEndpoint)
            .MapWeatherEndpoints();

@@ -1,5 +1,6 @@
 ﻿using HabitTracker.Api.Features.Categories;
 using HabitTracker.Api.Features.Habits;
+using HabitTracker.Api.Features.Weighings;
 
 namespace HabitTracker.Api.Features;
 
@@ -11,7 +12,8 @@ internal static class DependencyInjection
         builder.Services.AddOpenApi();
 
         builder.Services.AddCategoryCommands()
-                        .AddHabitCommands();
+                        .AddHabitCommands()
+                        .AddWeighingCommands();
 
         return builder;
     }
@@ -31,4 +33,8 @@ internal static class DependencyInjection
                 .AddScoped<DeleteHabitCommand>()
                 .AddScoped<MarkHabitCommand>()
                 .AddScoped<UnmarkHabitCommand>();
+
+    private static IServiceCollection AddWeighingCommands(this IServiceCollection services) =>
+        services.AddScoped<UpsertWeighingCommand>();
+
 }
