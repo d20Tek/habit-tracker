@@ -6,7 +6,7 @@ internal partial class Constants
     {
         public const string ServiceBase = "/api/v1/weighing";
 
-        public const string ServiceBaseWithId = ServiceBase + "/{id:int}";
+        public const string ServiceBaseWithId = ServiceBase + "/{date}";
 
         public const string GetAllName = "GetAllWeighings";
 

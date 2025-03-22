@@ -35,6 +35,9 @@ internal static class DependencyInjection
                 .AddScoped<UnmarkHabitCommand>();
 
     private static IServiceCollection AddWeighingCommands(this IServiceCollection services) =>
-        services.AddScoped<UpsertWeighingCommand>();
+        services.AddScoped<GetWeighingsForUserCommand>()
+                .AddScoped<GetWeighingByDateCommand>()
+                .AddScoped<UpsertWeighingCommand>()
+                .AddScoped<DeleteWeighingCommand>();
 
 }
