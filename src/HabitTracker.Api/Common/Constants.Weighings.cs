@@ -31,6 +31,8 @@ internal partial class Constants
 
         public const decimal MaxWeight = 1000;
 
+        public const int DefaultLimit = 100;
+
         public static Error WeighingNotFound =
             Error.NotFound("Weighing.Date", "Weighing for the specified date was not found.");
 
