@@ -26,7 +26,15 @@ internal partial class Constants
         public const string DeleteDesc = "Deletes a single weighing identified by its date.";
 
         public const int UserIdLength = 48;
+
         public const decimal MinWeight = 1;
+
         public const decimal MaxWeight = 1000;
+
+        public static Error FutureDateError =
+            Error.Validation("Weighing.Date", "Weighing date cannot be in the future.");
+
+        public static Error WeightError =
+            Error.Validation("Weighing.Weight", "Weight value must be between 1 and 1000.");
     }
 }
