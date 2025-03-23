@@ -10,4 +10,17 @@ public static class ArrayExtensions
             array[index] = newItem;
         }
     }
+
+    public static void ReplaceFirstOrAdd<T>(this List<T> list, Predicate<T> match, T newItem)
+    {
+        int index = list.FindIndex(match);
+        if (index >= 0)
+        {
+            list[index] = newItem;
+        }
+        else
+        {
+            list.Insert(0, newItem);
+        }
+    }
 }

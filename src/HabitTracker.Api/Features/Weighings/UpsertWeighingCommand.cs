@@ -31,19 +31,20 @@ internal class UpsertWeighingCommand
 
     private static async Task<WeighingResponse> UpsertEntity(AppDbContext db, UpsertWeighingRequest request)
     {
-        var w = (await db.Weighings.SingleOrDefaultAsync(x => x.Date == request.Date)).ToOption();
-        var weighing = await w.Match(wt => UpdateEntity(wt, request.Weight), () => CreateEntity(db, request));
+        var w = (await db.Weighings.SingleOrDefaultAsync(x => x.Date == request.Date && x.UserId == request.UserId))
+                         .ToOption();
+        Weighing weighing;
+        if (w.IsSome)
+        {
+            weighing = w.Get();
+            weighing.ChangeWeight(request.Weight);
+        }
+        else
+        {
+            weighing = (await db.Weighings.AddAsync(request.ToEntity())).Entity;
+        }
 
         await db.SaveChangesAsync();
         return WeighingResponse.FromEntity(weighing);
-    }
-
-    private static async Task<Weighing> CreateEntity(AppDbContext db, UpsertWeighingRequest request) =>
-        (await db.Weighings.AddAsync(request.ToEntity())).Entity;
-
-    private static Task<Weighing> UpdateEntity(Weighing weighing, decimal newWeight)
-    {
-        weighing.ChangeWeight(newWeight);
-        return Task.FromResult(weighing);
     }
 }

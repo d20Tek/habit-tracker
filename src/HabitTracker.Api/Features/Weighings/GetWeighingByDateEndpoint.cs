@@ -24,9 +24,9 @@ internal static class GetWeighingByDateEndpoint
         [FromServices] ILogger<GetWeighingByDateCommand> logger,
         ClaimsPrincipal user)
     {
-        logger.LogEndpointStart(Constants.Categories.GetByIdName);
+        logger.LogEndpointStart(Constants.Weighings.GetByDateName);
         var result = await command.Handle(new(date, user.GetId()));
-        logger.LogEndpointComplete(Constants.Categories.GetByIdName, result);
+        logger.LogEndpointComplete(Constants.Weighings.GetByDateName, result);
         return result.ToApiResult();
     }
 }

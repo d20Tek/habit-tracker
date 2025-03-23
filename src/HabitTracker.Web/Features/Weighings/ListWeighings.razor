@@ -1,7 +1,53 @@
 ﻿@page "/weighing"
+@page "/weighing/list"
+@inject HttpClient _http;
+@inject ILogger<ListWeighings> _log;
+@attribute [Authorize]
 
+<PageTitle>Habit Tracker - Weighings</PageTitle>
 <h3>My Weighings</h3>
+<p>Track your weight on a daily basis...</p>
 
-@code {
+<div class="mb-3">
+    <input style="width: 150px" type="date" min="2024-01-01" max="@DateTimeOffset.Now.ToString("yyyy-MM-dd")"
+           @bind-value=_vm.Date />
+    <input class="text-end mx-2" type="number"
+           min="@Constants.Weighings.MinWeight" max="@Constants.Weighings.MaxWeight"
+           @bind-value=_vm.Weight />
+    <button class="btn btn-sm btn-outline-light" onclick=@OnRecordWeight>Record Weight</button>
+</div>
 
+<DisplayErrors Errors=@_errors />
+
+@if (_weighings is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="col-12 col-xl-6 d-flex justify-content-center">
+        <table class="table table-sm table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="col">Date</th>
+                    <th class="col">Weight</th>
+                    <th class="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var weighing in _weighings)
+            {
+                <tr>
+                    <td>@weighing.Date</td>
+                    <td>@weighing.Weight</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-outline-light" onclick=@(() => OnDeleteWeighing(weighing.Date))>
+                            <img class="bi bi-trash3 text-white-50" />
+                        </button>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
 }

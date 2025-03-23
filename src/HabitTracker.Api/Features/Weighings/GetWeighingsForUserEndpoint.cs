@@ -22,9 +22,9 @@ internal static class GetWeighingsForUserEndpoint
         [FromServices] ILogger<GetWeighingsForUserCommand> logger,
         ClaimsPrincipal user)
     {
-        logger.LogEndpointStart(Constants.Categories.GetAllName);
+        logger.LogEndpointStart(Constants.Weighings.GetAllName);
         var result = await command.Handle(user.GetId());
-        logger.LogEndpointComplete(Constants.Categories.GetAllName, result);
+        logger.LogEndpointComplete(Constants.Weighings.GetAllName, result);
         return result.ToApiResult();
     }
 }
