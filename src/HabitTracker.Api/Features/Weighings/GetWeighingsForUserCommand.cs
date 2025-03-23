@@ -19,6 +19,7 @@ internal class GetWeighingsForUserCommand
 
     private static async Task<IList<WeighingResponse>> GetEntitiesForUser(AppDbContext db, string userId) =>
         await db.Weighings.Where(w => w.UserId == userId)
+                          .OrderByDescending(w => w.Date)
                           .Take(Constants.Weighings.DefaultLimit)
                           .AsNoTracking()
                           .Select(w => new WeighingResponse(w.WeighingId, w.UserId, w.Date, w.Weight))

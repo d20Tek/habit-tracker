@@ -6,15 +6,15 @@ internal partial class Constants
     {
         public const string ServiceBase = "/api/v1/weighing";
 
-        public const string ServiceBaseWithDate = ServiceBase + "/{date}";
+        public const string ServiceBaseWithId = ServiceBase + "/{id:int}";
 
         public const string GetAllName = "GetAllWeighings";
 
         public const string GetAllDesc = "Retrieves a list of weighings for the user.";
 
-        public const string GetByDateName = "GetWeighingByDate";
+        public const string GetByIdName = "GetWeighingById";
 
-        public const string GetByDateDesc = "Retrieves a single weighing identified by its date.";
+        public const string GetByIdDesc = "Retrieves a single weighing identified by its id.";
 
         public const string UpsertName = "UpsertWeighing";
 
@@ -23,7 +23,7 @@ internal partial class Constants
 
         public const string DeleteName = "DeleteWeighing";
 
-        public const string DeleteDesc = "Deletes a single weighing identified by its date.";
+        public const string DeleteDesc = "Deletes a single weighing identified by its id.";
 
         public const int UserIdLength = 48;
 

@@ -18,6 +18,6 @@ internal record UpsertWeighingRequest(DateTimeOffset Date, decimal Weight)
     public Weighing ToEntity() => Weighing.Create(UserId, Date, Weight);
 }
 
-internal record GetWeighingByDateRequest(string DateString, string UserId);
+internal record GetWeighingByIdRequest(int WeighingId, string UserId);
 
-internal record DeleteWeighingRequest(string DateString, string UserId);
+internal record DeleteWeighingRequest(int WeighingId, string UserId);

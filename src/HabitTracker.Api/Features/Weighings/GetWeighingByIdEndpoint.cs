@@ -1,13 +1,13 @@
 ﻿namespace HabitTracker.Api.Features.Weighings;
 
-internal static class GetWeighingByDateEndpoint
+internal static class GetWeighingByIdEndpoint
 {
     public static WebApplication MapEndpoint(WebApplication routes)
     {
-        routes.MapGet(Constants.Weighings.ServiceBaseWithDate, Get)
+        routes.MapGet(Constants.Weighings.ServiceBaseWithId, Get)
               .WithTags(nameof(Weighing))
-              .WithName(Constants.Weighings.GetByDateName)
-              .WithDescription(Constants.Weighings.GetByDateDesc)
+              .WithName(Constants.Weighings.GetByIdName)
+              .WithDescription(Constants.Weighings.GetByIdDesc)
               .Produces<WeighingResponse>()
               .ProducesValidationProblem(StatusCodes.Status400BadRequest)
               .ProducesProblem(StatusCodes.Status404NotFound)
@@ -19,14 +19,14 @@ internal static class GetWeighingByDateEndpoint
     }
 
     private static async Task<IResult> Get(
-        [FromRoute] string date,
-        [FromServices] GetWeighingByDateCommand command,
-        [FromServices] ILogger<GetWeighingByDateCommand> logger,
+        [FromRoute] int id,
+        [FromServices] GetWeighingByIdCommand command,
+        [FromServices] ILogger<GetWeighingByIdCommand> logger,
         ClaimsPrincipal user)
     {
-        logger.LogEndpointStart(Constants.Weighings.GetByDateName);
-        var result = await command.Handle(new(date, user.GetId()));
-        logger.LogEndpointComplete(Constants.Weighings.GetByDateName, result);
+        logger.LogEndpointStart(Constants.Weighings.GetByIdName);
+        var result = await command.Handle(new(id, user.GetId()));
+        logger.LogEndpointComplete(Constants.Weighings.GetByIdName, result);
         return result.ToApiResult();
     }
 }

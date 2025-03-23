@@ -36,7 +36,7 @@ internal static class DependencyInjection
 
     private static IServiceCollection AddWeighingCommands(this IServiceCollection services) =>
         services.AddScoped<GetWeighingsForUserCommand>()
-                .AddScoped<GetWeighingByDateCommand>()
+                .AddScoped<GetWeighingByIdCommand>()
                 .AddScoped<UpsertWeighingCommand>()
                 .AddScoped<DeleteWeighingCommand>();
 

@@ -22,15 +22,15 @@ internal class DeleteWeighingCommand
 
     private static ValidationErrors Validate(DeleteWeighingRequest request) =>
         ValidationErrors.Create()
+                        .AddIfError(() => request.WeighingId <= 0,
+                                  Constants.EntityIdRequiredError(Constants.Categories.DeleteName))
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
-                                  Constants.UserIdRequiredError(Constants.Weighings.DeleteName))
-                        .AddIfError(() => DateTimeOffset.TryParse(request.DateString, out _),
-                                  Constants.Weighings.InvalidDateFormat);
+                                  Constants.UserIdRequiredError(Constants.Weighings.DeleteName));
 
     private static async Task<Option<WeighingResponse>> DeleteEntity(AppDbContext db, DeleteWeighingRequest request)
     {
-        var date = DateTimeOffset.Parse(request.DateString).Date;
-        var w = await db.Weighings.SingleOrDefaultAsync(x => x.Date == date && x.UserId == request.UserId);
+        var w = await db.Weighings.SingleOrDefaultAsync(
+            x => x.WeighingId == request.WeighingId && x.UserId == request.UserId);
         if (w is null) return Option<WeighingResponse>.None();
 
         var result = db.Weighings.Remove(w);

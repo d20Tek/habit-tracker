@@ -6,7 +6,7 @@ internal static partial class Constants
     {
         public const string ServiceUrl = "/api/v1/weighing";
 
-        public static string ServiceUrlWithDate(DateTimeOffset date) => $"{ServiceUrl}/{date.Date:MM-dd-yyyy}";
+        public static string ServiceUrlWithId(int id) => $"{ServiceUrl}/{id}";
 
         public const string ListUrl = "/weighing";
 

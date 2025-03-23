@@ -9,35 +9,36 @@ public partial class ListWeighings
         public decimal Weight { get; set; } = 100;
     }
 
-    private ViewModel _vm = new();
+    private readonly ViewModel _vm = new();
     private List<WeighingResponse>? _weighings;
     private Error[] _errors = [];
 
     protected override async Task OnInitializedAsync() =>
         _weighings = await _http.TryGetFromJsonAsync<List<WeighingResponse>>(Constants.Weighings.ServiceUrl, [], _log)
-                                .HandleErrorAsync(e => SetErrors(e), []);
+                                .HandleErrorAsync(e => _errors = e, []);
 
-    private async Task OnRecordWeight() => 
+    private async Task OnRecordWeight()
+    {
         await _http.TryPutAsJsonAsync<UpsertWeighingRequest, WeighingResponse>(
                         Constants.Weighings.ServiceUrl,
                         new UpsertWeighingRequest(_vm.Date, _vm.Weight),
                         _log)
-                   .HandleResultAsync(ReplaceLocalWeighing, e => SetErrors(e));
-
-    private async Task OnDeleteWeighing(DateTimeOffset date) =>
-        await _http.TryDeleteAsJsonAsync<WeighingResponse>(Constants.Weighings.ServiceUrlWithDate(date.Date), _log)
-                   .HandleResultAsync(s => _weighings?.Remove(s), e => SetErrors(e));
-
-    private void ReplaceLocalWeighing(WeighingResponse newWeighing)
+                   .HandleResultAsync(ReplaceLocalWeighing, e => _errors = e);
+        StateHasChanged();
+    }
+    private async Task OnDeleteWeighing(int weighingId)
     {
-        _weighings?.ReplaceFirstOrAdd(w => w.Date == newWeighing.Date, newWeighing);
-        _errors = [];
+        await _http.TryDeleteAsJsonAsync<WeighingResponse>(Constants.Weighings.ServiceUrlWithId(weighingId), _log)
+                   .HandleResultAsync(s => _weighings?.Remove(s), e => _errors = e);
         StateHasChanged();
     }
 
-    private void SetErrors(Error[] errors)
+    private void ReplaceLocalWeighing(WeighingResponse newWeighing)
     {
-        _errors = errors;
-        StateHasChanged() ;
+        var added = _weighings?.ReplaceFirstOrAdd(w => w.Date == newWeighing.Date, newWeighing);
+        if (added is true)
+            _weighings = _weighings?.OrderByDescending(w => w.Date).ToList() ?? [];
+
+        _errors = [];
     }
 }

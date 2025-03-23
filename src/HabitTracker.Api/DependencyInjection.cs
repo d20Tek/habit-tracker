@@ -72,7 +72,7 @@ internal static class DependencyInjection
            .MapEndpointFunc(UnmarkHabitEndpoint.MapEndpoint)
 
            .MapEndpointFunc(GetWeighingsForUserEndpoint.MapEndpoint)
-           .MapEndpointFunc(GetWeighingByDateEndpoint.MapEndpoint)
+           .MapEndpointFunc(GetWeighingByIdEndpoint.MapEndpoint)
            .MapEndpointFunc(UpsertWeighingEndpoint.MapEndpoint)
            .MapEndpointFunc(DeleteWeighingEndpoint.MapEndpoint)
 

@@ -1,12 +1,12 @@
 ﻿namespace HabitTracker.Api.Features.Weighings;
 
-internal class GetWeighingByDateCommand
+internal class GetWeighingByIdCommand
 {
     private readonly AppDbContext _db;
 
-    public GetWeighingByDateCommand(AppDbContext db) => _db = db;
+    public GetWeighingByIdCommand(AppDbContext db) => _db = db;
 
-    public async Task<Result<WeighingResponse>> Handle(GetWeighingByDateRequest request) =>
+    public async Task<Result<WeighingResponse>> Handle(GetWeighingByIdRequest request) =>
         await TryExcept.RunAsync(
             async () =>
             {
@@ -20,19 +20,20 @@ internal class GetWeighingByDateCommand
             },
             ex => Result<WeighingResponse>.Failure(ex));
 
-    private static ValidationErrors Validate(GetWeighingByDateRequest request) =>
+    private static ValidationErrors Validate(GetWeighingByIdRequest request) =>
         ValidationErrors.Create()
+                        .AddIfError(() => request.WeighingId <= 0,
+                                  Constants.EntityIdRequiredError(Constants.Categories.DeleteName))
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
-                                  Constants.UserIdRequiredError(Constants.Weighings.GetByDateName))
-                        .AddIfError(() => DateTimeOffset.TryParse(request.DateString, out _),
-                                  Constants.Weighings.InvalidDateFormat);
+                                  Constants.UserIdRequiredError(Constants.Weighings.GetByIdName));
 
     private static async Task<Option<WeighingResponse>> GetCategoryById(
         AppDbContext db,
-        GetWeighingByDateRequest request)
+        GetWeighingByIdRequest request)
     {
-        var date = DateTimeOffset.Parse(request.DateString).Date;
-        var weighing = await db.Weighings.SingleOrDefaultAsync(x => x.Date == date && x.UserId == request.UserId);
+        var weighing = await db.Weighings.SingleOrDefaultAsync(
+            x => x.WeighingId == request.WeighingId && x.UserId == request.UserId);
+
         return (weighing is null) ? Option<WeighingResponse>.None() : WeighingResponse.FromEntity(weighing);
     }
 }

@@ -24,8 +24,8 @@ internal static partial class Constants
         Error.NotFound($"{entityType}.NotFound", $"Entity with id: {id} doesn't exist for user.");
 
     public static void LogEndpointStart<T>(this ILogger<T> logger, string opName) =>
-        logger.LogInformation($"==> {Constants.Categories.GetAllName} called");
+        logger.LogInformation($"==> {opName} called");
 
     public static void LogEndpointComplete<T>(this ILogger<T> logger, string opName, IResultMonad result) =>
-        logger.LogInformation($"==> {Constants.Categories.GetAllName} complete - result: {result.ToString()}");
+        logger.LogInformation($"==> {opName} complete - result: {result.ToString()}");
 }

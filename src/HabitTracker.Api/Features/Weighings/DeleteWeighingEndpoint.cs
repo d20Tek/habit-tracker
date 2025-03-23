@@ -4,7 +4,7 @@ internal static class DeleteWeighingEndpoint
 {
     public static WebApplication MapEndpoint(WebApplication routes)
     {
-        routes.MapDelete(Constants.Weighings.ServiceBaseWithDate, Delete)
+        routes.MapDelete(Constants.Weighings.ServiceBaseWithId, Delete)
               .WithTags(nameof(Weighing))
               .WithName(Constants.Weighings.DeleteName)
               .WithDescription(Constants.Weighings.DeleteDesc)
@@ -19,13 +19,13 @@ internal static class DeleteWeighingEndpoint
     }
 
     private static async Task<IResult> Delete(
-        [FromRoute] string date,
+        [FromRoute] int id,
         [FromServices] DeleteWeighingCommand command,
         [FromServices] ILogger<DeleteWeighingCommand> logger,
         ClaimsPrincipal user)
     {
         logger.LogEndpointStart(Constants.Weighings.DeleteName);
-        var result = await command.Handle(new(date, user.GetId()));
+        var result = await command.Handle(new(id, user.GetId()));
         logger.LogEndpointComplete(Constants.Weighings.DeleteName, result);
         return result.ToApiResult();
     }
