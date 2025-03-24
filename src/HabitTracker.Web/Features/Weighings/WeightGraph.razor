@@ -1,14 +1,14 @@
 ﻿<h5>Weight Over Time</h5>
 <div class="bar-chart">
 
-    @for (int i = Weighings.Count() - 1; i >= 0; i--)
-    {
-        var weighing = Weighings[i];
-        <div class="bar" style="height: @weighing.WeightPct(_minWeight, _maxWeight)%;" title="@weighing.DisplayText()" />
-    }
+@foreach(var weighing in _weighings)
+{
+    <div class="bar" style="height: @weighing.WeightPct(_minWeight, _maxWeight)%;" title="@weighing.DisplayText()" />
+}
 </div>
 
 @code {
+    private IEnumerable<WeighingResponse> _weighings = [];
     private decimal _maxWeight = Constants.Weighings.MaxWeight;
     private decimal _minWeight = Constants.Weighings.MinWeight;
 
@@ -17,7 +17,8 @@
 
     protected override void OnParametersSet()
     {
-        _maxWeight = Weighings.Any() ? Weighings.MaxBy(x => x.Weight)!.Weight : 1;
+        _weighings = Weighings.Take(Constants.Weighings.WeightGraphMaxColumns).Reverse();
+        _maxWeight = _weighings.Any() ? Weighings.MaxBy(x => x.Weight)!.Weight : 1;
         _minWeight = _maxWeight * Constants.Weighings.MinWeightFactor;
     }
 }
