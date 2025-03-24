@@ -4,7 +4,7 @@ internal static partial class Constants
 {
     internal static class Categories
     {
-        public const string ServiceBase = "/api/v1/category";
+        public const string ServiceBase = "/api/v1/categories";
 
         public const string ServiceBaseWithId = ServiceBase + "/{id:int}";
 

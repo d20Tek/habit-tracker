@@ -4,13 +4,13 @@ internal static partial class Constants
 {
     internal static class HabitCompletions
     {
-        public const string MarkServiceBase = "/api/v1/habit/{id:int}/mark";
+        public const string MarkServiceBase = "/api/v1/habits/{id:int}/mark";
 
         public const string MarkName = "MarkHabit";
 
         public const string MarkDesc = "Mark the habit with a completion count for a date.";
 
-        public const string UnmarkServiceBase = "/api/v1/habit/{id:int}/unmark";
+        public const string UnmarkServiceBase = "/api/v1/habits/{id:int}/unmark";
 
         public const string UnmarkName = "UnmarkHabit";
 

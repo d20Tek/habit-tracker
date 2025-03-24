@@ -6,7 +6,7 @@ internal static partial class Constants
 {
     internal static class Habits
     {
-        public const string ServiceBase = "/api/v1/habit";
+        public const string ServiceBase = "/api/v1/habits";
 
         public const string ServiceBaseWithId = ServiceBase + "/{id:int}";
 

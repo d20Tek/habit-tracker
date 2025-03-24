@@ -4,7 +4,7 @@ internal partial class Constants
 {
     internal static class Weighings
     {
-        public const string ServiceBase = "/api/v1/weighing";
+        public const string ServiceBase = "/api/v1/weighings";
 
         public const string ServiceBaseWithId = ServiceBase + "/{id:int}";
 
