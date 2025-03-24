@@ -13,5 +13,9 @@ internal static partial class Constants
         public const decimal MinWeight = 1;
 
         public const decimal MaxWeight = 1000;
+
+        public const int Percentage = 100;
+
+        public const decimal MinWeightFactor = 0.5m;
     }
 }

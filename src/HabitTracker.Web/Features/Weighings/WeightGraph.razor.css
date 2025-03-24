@@ -1,0 +1,28 @@
+﻿.bar-chart {
+    display: flex;
+    align-items: flex-end;
+    height: 200px;
+    width: 100%;
+    gap: 4px;
+    padding: 10px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+}
+
+.bar {
+    flex: 1;
+    background-color: dimgray;
+    transition: height 0.3s ease;
+    border-radius: 4px 4px 0 0;
+    text-align: center;
+}
+
+    .bar:hover {
+        background-color: gray;
+    }
+
+@media (max-width: 600px) {
+    .bar-chart {
+        padding: 8px 4px;
+    }
+}
