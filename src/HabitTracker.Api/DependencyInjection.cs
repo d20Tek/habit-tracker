@@ -2,7 +2,9 @@
 using HabitTracker.Api.Features.Habits;
 using HabitTracker.Api.Features.Weather;
 using HabitTracker.Api.Features.Weighings;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 
@@ -76,6 +78,18 @@ internal static class DependencyInjection
            .MapEndpointFunc(UpsertWeighingEndpoint.MapEndpoint)
            .MapEndpointFunc(DeleteWeighingEndpoint.MapEndpoint)
 
-           .MapEndpointFunc(ServiceHealthEndpoint.MapEndpoint)
+           .MapHeathCheckEndpoint()
            .MapWeatherEndpoints();
+
+    private static WebApplication MapHeathCheckEndpoint(this WebApplication app)
+    {
+        app.MapHealthChecks(
+            Constants.ServiceHealth.ServiceBase,
+            new HealthCheckOptions
+            {
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+            });
+
+        return app;
+    }
 }

@@ -13,7 +13,9 @@ internal static class DependencyInjection
 
         builder.Services.AddCategoryCommands()
                         .AddHabitCommands()
-                        .AddWeighingCommands();
+                        .AddWeighingCommands()
+                        .AddHealthChecks()
+                            .AddSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Default");
 
         return builder;
     }
