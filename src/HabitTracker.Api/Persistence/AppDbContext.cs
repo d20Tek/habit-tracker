@@ -12,6 +12,8 @@ internal class AppDbContext : DbContext
 
     public DbSet<Weighing> Weighings { get; set; }
 
+    public DbSet<ContentLink> ContentLinks { get; set; }
+
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
@@ -20,5 +22,6 @@ internal class AppDbContext : DbContext
         modelBuilder.ApplyConfiguration(new CategoryConfiguration())
                     .ApplyConfiguration(new HabitConfiguration())
                     .ApplyConfiguration(new HabitCompletionConfiguration())
-                    .ApplyConfiguration(new WeighingConfiguration());
+                    .ApplyConfiguration(new WeighingConfiguration())
+                    .ApplyConfiguration(new ContentLinkConfiguration());
 }
