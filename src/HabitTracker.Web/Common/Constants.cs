@@ -42,4 +42,9 @@ internal static partial class Constants
 
         public const int StartRowShort = 4;
     }
+
+    internal static class ContentLinks
+    {
+        public const string ServiceUrl = "/api/v1/content-links/home-sidebar";
+    }
 }

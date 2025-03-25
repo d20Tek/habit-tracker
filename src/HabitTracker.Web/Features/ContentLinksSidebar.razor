@@ -1,0 +1,24 @@
+﻿<div class="side-panel">
+<div class="side-panel-heading">Helpful Links</div>
+
+@foreach (var link in Links)
+{
+    <div class="side-panel-item">
+        <a href="@link.Url" class="side-panel-title" title="@link.Title">
+            @link.Title
+        </a>
+        @if (!string.IsNullOrWhiteSpace(link.Description))
+        {
+        <p class="side-panel-description">@link.Description</p>
+        }
+    </div>
+}
+</div>
+
+@code {
+    public record ContentLinkResponse(int Id, string Title, string? Description, string Url);
+
+
+    [Parameter]
+    public ContentLinkResponse[] Links { get; set; } = [];
+}
