@@ -1,17 +1,10 @@
-﻿using HabitTracker.Api.Features.Categories;
-using HabitTracker.Api.Features.ContentLinks;
-using HabitTracker.Api.Features.Habits;
-using HabitTracker.Api.Features.Weather;
-using HabitTracker.Api.Features.Weighings;
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 
 namespace HabitTracker.Api;
 
-internal static class DependencyInjection
+internal static partial class DependencyInjection
 {
     private const string _authDomain = "Auth0:Domain";
     private const string _authAudience = "Auth0:Audience";
@@ -55,43 +48,6 @@ internal static class DependencyInjection
            .UseCors()
            .UseAuthentication()
            .UseAuthorization();
-
-        return app;
-    }
-
-    public static WebApplication MapEndpoints(this WebApplication app) =>
-        app.MapEndpointFunc(GetCategoriesEndpoint.MapEndpoint)
-           .MapEndpointFunc(GetCategoryByIdEndpoint.MapEndpoint)
-           .MapEndpointFunc(CreateCategoryEndpoint.MapEndpoint)
-           .MapEndpointFunc(UpdateCategoryEndpoint.MapEndpoint)
-           .MapEndpointFunc(DeleteCategoryEndpoint.MapEndpoint)
-
-           .MapEndpointFunc(GetHabitsEndpoint.MapEndpoint)
-           .MapEndpointFunc(GetHabitByIdEndpoint.MapEndpoint)
-           .MapEndpointFunc(CreateHabitEndpoint.MapEndpoint)
-           .MapEndpointFunc(UpdateHabitEndpoint.MapEndpoint)
-           .MapEndpointFunc(DeleteHabitEndpoint.MapEndpoint)
-           .MapEndpointFunc(MarkHabitEndpoint.MapEndpoint)
-           .MapEndpointFunc(UnmarkHabitEndpoint.MapEndpoint)
-
-           .MapEndpointFunc(GetWeighingsForUserEndpoint.MapEndpoint)
-           .MapEndpointFunc(GetWeighingByIdEndpoint.MapEndpoint)
-           .MapEndpointFunc(UpsertWeighingEndpoint.MapEndpoint)
-           .MapEndpointFunc(DeleteWeighingEndpoint.MapEndpoint)
-
-           .MapEndpointFunc(GetContentLinksForGroupEndpoint.MapEndpoint)
-
-           .MapHeathCheckEndpoint()
-           .MapWeatherEndpoints();
-
-    private static WebApplication MapHeathCheckEndpoint(this WebApplication app)
-    {
-        app.MapHealthChecks(
-            Constants.ServiceHealth.ServiceBase,
-            new HealthCheckOptions
-            {
-                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
-            });
 
         return app;
     }
