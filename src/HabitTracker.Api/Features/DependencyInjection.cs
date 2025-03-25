@@ -1,4 +1,5 @@
 ﻿using HabitTracker.Api.Features.Categories;
+using HabitTracker.Api.Features.ContentLinks;
 using HabitTracker.Api.Features.Habits;
 using HabitTracker.Api.Features.Weighings;
 
@@ -14,6 +15,7 @@ internal static class DependencyInjection
         builder.Services.AddCategoryCommands()
                         .AddHabitCommands()
                         .AddWeighingCommands()
+                        .AddContentLinksCommands()
                         .AddHealthChecks()
                             .AddSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Default");
 
@@ -42,4 +44,6 @@ internal static class DependencyInjection
                 .AddScoped<UpsertWeighingCommand>()
                 .AddScoped<DeleteWeighingCommand>();
 
+    private static IServiceCollection AddContentLinksCommands(this IServiceCollection services) =>
+        services.AddScoped<GetContentLinksForGroupCommand>();
 }

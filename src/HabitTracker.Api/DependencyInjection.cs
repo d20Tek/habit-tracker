@@ -1,4 +1,5 @@
 ﻿using HabitTracker.Api.Features.Categories;
+using HabitTracker.Api.Features.ContentLinks;
 using HabitTracker.Api.Features.Habits;
 using HabitTracker.Api.Features.Weather;
 using HabitTracker.Api.Features.Weighings;
@@ -77,6 +78,8 @@ internal static class DependencyInjection
            .MapEndpointFunc(GetWeighingByIdEndpoint.MapEndpoint)
            .MapEndpointFunc(UpsertWeighingEndpoint.MapEndpoint)
            .MapEndpointFunc(DeleteWeighingEndpoint.MapEndpoint)
+
+           .MapEndpointFunc(GetContentLinksForGroupEndpoint.MapEndpoint)
 
            .MapHeathCheckEndpoint()
            .MapWeatherEndpoints();
