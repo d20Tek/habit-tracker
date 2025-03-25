@@ -4,6 +4,8 @@ internal static class DependencyInjection
 {
     public static WebApplicationBuilder AddDatabase(this WebApplicationBuilder builder)
     {
+        builder.Services.AddMemoryCache();
+
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
         // Register the DbContext with SQL Server
