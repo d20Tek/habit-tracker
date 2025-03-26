@@ -28,6 +28,7 @@ internal class GetContentLinksForGroupCommand
         AppDbContext db,
         GetContentLinksForGroupRequest request)
     {
+        // todo: change to use GetOrCreate cache method instead.
         var cacheKey = Constants.ContentLinks.GetCacheKey(request.Group);
         if (!_cache.TryGetValue(cacheKey, out List<ContentLinkResponse>? links))
         {

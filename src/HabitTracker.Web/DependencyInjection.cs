@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Blazored.SessionStorage;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace HabitTracker.Web;
 
@@ -22,7 +25,8 @@ internal static class DependencyInjection
 
     public static WebAssemblyHostBuilder AddPresentationServices(this WebAssemblyHostBuilder builder) =>
         builder.AddHttpClient()
-               .AddOicdAuth();
+               .AddOicdAuth()
+               .AddSessionStorage();
 
     private static WebAssemblyHostBuilder AddHttpClient(this WebAssemblyHostBuilder builder)
     {
@@ -52,4 +56,18 @@ internal static class DependencyInjection
 
     private static string GetAudienceConfig(this WebAssemblyHostBuilder builder) =>
         builder.Configuration[_authAudienceConfig] ?? string.Empty;
+
+    private static WebAssemblyHostBuilder AddSessionStorage(this WebAssemblyHostBuilder builder)
+    {
+        builder.Services.AddBlazoredSessionStorage(config => {
+            config.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
+            config.JsonSerializerOptions.IgnoreReadOnlyProperties = true;
+            config.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+            config.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            config.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
+            config.JsonSerializerOptions.WriteIndented = false;
+        });
+
+        return builder;
+    }
 }

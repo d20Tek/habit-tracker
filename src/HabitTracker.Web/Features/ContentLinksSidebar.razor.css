@@ -1,7 +1,7 @@
 ﻿.side-panel {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
     padding: 8px;
     border-left: 3px solid #4e73df;
     background-color: transparent;
@@ -10,13 +10,13 @@
 .side-panel-heading {
     font-size: 0.9rem;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     border-bottom: 2px solid #4e73df;
-    padding-bottom: 4px;
+    padding-bottom: 2px;
 }
 
 .side-panel-item {
-    padding-bottom: 8px;
+    padding-bottom: 0px;
     border-bottom: 1px solid #ccc;
 }
 

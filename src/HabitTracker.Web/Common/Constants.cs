@@ -46,5 +46,7 @@ internal static partial class Constants
     internal static class ContentLinks
     {
         public const string ServiceUrl = "/api/v1/content-links/home-sidebar";
+
+        public const string SessionKey = "content-links-key";
     }
 }

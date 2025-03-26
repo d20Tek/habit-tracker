@@ -11,22 +11,19 @@
             If you've followed systems that build good habits (like Atomic Habits),
             you already know that tracking your progress is an essential step for improvement.
         </p>
+
+        <hr />
+        <AuthorizeView>
+            <Authorized>
+                <MarkHabitsComponent />
+                <hr />
+            </Authorized>
+            <NotAuthorized>
+                <p>You are not logged in. Please <a href="authentication/login">log in</a> to see your data.</p>
+            </NotAuthorized>
+        </AuthorizeView>
     </div>
     <div class="col-12 col-md-5 col-lg-4 col-xl-3">
         <ContentLinksSidebar />
     </div>
 </div>
-<hr />
-
-<AuthorizeView>
-    <Authorized>
-        <MarkHabitsComponent />
-        <hr />
-    </Authorized>
-    <NotAuthorized>
-        <p>You are not logged in. Please <a href="authentication/login">log in</a> to see your data.</p>
-    </NotAuthorized>
-</AuthorizeView>
-
-@code {
-}

@@ -1,10 +1,15 @@
-﻿<div class="side-panel">
-<div class="side-panel-heading">Helpful Links</div>
+﻿@inject ISessionStorageService _sessionStorage;
+@inject HttpClient _http;
+@inject ILogger<ContentLinksSidebar> _log;
+@using HabitTracker.Web.Common;
 
-@foreach (var link in Links)
-{
+<div class="side-panel">
+    <div class="side-panel-heading">Helpful Links</div>
+
+    @foreach (var link in _links)
+    {
     <div class="side-panel-item">
-        <a href="@link.Url" class="side-panel-title" title="@link.Title">
+        <a href="@link.Url" class="side-panel-title" title="@link.Title" target="_blank">
             @link.Title
         </a>
         @if (!string.IsNullOrWhiteSpace(link.Description))
@@ -12,13 +17,5 @@
         <p class="side-panel-description">@link.Description</p>
         }
     </div>
-}
+    }
 </div>
-
-@code {
-    public record ContentLinkResponse(int Id, string Title, string? Description, string Url);
-
-
-    [Parameter]
-    public ContentLinkResponse[] Links { get; set; } = [];
-}
