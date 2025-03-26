@@ -26,22 +26,16 @@ internal class GetContentLinksForGroupCommand
 
     private async Task<IList<ContentLinkResponse>> GetEntitiesForGroup(
         AppDbContext db,
-        GetContentLinksForGroupRequest request)
-    {
-        // todo: change to use GetOrCreate cache method instead.
-        var cacheKey = Constants.ContentLinks.GetCacheKey(request.Group);
-        if (!_cache.TryGetValue(cacheKey, out List<ContentLinkResponse>? links))
+        GetContentLinksForGroupRequest request) =>
+        await _cache.GetOrCreateAsync(Constants.ContentLinks.GetCacheKey(request.Group), async entry =>
         {
-            links = await db.ContentLinks.Where(c => c.Group == request.Group)
-                                         .OrderBy(c => c.SortOrder)
-                                         .Take(Constants.ContentLinks.GroupLinkLimit)
-                                         .AsNoTracking()
-                                         .Select(c => ContentLinkResponse.FromEntity(c))
-                                         .ToListAsync();
+            entry.AbsoluteExpirationRelativeToNow = Constants.ContentLinks.CacheExpiration;
 
-            _cache.Set(cacheKey, links, Constants.ContentLinks.CacheExpiration);
-        }
-
-        return links ?? [];
-    }
+            return await db.ContentLinks.Where(c => c.Group == request.Group)
+                                        .OrderBy(c => c.SortOrder)
+                                        .Take(Constants.ContentLinks.GroupLinkLimit)
+                                        .AsNoTracking()
+                                        .Select(c => ContentLinkResponse.FromEntity(c))
+                                        .ToListAsync();
+        }) ?? [];
 }
