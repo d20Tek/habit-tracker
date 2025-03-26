@@ -1,0 +1,28 @@
+﻿.footer {
+    background-color: #222;
+    color: #ddd;
+    padding: 10px 0;
+/*    position: relative;*/
+    width: 100%;
+    font-size: 14px;
+}
+
+    .footer a {
+        color: #ddd;
+        text-decoration: none;
+        margin: 0 8px;
+    }
+
+        .footer a:hover {
+            color: white;
+        }
+
+    .footer .social-icons i {
+        font-size: 16px;
+        margin-left: 8px;
+    }
+
+    .footer .container {
+        max-width: 1400px;
+        margin: auto;
+    }
