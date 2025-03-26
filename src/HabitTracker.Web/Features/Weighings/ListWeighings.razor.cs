@@ -6,16 +6,20 @@ public partial class ListWeighings
     {
         public DateTimeOffset Date { get; set; } = DateTimeOffset.Now.Date;
 
-        public decimal Weight { get; set; } = 100;
+        public decimal Weight { get; set; }
     }
 
     private readonly ViewModel _vm = new();
     private List<WeighingResponse>? _weighings;
     private Error[] _errors = [];
 
-    protected override async Task OnInitializedAsync() =>
+    protected override async Task OnInitializedAsync()
+    {
         _weighings = await _http.TryGetFromJsonAsync<List<WeighingResponse>>(Constants.Weighings.ServiceUrl, [], _log)
                                 .HandleErrorAsync(e => _errors = e, []);
+
+        _vm.Weight = _weighings.FirstOrDefault()?.Weight ?? Constants.Weighings.DefaultStartingWeight;
+    }
 
     private async Task OnRecordWeight()
     {
