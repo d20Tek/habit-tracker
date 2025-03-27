@@ -44,5 +44,9 @@ internal partial class Constants
 
         public static Error WeightError =
             Error.Validation("Weighing.Weight", "Weight value must be between 1 and 1000.");
+
+        public static string GetCacheKey(string userId) => $"weighings_for_{userId}";
+
+        public static TimeSpan CacheExpiration = TimeSpan.FromMinutes(10);
     }
 }

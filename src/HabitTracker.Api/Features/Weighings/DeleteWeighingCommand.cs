@@ -1,10 +1,17 @@
-﻿namespace HabitTracker.Api.Features.Weighings;
+﻿using Microsoft.Extensions.Caching.Memory;
+
+namespace HabitTracker.Api.Features.Weighings;
 
 internal class DeleteWeighingCommand
 {
+    private readonly IMemoryCache _cache;
     private readonly AppDbContext _db;
 
-    public DeleteWeighingCommand(AppDbContext db) => _db = db;
+    public DeleteWeighingCommand(IMemoryCache cache, AppDbContext db)
+    {
+        _cache = cache;
+        _db = db;
+    }
 
     public async Task<Result<WeighingResponse>> Handle(DeleteWeighingRequest request) =>
         await TryExcept.RunAsync(
@@ -13,7 +20,7 @@ internal class DeleteWeighingCommand
                 var validations = Validate(request);
                 if (validations.HasErrors) return Result<WeighingResponse>.Failure(validations.ToArray());
 
-                var result = await DeleteEntity(_db, request);
+                var result = await DeleteEntity(request);
                 return result.Match(
                     response => response,
                     () => Result<WeighingResponse>.Failure(Constants.Weighings.WeighingNotFound));
@@ -27,14 +34,16 @@ internal class DeleteWeighingCommand
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError(Constants.Weighings.DeleteName));
 
-    private static async Task<Option<WeighingResponse>> DeleteEntity(AppDbContext db, DeleteWeighingRequest request)
+    private async Task<Option<WeighingResponse>> DeleteEntity(DeleteWeighingRequest request)
     {
-        var w = await db.Weighings.SingleOrDefaultAsync(
+        var w = await _db.Weighings.SingleOrDefaultAsync(
             x => x.WeighingId == request.WeighingId && x.UserId == request.UserId);
         if (w is null) return Option<WeighingResponse>.None();
 
-        var result = db.Weighings.Remove(w);
-        await db.SaveChangesAsync();
+        var result = _db.Weighings.Remove(w);
+        await _db.SaveChangesAsync();
+
+        _cache.Remove(Constants.Weighings.GetCacheKey(request.UserId));
         return WeighingResponse.FromEntity(result.Entity);
     }
 }
