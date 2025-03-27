@@ -1,10 +1,17 @@
-﻿namespace HabitTracker.Api.Features.Categories;
+﻿using Microsoft.Extensions.Caching.Memory;
+
+namespace HabitTracker.Api.Features.Categories;
 
 internal class DeleteCategoryCommand
 {
+    private readonly IMemoryCache _cache;
     private readonly AppDbContext _db;
 
-    public DeleteCategoryCommand(AppDbContext db) => _db = db;
+    public DeleteCategoryCommand(IMemoryCache cache, AppDbContext db)
+    {
+        _cache = cache;
+        _db = db;
+    }
 
     public async Task<Result<CategoryResponse>> Handle(DeleteCategoryRequest request) =>
         await TryExcept.RunAsync(
@@ -13,7 +20,7 @@ internal class DeleteCategoryCommand
                 var validations = Validate(request);
                 if (validations.HasErrors) return Result<CategoryResponse>.Failure(validations.ToArray());
 
-                var result = await DeleteEntity(_db, request);
+                var result = await DeleteEntity(request);
                 return result.Match(
                     response => response,
                     () => Result<CategoryResponse>.Failure(Constants.EntityNotFound(nameof(Category), request.Id)));
@@ -27,13 +34,16 @@ internal class DeleteCategoryCommand
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError(Constants.Categories.DeleteName));
 
-    private static async Task<Option<CategoryResponse>> DeleteEntity(AppDbContext db, DeleteCategoryRequest request)
+    private async Task<Option<CategoryResponse>> DeleteEntity(DeleteCategoryRequest request)
     {
-        var c = await db.Categories.SingleOrDefaultAsync(x => x.CategoryId == request.Id && x.UserId == request.UserId);
+        var c = await _db.Categories.SingleOrDefaultAsync(x => x.CategoryId == request.Id && x.UserId == request.UserId);
         if (c is null) return Option<CategoryResponse>.None();
 
-        var result = db.Categories.Remove(c);
-        await db.SaveChangesAsync();
+        var result = _db.Categories.Remove(c);
+        await _db.SaveChangesAsync();
+
+        _cache.Remove(Constants.Categories.GetCacheKey(request.UserId));
+        _cache.Remove(Constants.Categories.GetByIdCacheKey(request.Id, request.UserId));
         return CategoryResponse.FromEntity(result.Entity);
     }
 }

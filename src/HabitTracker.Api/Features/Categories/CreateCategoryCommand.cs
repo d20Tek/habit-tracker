@@ -1,15 +1,22 @@
-﻿namespace HabitTracker.Api.Features.Categories;
+﻿using Microsoft.Extensions.Caching.Memory;
+
+namespace HabitTracker.Api.Features.Categories;
 
 internal class CreateCategoryCommand
 {
+    private readonly IMemoryCache _cache;
     private readonly AppDbContext _db;
 
-    public CreateCategoryCommand(AppDbContext db) => _db = db;
+    public CreateCategoryCommand(IMemoryCache cache, AppDbContext db)
+    {
+        _cache = cache;
+        _db = db;
+    }
 
     public async Task<Result<CategoryResponse>> Handle(CreateCategoryRequest request) => 
         await TryExcept.RunAsync(
             async () => await Validate(request)
-                                .MapAsync(async () => await CreateEntity(_db, request.ToEntity())),
+                                .MapAsync(async () => await CreateEntity(request.ToEntity())),
             ex => Result<CategoryResponse>.Failure(ex));
 
     private static ValidationErrors Validate(CreateCategoryRequest request) =>
@@ -23,10 +30,12 @@ internal class CreateCategoryCommand
                         .AddIfError(() => request.Name.Length > Constants.Categories.NameLength,
                                   Constants.Categories.NameLengthError);
 
-    private static async Task<CategoryResponse> CreateEntity(AppDbContext db, Category c)
+    private async Task<CategoryResponse> CreateEntity(Category c)
     {
-        var r = await db.Categories.AddAsync(c);
-        await db.SaveChangesAsync();
+        var r = await _db.Categories.AddAsync(c);
+        await _db.SaveChangesAsync();
+
+        _cache.Remove(Constants.Categories.GetCacheKey(c.UserId));
         return CategoryResponse.FromEntity(r.Entity);
     }
 }

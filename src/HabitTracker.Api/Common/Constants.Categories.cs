@@ -1,4 +1,6 @@
-﻿namespace HabitTracker.Api.Common;
+﻿using HabitTracker.Api.Features.Categories;
+
+namespace HabitTracker.Api.Common;
 
 internal static partial class Constants
 {
@@ -37,5 +39,11 @@ internal static partial class Constants
 
         public static Error NameLengthError =
             Error.Validation("Category.Name", "Category name must be less than 100 characters.");
+
+        public static string GetCacheKey(string userId) => $"categories_for_{userId}";
+
+        public static string GetByIdCacheKey(int catId, string userId) => $"category_{catId}_for_{userId}";
+
+        public static TimeSpan CacheExpiration = TimeSpan.FromMinutes(30);
     }
 }

@@ -1,10 +1,17 @@
-﻿namespace HabitTracker.Api.Features.Categories;
+﻿using Microsoft.Extensions.Caching.Memory;
+
+namespace HabitTracker.Api.Features.Categories;
 
 internal class GetCategoryByIdCommand
 {
+    private readonly IMemoryCache _cache;
     private readonly AppDbContext _db;
 
-    public GetCategoryByIdCommand(AppDbContext db) => _db = db;
+    public GetCategoryByIdCommand(IMemoryCache cache, AppDbContext db)
+    {
+        _cache = cache;
+        _db = db;
+    }
 
     public async Task<Result<CategoryResponse>> Handle(GetCategoryByIdRequest request) =>
         await TryExcept.RunAsync(
@@ -13,7 +20,7 @@ internal class GetCategoryByIdCommand
                 var validations = Validate(request);
                 if (validations.HasErrors) return Result<CategoryResponse>.Failure(validations.ToArray());
 
-                var result = await GetCategoryById(_db, request);
+                var result = await GetCategoryById(request);
                 return result.Match(
                     response => response,
                     () => Result<CategoryResponse>.Failure(Constants.EntityNotFound(nameof(Category), request.Id)));
@@ -27,13 +34,14 @@ internal class GetCategoryByIdCommand
                         .AddIfError(() => string.IsNullOrEmpty(request.UserId),
                                   Constants.UserIdRequiredError(Constants.Categories.GetByIdName));
 
-    private static async Task<Option<CategoryResponse>> GetCategoryById(
-        AppDbContext db,
-        GetCategoryByIdRequest request)
-    {
-        var cat = await db.Categories.SingleOrDefaultAsync(
-            x => x.CategoryId == request.Id && x.UserId == request.UserId);
+    private async Task<Option<CategoryResponse>> GetCategoryById(GetCategoryByIdRequest request) =>
+        (await _cache.GetOrCreateAsync(Constants.Categories.GetByIdCacheKey(request.Id, request.UserId), async entry =>
+        {
+            entry.AbsoluteExpirationRelativeToNow = Constants.Categories.CacheExpiration;
 
-        return (cat is null) ? Option<CategoryResponse>.None() : CategoryResponse.FromEntity(cat);
-    }
+            var cat = await _db.Categories.SingleOrDefaultAsync(
+                x => x.CategoryId == request.Id && x.UserId == request.UserId);
+
+            return (cat is null) ? null : CategoryResponse.FromEntity(cat);
+        })).ToOption();
 }

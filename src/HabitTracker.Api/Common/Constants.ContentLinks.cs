@@ -17,7 +17,7 @@ internal static partial class Constants
         public static TimeSpan CacheExpiration = TimeSpan.FromHours(1);
 
         public static OutputCachePolicyBuilder SetCachePolicy(OutputCachePolicyBuilder policy) =>
-            policy.SetVaryByQuery("group")
+            policy.SetVaryByRouteValue("group")
                   .Expire(CacheExpiration);
 
         public const int TitleLength = 100;
