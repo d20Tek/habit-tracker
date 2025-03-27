@@ -1,4 +1,6 @@
-﻿namespace HabitTracker.Api.Common;
+﻿using Microsoft.AspNetCore.OutputCaching;
+
+namespace HabitTracker.Api.Common;
 
 internal static partial class Constants
 {
@@ -13,6 +15,10 @@ internal static partial class Constants
         public static string GetCacheKey(string group) => $"content_links_{group}";
 
         public static TimeSpan CacheExpiration = TimeSpan.FromHours(1);
+
+        public static OutputCachePolicyBuilder SetCachePolicy(OutputCachePolicyBuilder policy) =>
+            policy.SetVaryByQuery("group")
+                  .Expire(CacheExpiration);
 
         public const int TitleLength = 100;
 

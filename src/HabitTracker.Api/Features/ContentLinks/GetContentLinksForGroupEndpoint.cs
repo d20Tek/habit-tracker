@@ -11,6 +11,7 @@ internal static class GetContentLinksForGroupEndpoint
               .Produces<ContentLinkResponse[]>()
               .ProducesProblem(StatusCodes.Status400BadRequest)
               .ProducesProblem(StatusCodes.Status404NotFound)
+              .CacheOutput(policy => Constants.ContentLinks.SetCachePolicy(policy))
               .WithOpenApi();
 
         return routes;

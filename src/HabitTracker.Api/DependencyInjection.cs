@@ -47,7 +47,8 @@ internal static partial class DependencyInjection
         app.UseHttpsRedirection()
            .UseCors()
            .UseAuthentication()
-           .UseAuthorization();
+           .UseAuthorization()
+           .UseOutputCache();
 
         return app;
     }
