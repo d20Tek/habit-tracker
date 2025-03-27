@@ -6,6 +6,8 @@ internal static partial class Constants
 
     public const string DefaultErrorCode = "ServiceApi";
 
+    public const string DonationUrl = "https://ko-fi.com/V7V8UGPMB";
+
     public const string UnexpectedServiceMessage = "Unexpected server error from backend service.";
 
     public static Error UnexpectedServiceError(string code) => Error.Unexpected(code, UnexpectedServiceMessage);
