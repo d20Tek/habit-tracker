@@ -60,9 +60,5 @@ internal static partial class Constants
             Schema = new OpenApiSchema { Type = "integer", Format = "int32" },
             Description = "Optional limit on number of DailyCompletions retrieved per Habit."
         };
-
-        public static string GetCacheKey(string userId) => $"habits_for_{userId}";
-
-        public static TimeSpan CacheExpiration = TimeSpan.FromMinutes(10);
     }
 }
