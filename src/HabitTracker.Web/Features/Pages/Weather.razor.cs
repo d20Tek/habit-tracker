@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using System.Net.Http.Json;
 
-namespace HabitTracker.Web.Features;
+namespace HabitTracker.Web.Features.Pages;
 
 public partial class Weather
 {
