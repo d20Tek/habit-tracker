@@ -10,7 +10,7 @@ internal static class DependencyInjection
 
         // Register the DbContext with SQL Server
         builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(connectionString));
+            options.UseSqlServer(connectionString, b => b.EnableRetryOnFailure(2)));
 
         return builder;
     }
