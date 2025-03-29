@@ -50,10 +50,10 @@ internal class Habit
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(incrementAmount);
 
-        var completion = DailyCompletions.SingleOrDefault(c => c.CompletionDate.Date == date);
+        var completion = DailyCompletions.SingleOrDefault(c => c.CompletionDate == date);
         if (completion is null)
         {
-            DailyCompletions.Add(HabitCompletion.Create(date.Date, incrementAmount));
+            DailyCompletions.Add(HabitCompletion.Create(date, incrementAmount));
         }
         else
         {
@@ -65,7 +65,7 @@ internal class Habit
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(decrementAmount);
 
-        var completion = DailyCompletions.SingleOrDefault(c => c.CompletionDate.Date == date);
+        var completion = DailyCompletions.SingleOrDefault(c => c.CompletionDate == date);
         if (completion is not null)
         {
             if (decrementAmount > completion.CompletionCount)
