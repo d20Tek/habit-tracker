@@ -9,4 +9,4 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args)
                                     .AddBlazorRoot()
                                     .AddPresentationServices();
 
-await builder.Build().RunAsync();
+await builder.Build().RunWithStartup();
