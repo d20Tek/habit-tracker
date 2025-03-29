@@ -13,13 +13,13 @@ public record HabitResponse(
 {
     public int GetCompletionCount(DateTimeOffset date)
     {
-        var completion = Completions.SingleOrDefault(c => c.Date == date.Date);
+        var completion = Completions.FirstOrDefault(c => c.Date == date.Date);
         return (completion is not null) ? completion.Count : 0;
     }
 
     public bool IsCompleted(DateTimeOffset date)
     {
-        var completion = Completions.SingleOrDefault(c => c.Date == date.Date);
+        var completion = Completions.FirstOrDefault(c => c.Date == date.Date);
         return completion is not null && completion.Count >= TargetAttempts;
     }
 
