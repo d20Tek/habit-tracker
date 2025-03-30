@@ -22,9 +22,12 @@ else
         <table class="table table-sm table-bordered table-striped">
             <thead>
                 <tr>
-                    <th class="col text-center">Id</th>
+                    <th class="col text-center d-none d-md-table-cell">Id</th>
                     <th class="col">Name</th>
-                    <th class="col text-center">Attempts</th>
+                    <th class="col text-center">
+                        <span class="d-inline d-md-none" title="Attempts">Att</span>
+                        <span class="d-none d-md-inline">Attempts</span>
+                    </th>
                     <th class="col">Category</th>
                     <th class="col"></th>
                 </tr>
@@ -33,11 +36,11 @@ else
                 @foreach (var habit in _habits)
                 {
                     <tr>
-                        <td class="text-center">@habit.Id</td>
+                        <td class="text-center d-none d-md-table-cell">@habit.Id</td>
                         <td>@habit.Name</td>
-                        <td>@habit.TargetAttempts</td>
+                        <td class="text-center">@habit.TargetAttempts</td>
                         <td>@habit.Category.Name</td>
-                        <td class="text-center">
+                        <td class="text-center mx-0 px-1" style="min-width: 64px;">
                             <a class="mx-1" href=@Constants.Habits.EditUrl(habit.Id)>
                                 <img class="bi bi-pencil text-white-50"/>
                             </a>
