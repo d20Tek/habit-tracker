@@ -1,0 +1,11 @@
+﻿@media (max-width: 576px) { /* Bootstrap's sm breakpoint */
+    .habit-table {
+        font-size: 0.8rem; /* Smaller font for mobile */
+    }
+}
+
+@media (min-width: 576px) { /* Default for larger screens */
+    .habit-table {
+        font-size: 1rem; /* Normal font size */
+    }
+}
