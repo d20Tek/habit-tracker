@@ -13,6 +13,6 @@ public partial class ContentLinksSidebar
             {
                 var result = await _http.TryGetFromJsonAsync<ContentLinkResponse[]>(
                     Constants.ContentLinks.ServiceUrl, [], _log);
-                return result.IsSuccess ? result.GetValue() : [];
-            });
+                return result.IsSuccess ? result.GetValue() : null;
+            }) ?? [];
 }
