@@ -9,9 +9,9 @@
 <p>Track your weight on a daily basis...</p>
 
 <div class="mb-3">
-    <input style="width: 150px" type="date" min="2024-01-01" max="@DateTimeOffset.Now.ToString("yyyy-MM-dd")"
+    <input type="date" min="2024-01-01" max="@DateTimeOffset.Now.ToString("yyyy-MM-dd")"
            @bind-value=_vm.Date />
-    <input class="text-end mx-2" type="number"
+    <input class="text-end mx-0 mx-md-2" type="number"
            min="@Constants.Weighings.MinWeight" max="@Constants.Weighings.MaxWeight"
            @bind-value=_vm.Weight />
     <button class="btn btn-sm btn-outline-light" onclick=@OnRecordWeight>Record Weight</button>
