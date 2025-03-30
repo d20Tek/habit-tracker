@@ -12,8 +12,15 @@ internal static class StartupActions
 
     private static async Task WarmUpBackendApi(this WebAssemblyHost host)
     {
-        // start a WebApi query to warm up the backend service that may be asleep in Azure.
-        var httpClient = host.Services.GetRequiredService<HttpClient>();
-        _ = await httpClient.GetStringAsync(Constants.ServiceHealthUrl);
+        try
+        {
+            // start a WebApi query to warm up the backend service that may be asleep in Azure.
+            var httpClient = host.Services.GetRequiredService<HttpClient>();
+            _ = await httpClient.GetStringAsync(Constants.ServiceHealthUrl);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 }
