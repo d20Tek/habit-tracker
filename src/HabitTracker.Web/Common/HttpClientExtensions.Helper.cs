@@ -6,6 +6,8 @@ namespace HabitTracker.Web.Common;
 
 internal static partial class HttpClientExtensions
 {
+    private const int _testSleepDelay = 0; // 1500;
+
     private static async Task<Result<TResponse>> TrySendMessageAsync<TResponse>(
         Func<Task<HttpResponseMessage>> operation,
         ILogger logger,
@@ -15,9 +17,12 @@ internal static partial class HttpClientExtensions
         try
         {
             logger.LogInformation($"Making service request: {errorCode}");
+
             var httpMessage = await operation();
             var result = await MapMessageToResponse<TResponse>(httpMessage);
             logger.LogInformation("Service request result: {msg}", result.ToString());
+
+            await SimulateDelay();
             return result;
         }
         catch (AccessTokenNotAvailableException exception)
@@ -49,6 +54,14 @@ internal static partial class HttpClientExtensions
         {
             var problem = await message.Content.ReadFromJsonAsync<ProblemDetails>();
             return Result<TResponse>.Failure(problem!.ToErrors());
+        }
+    }
+
+    private static async Task SimulateDelay()
+    {
+        if (_testSleepDelay > 0)
+        {
+            await Task.Delay(_testSleepDelay);
         }
     }
 }
