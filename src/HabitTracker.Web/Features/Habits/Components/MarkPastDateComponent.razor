@@ -11,9 +11,11 @@
 </div>
 <div class="my-2">
     <LoadingButton IconClass="bi bi-clipboard2-check" title="Mark habit completion"
-                    OnClick=@(() => OnMarkClicked(habit.Id, _date)) />
+                   OnClick=@(EventCallback.Factory.Create(
+                        this, () => OnMarkClicked(habit.Id, _date))) />
     <LoadingButton IconClass="bi bi-clipboard2-minus" title="Unmark habit completion"
-                    OnClick=@(() => OnUnmarkClicked(habit.Id, _date)) />
+                   OnClick=@(EventCallback.Factory.Create(
+                        this, () => OnUnmarkClicked(habit.Id, _date))) />
 </div>
 }
 

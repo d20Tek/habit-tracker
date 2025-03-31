@@ -22,9 +22,11 @@
                         <td class="text-center">@habit.ToCompletionString(date)</td>
                         <td class="text-center">
                             <LoadingButton IconClass="bi bi-clipboard2-check" title="Mark habit completion"
-                                           OnClick=@(() => OnMarkClicked(habit.Id, date)) />
+                                           OnClick=@(EventCallback.Factory.Create(
+                                               this, () => OnMarkClicked(habit.Id, date))) />
                             <LoadingButton IconClass="bi bi-clipboard2-minus" title="Unmark habit completion"
-                                           OnClick=@(() => OnUnmarkClicked(habit.Id, date)) />
+                                           OnClick=@(EventCallback.Factory.Create(
+                                               this, () => OnUnmarkClicked(habit.Id, date))) />
                         </td>
                         <td class="text-center">
                             <CompletionMark Habit=habit Date=date ShowCompletionTitle=false />

@@ -9,6 +9,11 @@
 <h3>Edit Category</h3>
 <p>Change this category's information.</p>
 
+    @if (_vm.IsNone)
+    {
+        <LoadingSpinner Label="Loading category..." />
+    }
+
     @if (_vm.IsSome && _vm.Get() is ViewModel cat)
     {
     <EditForm class="mx-2" Model="@cat" OnValidSubmit="SaveCategory">
@@ -22,8 +27,9 @@
                         maxlength=@Constants.Categories.NameLength placeholder="Category name" />
         </div>
 
-        <button type="submit" class="btn btn-light me-2">Save</button>
-        <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
+            <LoadingButton IconClass="" class="btn btn-light me-2" Label="Save"
+                           OnValidSubmit=@(EventCallback.Factory.Create(this, () => SaveCategory())) />
+        <button type="button" class="btn btn-secondary me-2" @onclick=CancelHandler>Cancel</button>
     </EditForm>
     }
 

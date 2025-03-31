@@ -11,7 +11,7 @@
 
 @if (_categories is null)
 {
-    <p><em>Loading...</em></p>
+    <LoadingSpinner Label="Loading categories..." />
 }
 else if (_categories.Length <= 0)
 {
@@ -51,4 +51,7 @@ else
 
 <DisplayErrors Errors=@_errors />
 
+@if (_categories is not null)
+{
 <div class="mt-2"><a class="btn btn-outline-light" href=@Constants.Categories.AddUrl>Add Category</a></div>
+}

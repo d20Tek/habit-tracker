@@ -8,6 +8,11 @@
 <div class="col-12 border border-secondary p-2">
     <h3>Delete Category</h3>
 
+    @if(_category.IsNone)
+    {
+        <LoadingSpinner Label="Loading category..." />
+    }
+
     @if (_category.IsSome && _category.Get() is CategoryResponse cat)
     {
         <EditForm class="mx-2" Model="@cat" OnValidSubmit="DeleteHandler">
