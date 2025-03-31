@@ -42,14 +42,10 @@ else
                         </td>
                         <td class="text-center">@habit.ToCompletionString(Date)</td>
                         <td class="text-center mx-0 px-1" style="min-width: 80px;">
-                            <button class="btn btn-sm btn-outline-light" title="Mark habit completion"
-                                    onclick=@(() => OnMarkClicked(habit.Id))>
-                                <img class="bi bi-clipboard2-check" />
-                            </button>
-                            <button class="btn btn-sm btn-outline-light" title="Unmark habit completion" 
-                                    onclick=@(() => OnUnmarkClicked(habit.Id))>
-                                <img class="bi bi-clipboard2-minus" />
-                            </button>
+                            <LoadingButton IconClass="bi bi-clipboard2-check"  title="Mark habit completion"
+                                           OnClick=@(() => OnMarkClicked(habit.Id)) />
+                            <LoadingButton IconClass="bi bi-clipboard2-minus" title="Unmark habit completion"
+                                           OnClick=@(() => OnUnmarkClicked(habit.Id)) />
                         </td>
                         <td class="text-center">
                             <CompletionMark Habit=habit Date=Date ShowCompletionTitle=false />
