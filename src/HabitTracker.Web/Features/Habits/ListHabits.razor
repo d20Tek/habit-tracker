@@ -1,5 +1,6 @@
 ﻿@page "/habits"
 @page "/habits/list"
+@using HabitTracker.Web.Features.Habits.Components
 @inject HttpClient _http;
 @inject ILogger<ListHabits> _log;
 @attribute [Authorize]
@@ -14,7 +15,7 @@
 }
 else if (_habits.Length <= 0)
 {
-    <div>There are no habits defined... let's add some.</div>
+    <NoHabitsDisplay />
 }
 else
 {
