@@ -1,15 +1,5 @@
-﻿<button class="btn btn-sm btn-outline-light" @attributes="AdditionalAttributes"
+﻿<button class="btn btn-sm btn-outline-light" type="button" @attributes="AdditionalAttributes"
         disabled="@_isLoading" @onclick="OnClickAsync">
-@if (_isLoading)
-{
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-}
-else
-{
-    <i class="@IconClass"></i>
-}
-@if (string.IsNullOrEmpty(Label) is false)
-{
-    <span class="ms-1">@Label</span>
-}
+    <span class="@_iconClass" aria-hidden="true"></span>
+    <span class="@(string.IsNullOrEmpty(Label) ? "visually-hidden" :  "ms-1")" role="status">@Label</span>
 </button>

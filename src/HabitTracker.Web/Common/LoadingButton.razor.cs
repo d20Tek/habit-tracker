@@ -19,6 +19,8 @@ public partial class LoadingButton
 
     private bool _isLoading = false;
 
+    private string _iconClass => _isLoading ? "spinner-border spinner-border-sm" : IconClass;
+
     private async Task OnClickAsync()
     {
         // prevent multiple clicks while operation is running.
