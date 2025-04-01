@@ -38,10 +38,10 @@ else
                         </td>
                         <td class="text-center">@habit.ToCompletionString(Date)</td>
                         <td class="text-center mx-0 px-1" style="min-width: 80px;">
-                            <LoadingButton IconClass="bi bi-clipboard2-check"  title="Mark habit completion"
+                            <LoadingButton IconClass="bi bi-clipboard2-check"  title="Mark habit completion" style="width: 32px;"
                                            OnClick=@(EventCallback.Factory.Create(
                                                this, () => OnMarkClicked(habit.Id))) />
-                            <LoadingButton IconClass="bi bi-clipboard2-minus" title="Unmark habit completion"
+                            <LoadingButton IconClass="bi bi-clipboard2-minus" title="Unmark habit completion" style="width: 32px;"
                                            OnClick=@(EventCallback.Factory.Create(
                                                this, () => OnUnmarkClicked(habit.Id))) />
                         </td>

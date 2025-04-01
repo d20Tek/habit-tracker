@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
-
-namespace HabitTracker.Web.Common;
+﻿namespace HabitTracker.Web.Common;
 
 public partial class LoadingButton
 {
@@ -11,14 +9,8 @@ public partial class LoadingButton
     public string Label { get; set; } = string.Empty;
 
     [Parameter]
-    public EventCallback? OnClick { get; set; } // For normal buttons
+    public EventCallback OnClick { get; set; }
     
-    [Parameter]
-    public EventCallback? OnValidSubmit { get; set; } // For form submission
-    
-    [CascadingParameter]
-    public EditContext? CascadedEditContext { get; set; }
-
     [Parameter]
     public int SpinnerDelay { get; set; } = 100;
 
@@ -30,13 +22,12 @@ public partial class LoadingButton
     private async Task OnClickAsync()
     {
         // prevent multiple clicks while operation is running.
-        if (_isLoading) return;
-        if (OnClick is null && OnValidSubmit is null) return;
+        if (_isLoading || OnClick.HasDelegate == false) return;
 
         try
         {
             var delayTask = Task.Delay(SpinnerDelay);
-            Task clickTask = GetClickTask();
+            Task clickTask = OnClick.InvokeAsync();
 
             // wait for the first task to complete.
             await Task.WhenAny(delayTask, clickTask);
@@ -55,21 +46,5 @@ public partial class LoadingButton
             _isLoading = false;
             StateHasChanged();
         }
-    }
-
-    private Task GetClickTask()
-    {
-        Task clickTask = Task.CompletedTask;
-
-        if (OnClick is not null)
-        {
-            clickTask = OnClick.Value.InvokeAsync();
-        }
-        else if (OnValidSubmit is not null && CascadedEditContext is not null)
-        {
-            clickTask = OnValidSubmit.Value.InvokeAsync(CascadedEditContext);
-        }
-
-        return clickTask;
     }
 }
