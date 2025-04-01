@@ -15,15 +15,15 @@
 
     @if (_category.IsSome && _category.Get() is CategoryResponse cat)
     {
-        <EditForm class="mx-2" Model="@cat" OnValidSubmit="DeleteHandler">
+        <EditForm class="mx-2" Model="@cat">
             <div class="mb-3">
                 <div class="form-label">
                     Are you sure that you want to delete the habit category with id=@cat.Id, named '@cat.Name'?
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-light me-2">Delete</button>
-            <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
+            <LoadingSubmitButton Label="Delete" OnValidSubmit="DeleteHandler" />
+            <button type="button" class="btn btn-secondary ms-2" @onclick=CancelHandler>Cancel</button>
         </EditForm>
     }
 

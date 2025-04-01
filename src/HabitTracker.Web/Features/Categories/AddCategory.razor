@@ -9,15 +9,15 @@
     <h3>New Category</h3>
     <p>Here you can add custom categories that are just for you.</p>
 
-    <EditForm class="mx-2" Model="@_vm" OnValidSubmit="CreateCategory">
+    <EditForm class="mx-2" Model="@_vm">
         <div class="mb-3">
             <label for="categoryName" class="form-label">Name</label>
             <InputText id="categoryName" class="form-control" required @bind-Value="_vm.Name"
                        maxlength=@Constants.Categories.NameLength placeholder="Category name" />
         </div>
 
-        <button type="submit" class="btn btn-light me-2">Create</button>
-        <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
+        <LoadingSubmitButton Label="Create" OnValidSubmit="CreateCategory" />
+        <button type="button" class="btn btn-secondary ms-2" @onclick=CancelHandler>Cancel</button>
     </EditForm>
 
     <DisplayErrors Errors=@_errors />
