@@ -24,6 +24,10 @@ public partial class LoadingSubmitButton
 
     private bool _isLoading = false;
 
+    private string _iconClass => _isLoading ? "spinner-border spinner-border-sm" : IconClass;
+
+    private string _labelClass => string.IsNullOrEmpty(Label) ? "visually-hidden" : "ms-1";
+
     private async Task HandleSubmitAsync()
     {
         if (_isLoading || OnValidSubmit.HasDelegate == false || CascadedEditContext is null) return;

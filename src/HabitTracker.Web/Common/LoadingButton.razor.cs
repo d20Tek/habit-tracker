@@ -21,6 +21,8 @@ public partial class LoadingButton
 
     private string _iconClass => _isLoading ? "spinner-border spinner-border-sm" : IconClass;
 
+    private string _labelClass => string.IsNullOrEmpty(Label) ? "visually-hidden" : "ms-1";
+
     private async Task OnClickAsync()
     {
         // prevent multiple clicks while operation is running.

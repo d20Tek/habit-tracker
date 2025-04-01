@@ -1,15 +1,5 @@
-﻿<button type="button" class="btn btn-outline-light" @attributes="AdditionalAttributes" disabled="@_isLoading"
-        @onclick="HandleSubmitAsync">
-@if (_isLoading)
-{
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-}
-else
-{
-    <i class="@IconClass"></i>
-}
-@if (string.IsNullOrEmpty(Label) is false)
-{
-    <span class="ms-1">@Label</span>
-}
+﻿<button class="btn btn-outline-light" @attributes="AdditionalAttributes" type="button"
+        disabled="@_isLoading" @onclick="HandleSubmitAsync">
+    <span class="@_iconClass" aria-hidden="true"></span>
+    <span class="@_labelClass" role="status">@Label</span>
 </button>
