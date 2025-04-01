@@ -14,7 +14,7 @@
     <input class="text-end mx-0 mx-md-2" type="number"
            min="@Constants.Weighings.MinWeight" max="@Constants.Weighings.MaxWeight"
            @bind-value=_vm.Weight />
-    <LoadingButton IconClass="" Label="Record Weight" OnClick=@(() => OnRecordWeight()) />
+    <LoadingButton IconClass="" Label="Record Weight" OnClick=@OnRecordWeight />
 </div>
 
 <DisplayErrors Errors=@_errors />
