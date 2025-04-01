@@ -8,13 +8,14 @@
 <h3>My Weighings</h3>
 <p>Track your weight on a daily basis...</p>
 
-<div class="mb-3">
+<div class="d-flex flex-nowrap align-items-center mb-3">
     <input type="date" min="2024-01-01" max="@DateTimeOffset.Now.ToString("yyyy-MM-dd")"
            @bind-value=_vm.Date />
-    <input class="text-end mx-0 mx-md-2" type="number"
+    <input class="text-end mx-1 mx-md-2" type="number"
            min="@Constants.Weighings.MinWeight" max="@Constants.Weighings.MaxWeight"
            @bind-value=_vm.Weight />
-    <LoadingButton IconClass="" Label="Record Weight" OnClick=@OnRecordWeight />
+    <LoadingButton class="btn btn-sm btn-outline-light flex-shrink-0 text-nowrap" IconClass=""
+                   Label="Record Weight" OnClick=@OnRecordWeight />
 </div>
 
 <DisplayErrors Errors=@_errors />
