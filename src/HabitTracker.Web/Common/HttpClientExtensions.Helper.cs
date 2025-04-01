@@ -6,7 +6,7 @@ namespace HabitTracker.Web.Common;
 
 internal static partial class HttpClientExtensions
 {
-    private const int _testSleepDelay = 1500;
+    private const int _testSleepDelay = 0; // 1500;
 
     private static async Task<Result<TResponse>> TrySendMessageAsync<TResponse>(
         Func<Task<HttpResponseMessage>> operation,

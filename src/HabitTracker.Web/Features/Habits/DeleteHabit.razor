@@ -8,16 +8,20 @@
 <div class="col-12 border border-secondary p-2">
     <h3>Delete Habit</h3>
 
+    @if (_habit.IsNone)
+    {
+        <LoadingSpinner Label="Loading habit..." />
+    }
     @if (_habit.IsSome && _habit.Get() is HabitResponse habit)
     {
-        <EditForm class="mx-2" Model="@habit" OnValidSubmit="DeleteHandler">
+        <EditForm class="mx-2" Model="@habit">
             <div class="mb-3">
                 <div class="form-label">
                     Are you sure that you want to delete youre habit with id=@habit.Id, named '@habit.Name'?
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-light me-2">Delete</button>
+            <LoadingSubmitButton Label="Delete" OnValidSubmit=DeleteHandler />
             <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
         </EditForm>
     }

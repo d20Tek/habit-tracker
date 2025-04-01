@@ -9,7 +9,7 @@
     <h3>New Habit</h3>
     <p>Add the new habit that you wish to track.</p>
 
-    <EditForm class="mx-2" Model="@_vm" OnValidSubmit="CreateHabit">
+    <EditForm class="mx-2" Model="@_vm">
         <div class="mb-3">
             <label for="habitName" class="form-label">Name</label>
             <InputText id="habitName" class="form-control" required @bind-Value="_vm.Name"
@@ -38,8 +38,8 @@
             </InputSelect>
         </div>
 
-        <button type="submit" class="btn btn-light me-2">Create</button>
-        <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
+        <LoadingSubmitButton Label="Create" OnValidSubmit="CreateHabit" />
+        <button type="button" class="btn btn-secondary ms-2" @onclick=CancelHandler>Cancel</button>
     </EditForm>
 
     <DisplayErrors Errors=@_errors />

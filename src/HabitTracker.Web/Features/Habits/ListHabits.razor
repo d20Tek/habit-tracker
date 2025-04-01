@@ -11,7 +11,7 @@
 
 @if (_habits is null)
 {
-    <p><em>Loading...</em></p>
+    <LoadingSpinner Label="Loading habits..." />
 }
 else if (_habits.Length <= 0)
 {

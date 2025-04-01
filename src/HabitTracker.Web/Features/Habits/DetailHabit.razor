@@ -8,6 +8,10 @@
 <PageTitle>Budget Tracker - Habits</PageTitle>
 <h3>Habit Details</h3>
 
+@if (_habit.IsNone)
+{
+    <LoadingSpinner Label="Loading habit..." />
+}
 @if (_habit.IsSome && _habit.Get() is HabitResponse habit)
 {
     <div><b>Id:</b> @habit.Id</div>

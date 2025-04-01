@@ -9,6 +9,10 @@
     <h3>Edit Habit</h3>
     <p>Change this habit's information.</p>
 
+    @if (_vm.IsNone)
+    {
+        <LoadingSpinner Label="Loading habit..." />
+    }
     @if (_vm.IsSome && _vm.Get() is ViewModel habit)
     {
         <EditForm class="mx-2" Model="@habit" OnValidSubmit="SaveHabit">
@@ -42,7 +46,7 @@
                 </InputSelect>
             </div>
 
-            <button type="submit" class="btn btn-light me-2">Save</button>
+            <LoadingSubmitButton Label="Save" OnValidSubmit="SaveHabit" />
             <button type="button" class="btn btn-secondary" @onclick=CancelHandler>Cancel</button>
         </EditForm>
     }
