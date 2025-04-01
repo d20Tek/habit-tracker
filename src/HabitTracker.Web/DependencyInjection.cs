@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using Blazored.SessionStorage;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Blazored.SessionStorage;
-using System.Text.Json.Serialization;
 using System.Text.Json;
 
 namespace HabitTracker.Web;
@@ -14,6 +13,7 @@ internal static class DependencyInjection
     private const string _authResponseType = "code";
     private const string _authAudience = "audience";
     private const string _authAudienceConfig = "Auth0:Audience";
+    private const string _serviceTestSleepDelay = "TestSleepDelay";
 
     public static WebAssemblyHostBuilder AddBlazorRoot(this WebAssemblyHostBuilder builder)
     {
@@ -35,6 +35,8 @@ internal static class DependencyInjection
                         .AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
 
         builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient(_serverApi));
+
+        Constants.ServiceSleepDelay = builder.Configuration.GetValue<int>(_serviceTestSleepDelay, 0);
 
         return builder;
     }

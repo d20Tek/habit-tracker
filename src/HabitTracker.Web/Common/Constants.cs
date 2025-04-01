@@ -6,6 +6,8 @@ internal static partial class Constants
 
     public const string DefaultErrorCode = "ServiceApi";
 
+    public static int ServiceSleepDelay { get; internal set; } = 0;
+
     public const string DonationUrl = "https://ko-fi.com/V7V8UGPMB";
 
     public const string ServiceHealthUrl = "/api/v1/health";
