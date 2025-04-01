@@ -2,6 +2,10 @@
 @inject ILogger<ListHabits> _log;
 
 <h4>Monthly Completions</h4>
+@if (_habit.IsNone)
+{
+    <LoadingSpinner Label="Loading habit..." />
+}
 @if (_habit.IsSome && _habit.Get() is HabitResponse habit)
 {
     <MonthCompletionGrid Habit=habit style="width: 200px; height: 180px; gap: 4px;" />

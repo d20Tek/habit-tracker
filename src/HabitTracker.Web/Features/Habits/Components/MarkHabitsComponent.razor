@@ -10,7 +10,8 @@
 
 @if (_habits is null)
 {
-    <p><em>Loading...</em> this app runs on a free hosting service so this first request may be slow.</p>
+    <LoadingSpinner Label="Loading habits..." />
+    <p>This app runs on a free hosting service so this first request may be slow while services restart.</p>
 }
 else if (_habits.Length <= 0)
 {
