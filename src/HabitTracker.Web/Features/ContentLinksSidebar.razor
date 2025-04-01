@@ -6,16 +6,23 @@
 <div class="side-panel">
     <div class="side-panel-heading">Helpful Links</div>
 
-    @foreach (var link in _links)
+    @if (_links is null)
     {
-    <div class="side-panel-item">
-        <a href="@link.Url" class="side-panel-title" title="@link.Title" target="_blank">
-            @link.Title
-        </a>
-        @if (!string.IsNullOrWhiteSpace(link.Description))
+        <LoadingSpinner />
+    }
+    else
+    {
+        @foreach (var link in _links)
         {
-        <p class="side-panel-description">@link.Description</p>
+        <div class="side-panel-item">
+            <a href="@link.Url" class="side-panel-title" title="@link.Title" target="_blank">
+                @link.Title
+            </a>
+            @if (!string.IsNullOrWhiteSpace(link.Description))
+            {
+            <p class="side-panel-description">@link.Description</p>
+            }
+        </div>
         }
-    </div>
     }
 </div>
