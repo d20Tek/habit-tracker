@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HabitTracker.Api", "src\Hab
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HabitTracker.Web", "src\HabitTracker.Web\HabitTracker.Web.csproj", "{B3CF4BB1-3A06-478F-A862-01DF9132DBA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HabitTracker.Func", "src\HabitTracker.Func\HabitTracker.Func.csproj", "{93ACA4C4-F7A4-44BE-AE9A-8E0FF7E361B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B3CF4BB1-3A06-478F-A862-01DF9132DBA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3CF4BB1-3A06-478F-A862-01DF9132DBA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3CF4BB1-3A06-478F-A862-01DF9132DBA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93ACA4C4-F7A4-44BE-AE9A-8E0FF7E361B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93ACA4C4-F7A4-44BE-AE9A-8E0FF7E361B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93ACA4C4-F7A4-44BE-AE9A-8E0FF7E361B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93ACA4C4-F7A4-44BE-AE9A-8E0FF7E361B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
