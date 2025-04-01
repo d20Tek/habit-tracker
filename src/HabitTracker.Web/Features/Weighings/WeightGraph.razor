@@ -3,7 +3,8 @@
 
     @foreach(var weighing in _weighings)
     {
-        <div class="bar" style="height: @weighing.WeightPct(_minWeight, _maxWeight)%;" title="@weighing.DisplayText()" />
+        <div class="bar" style="height: @weighing.WeightPct(_minWeight, _maxWeight)%;"
+             title="@weighing.DisplayText()" />
     }
 </div>
 
@@ -23,7 +24,8 @@
             _maxWeight = Weighings.MaxBy(x => x.Weight)!.Weight;
 
             decimal recordedMinWeight = _weighings.MinBy(x => x.Weight)!.Weight;
-            _minWeight = Math.Min(recordedMinWeight - 5, _maxWeight - 10);
+            decimal delta = Math.Max(_maxWeight - recordedMinWeight, 1);
+            _minWeight = recordedMinWeight - (delta / 10);
         }
     }
 }

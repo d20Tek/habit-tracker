@@ -4,7 +4,8 @@ public record WeighingResponse(int Id, DateTimeOffset Date, decimal Weight)
 {
     public decimal WeightPct(decimal minWeight, decimal maxWeight)
     {
-        var normalizedHeight = (Weight - minWeight) / (maxWeight - minWeight);
+        var weightRange = Math.Max(maxWeight - minWeight, 1);
+        var normalizedHeight = (Weight - minWeight) / weightRange;
         return Math.Max(normalizedHeight * Constants.Weighings.Percentage, 0);
     }
 
