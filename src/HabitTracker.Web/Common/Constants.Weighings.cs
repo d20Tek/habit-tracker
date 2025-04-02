@@ -20,6 +20,12 @@ internal static partial class Constants
 
         public const decimal MinWeightFactor = 0.5m;
 
+        public const decimal DeltaFactor = 10m;
+
         public const int WeightGraphMaxColumns = 28;
+
+        public const int GraphAxisLabels = 5;
+
+        public const int GraphAxisFactor = GraphAxisLabels - 1;
     }
 }

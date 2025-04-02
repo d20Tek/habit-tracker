@@ -1,4 +1,35 @@
-﻿.bar-chart {
+﻿.weight-graph {
+    display: flex;
+    align-items: flex-end;
+}
+
+.y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px; /* Adjust as needed */
+    padding-right: 10px;
+    border-right: 2px solid #ccc;
+}
+
+.y-axis-label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    font-size: 12px;
+    height: 40px; /* Adjust based on graph height */
+}
+
+.y-axis-marker {
+    width: 7px;
+    height: 1px;
+    background-color: #ccc;
+    position: absolute;
+    right: -10px;
+}
+
+.bar-chart {
     display: flex;
     align-items: flex-end;
     height: 200px;

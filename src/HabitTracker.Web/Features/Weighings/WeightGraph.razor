@@ -1,31 +1,20 @@
 ﻿<h5>Weight Over Time</h5>
-<div class="bar-chart">
+<div class="weight-graph">
+    <div class="y-axis">
+    @foreach (var scale in _yAxisLabels)
+    {
+        <div class="y-axis-label">
+            <span>@scale</span>
+            <div class="y-axis-marker"></div>
+        </div>
+    }
+    </div>
 
+    <div class="bar-chart">
     @foreach(var weighing in _weighings)
     {
         <div class="bar" style="height: @weighing.WeightPct(_minWeight, _maxWeight)%;"
-             title="@weighing.DisplayText()" />
+        title="@weighing.DisplayText()" />
     }
+    </div>
 </div>
-
-@code {
-    private IEnumerable<WeighingResponse> _weighings = [];
-    private decimal _maxWeight = Constants.Weighings.MaxWeight;
-    private decimal _minWeight = Constants.Weighings.MinWeight;
-
-    [Parameter]
-    public List<WeighingResponse> Weighings { get; set; } = new();
-
-    protected override void OnParametersSet()
-    {
-        _weighings = Weighings.Take(Constants.Weighings.WeightGraphMaxColumns).Reverse();
-        if (Weighings.Any())
-        {
-            _maxWeight = Weighings.MaxBy(x => x.Weight)!.Weight;
-
-            decimal recordedMinWeight = _weighings.MinBy(x => x.Weight)!.Weight;
-            decimal delta = Math.Max(_maxWeight - recordedMinWeight, 1);
-            _minWeight = recordedMinWeight - (delta / 10);
-        }
-    }
-}
