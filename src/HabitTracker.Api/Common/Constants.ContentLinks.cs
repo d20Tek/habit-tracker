@@ -30,6 +30,8 @@ internal static partial class Constants
 
         public const int GroupLinkLimit = 5;
 
+        public const int GroupLinkMaxLimit = 25;
+
         public static Error RequiredGroupError = Error.Validation("ContentLink.Group", "Content link is a required.");
     }
 }

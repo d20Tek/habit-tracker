@@ -11,7 +11,8 @@ internal static class DependencyInjection
     {
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi()
-                        .AddOutputCache();
+                        .AddOutputCache()
+                        .AddSingleton<Random>();
 
         builder.Services.AddCategoryCommands()
                         .AddHabitCommands()

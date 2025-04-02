@@ -6,11 +6,13 @@ internal class GetContentLinksForGroupCommand
 {
     private readonly IMemoryCache _cache;
     private readonly AppDbContext _db;
+    private readonly Random _random;
 
-    public GetContentLinksForGroupCommand(IMemoryCache cache, AppDbContext db)
+    public GetContentLinksForGroupCommand(IMemoryCache cache, AppDbContext db, Random rnd)
     {
         _cache = cache;
         _db = db;
+        _random = rnd;
     }
 
     public async Task<Result<IList<ContentLinkResponse>>> Handle(GetContentLinksForGroupRequest request) =>
@@ -29,11 +31,23 @@ internal class GetContentLinksForGroupCommand
         {
             entry.AbsoluteExpirationRelativeToNow = Constants.ContentLinks.CacheExpiration;
 
-            return await _db.ContentLinks.Where(c => c.Group == request.Group)
-                                         .OrderBy(c => c.SortOrder)
-                                         .Take(Constants.ContentLinks.GroupLinkLimit)
-                                         .AsNoTracking()
-                                         .Select(c => ContentLinkResponse.FromEntity(c))
-                                         .ToListAsync();
+            var links =  await _db.ContentLinks.Where(c => c.Group == request.Group)
+                                               .OrderBy(c => c.SortOrder)
+                                               .Take(Constants.ContentLinks.GroupLinkMaxLimit)
+                                               .AsNoTracking()
+                                               .ToArrayAsync();
+            return GetRandomizedList(links);
         }) ?? [];
+
+    private List<ContentLinkResponse> GetRandomizedList(ContentLink[] links)
+    {
+        var randomLinks = links.OrderBy(_ => _random.Next())
+                               .Take(Constants.ContentLinks.GroupLinkLimit);
+
+        var result = randomLinks.OrderBy(c => c.SortOrder)
+                                .Select(c => ContentLinkResponse.FromEntity(c))
+                                .ToList();
+
+        return result;
+    }
 }
