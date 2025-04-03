@@ -14,9 +14,20 @@ internal class ContentLink
 
     public string Group { get; private set; } = string.Empty;
 
-    public ContentLink Create(string title, string? desc, string url, int sortOrder, string group) =>
+    public static ContentLink Create(string title, string? desc, string url, int sortOrder, string group) =>
         new()
         {
+            Title = title,
+            Description = desc,
+            Url = url,
+            SortOrder = sortOrder,
+            Group = group
+        };
+
+    public static ContentLink Create(int id, string title, string? desc, string url, int sortOrder, string group) =>
+        new()
+        {
+            Id = id,
             Title = title,
             Description = desc,
             Url = url,

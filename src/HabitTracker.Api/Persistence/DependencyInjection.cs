@@ -8,9 +8,9 @@ internal static class DependencyInjection
 
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-        // Register the DbContext with SQL Server
+        // Register the DbContext with SQLite
         builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(connectionString, b => b.EnableRetryOnFailure(2)));
+            options.UseSqlite(connectionString));
 
         return builder;
     }
