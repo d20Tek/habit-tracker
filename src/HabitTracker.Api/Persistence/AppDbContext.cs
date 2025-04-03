@@ -36,7 +36,8 @@ internal class AppDbContext : DbContext
             ContentLink.Create(12, "Tiny Habits", "Written by a behavioral scientist from Stanford...", "https://amzn.to/426VXZf", 70, "home-sidebar"),
             ContentLink.Create(14, "7 Habits of Highly Effective People", "The original book on building good habits...", "https://amzn.to/4i2dM02", 80, "home-sidebar"),
             ContentLink.Create(15, "The Neuroscience of Habit Formation", "Delving into the brain science behind habits...", "https://www.joincarbon.com/blog/the-neuroscience-of-habit-formation", 30, "home-sidebar"),
-            ContentLink.Create(17, "What Does It Really Take to Build a New Habit?", "This article discusses the distinction between habits and routines...", "https://hbr.org/2021/02/what-does-it-really-take-to-build-a-new-habit", 20, "home-sidebar")
+            ContentLink.Create(17, "What Does It Really Take to Build a New Habit?", "This article discusses the distinction between habits and routines...", "https://hbr.org/2021/02/what-does-it-really-take-to-build-a-new-habit", 20, "home-sidebar"),
+            ContentLink.Create(18, "3-2-1 Newsletter", "On the joy of losing, how to set expectations with others, and notes to myself", "https://jamesclear.com/3-2-1/april-3-2025", 3, "home-sidebar")
         );
     }
 }
