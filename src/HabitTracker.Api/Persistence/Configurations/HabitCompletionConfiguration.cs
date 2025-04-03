@@ -12,7 +12,11 @@ internal class HabitCompletionConfiguration : IEntityTypeConfiguration<HabitComp
                .ValueGeneratedOnAdd();
 
         builder.Property(hc => hc.CompletionDate)
-               .IsRequired();
+               .IsRequired()
+               .HasConversion(
+                    v => v.ToString("yyyy-MM-dd HH:mm:ss zzz"),  // Store as string with offset
+                    v => DateTimeOffset.Parse(v)                // Convert back to DateTimeOffset
+               );
 
         builder.Property(hc => hc.CompletionCount)
                .IsRequired();

@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="habit-tracker.db" />
+    <None Remove="habit-tracker.db-shm" />
+    <None Remove="habit-tracker.db-wal" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
     <PackageReference Include="D20Tek.Functional.AspNetCore" Version="0.9.10" />
