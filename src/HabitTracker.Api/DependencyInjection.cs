@@ -50,6 +50,21 @@ internal static partial class DependencyInjection
            .UseAuthorization()
            .UseOutputCache();
 
+        app.ApplyDatabaseMigrations();
+
+        return app;
+    }
+
+    private static WebApplication ApplyDatabaseMigrations(this WebApplication app)
+    {
+        using (var scope = app.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            // Apply any pending migrations
+            dbContext.Database.Migrate();
+        }
+
         return app;
     }
 }
