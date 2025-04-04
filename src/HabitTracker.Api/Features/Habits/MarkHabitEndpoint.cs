@@ -17,7 +17,7 @@ internal static class MarkHabitEndpoint
               .RequireAuthorization()
               .WithOpenApi(operation =>
               {
-                  operation.Parameters.Add(Constants.Habits.LimitCompletionsParameter);
+                  operation.Parameters.Add(Constants.HabitCompletions.LimitCompletionsParameter);
                   return operation;
               });
 

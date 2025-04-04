@@ -1,4 +1,6 @@
-﻿namespace HabitTracker.Api.Common;
+﻿using Microsoft.OpenApi.Models;
+
+namespace HabitTracker.Api.Common;
 
 internal static partial class Constants
 {
@@ -24,5 +26,14 @@ internal static partial class Constants
 
         public static Error FutureDateError =
             Error.Validation("HabitCompletion.Date", "Habit completion date cannot be in the future.");
+
+        public static OpenApiParameter LimitCompletionsParameter = new()
+        {
+            Name = "limitCompletions",
+            In = ParameterLocation.Query,
+            Required = false,
+            Schema = new OpenApiSchema { Type = "integer", Format = "int32" },
+            Description = "Optional limit on number of DailyCompletions retrieved per Habit."
+        };
     }
 }

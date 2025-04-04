@@ -51,14 +51,5 @@ internal static partial class Constants
 
         public static Error CategoryIdError =
             Error.Validation("Habit.CategoryId", "Habit's CategoryId must be greater than 0.");
-
-        public static OpenApiParameter LimitCompletionsParameter = new()
-        {
-            Name = "limitCompletions",
-            In = ParameterLocation.Query,
-            Required = false,
-            Schema = new OpenApiSchema { Type = "integer", Format = "int32" },
-            Description = "Optional limit on number of DailyCompletions retrieved per Habit."
-        };
     }
 }
