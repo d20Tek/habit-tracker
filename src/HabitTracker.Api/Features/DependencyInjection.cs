@@ -19,7 +19,8 @@ internal static class DependencyInjection
                         .AddWeighingCommands()
                         .AddContentLinksCommands()
                         .AddHealthChecks()
-                            .AddSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Default");
+                            .AddSqlite(
+                                builder.Configuration.GetConnectionString(Constants.DbConnectionName) ?? "Default");
 
         return builder;
     }

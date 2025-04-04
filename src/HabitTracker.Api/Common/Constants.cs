@@ -7,6 +7,8 @@ internal static partial class Constants
         public const string ServiceBase = "/api/v1/health";
     }
 
+    public const string DbConnectionName = "DefaultConnection";
+
     public static Error EntityIdRequiredError(string entityType) =>
         Error.Validation($"{entityType}.Id", "Entity id is required.");
 

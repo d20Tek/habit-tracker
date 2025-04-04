@@ -14,8 +14,9 @@ internal class HabitCompletionConfiguration : IEntityTypeConfiguration<HabitComp
         builder.Property(hc => hc.CompletionDate)
                .IsRequired()
                .HasConversion(
-                    v => v.ToString("yyyy-MM-dd HH:mm:ss zzz"),  // Store as string with offset
-                    v => DateTimeOffset.Parse(v)                // Convert back to DateTimeOffset
+                    // convert DateTimeOffset back and forth to string for Sqlite support.
+                    v => v.ToString(DbConstants.DateTimeOffsetFormat),
+                    v => DateTimeOffset.Parse(v)
                );
 
         builder.Property(hc => hc.CompletionCount)

@@ -60,8 +60,6 @@ internal static partial class DependencyInjection
         using (var scope = app.Services.CreateScope())
         {
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-            // Apply any pending migrations
             dbContext.Database.Migrate();
         }
 

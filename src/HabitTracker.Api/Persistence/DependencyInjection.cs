@@ -6,7 +6,7 @@ internal static class DependencyInjection
     {
         builder.Services.AddMemoryCache();
 
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        var connectionString = builder.Configuration.GetConnectionString(Constants.DbConnectionName);
 
         // Register the DbContext with SQLite
         builder.Services.AddDbContext<AppDbContext>(options =>
