@@ -26,9 +26,9 @@ public partial class MonthCompletionGrid
     protected override void OnInitialized() => FillCalendarGrid(DateTime.Today);
 
     private void FillCalendarGrid(DateTimeOffset today) =>
-        FillCalendarGrid(DateRangeFactory.GetDateRangeForMonth(today), new GridPosition(today.DayOfWeek));
+        FillCalendarGrid(DateRangeFactory.GetDateRangeForMonth(today), new CalendarGridPosition(today.DayOfWeek));
 
-    private void FillCalendarGrid(DateTimeOffset[] dates, GridPosition pos)
+    private void FillCalendarGrid(DateTimeOffset[] dates, CalendarGridPosition pos)
     {
         for (var i = dates.Length - 1; i >= 0; i--)
         {

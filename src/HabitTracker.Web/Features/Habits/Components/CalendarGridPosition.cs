@@ -1,12 +1,12 @@
 ﻿namespace HabitTracker.Web.Features.Habits.Components;
 
-internal class GridPosition
+internal class CalendarGridPosition
 {
     public int Row { get; private set; }
 
     public int Col { get; private set; }
 
-    public GridPosition(DayOfWeek day)
+    public CalendarGridPosition(DayOfWeek day)
     {
         Row = CalculateStartingRow(day);
         Col = (int)day;

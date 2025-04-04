@@ -11,9 +11,9 @@
 </div>
 <div class="my-2">
     <LoadingButton IconClass="bi bi-clipboard2-check" title="Mark habit completion"
-                   OnClick=@(() => OnMarkClicked(habit.Id, _date)) />
+                   style="width: 32px;" OnClick=@(() => OnMarkClicked(habit.Id, _date)) />
     <LoadingButton IconClass="bi bi-clipboard2-minus" title="Unmark habit completion"
-                   OnClick=@(() => OnUnmarkClicked(habit.Id, _date)) />
+                   style="width: 32px;" OnClick=@(() => OnUnmarkClicked(habit.Id, _date)) />
 </div>
 }
 
