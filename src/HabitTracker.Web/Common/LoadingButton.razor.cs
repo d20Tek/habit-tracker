@@ -3,7 +3,7 @@
 public partial class LoadingButton
 {
     [Parameter]
-    public string IconClass { get; set; } = "bi bi-play";
+    public string IconClass { get; set; } = Constants.Loading.DefaultIconClass;
 
     [Parameter]
     public string Label { get; set; } = string.Empty;
@@ -19,9 +19,9 @@ public partial class LoadingButton
 
     private bool _isLoading = false;
 
-    private string _iconClass => _isLoading ? "spinner-border spinner-border-sm" : IconClass;
+    private string _iconClass => _isLoading ? Constants.Loading.SpinnerClass : IconClass;
 
-    private string _labelClass => string.IsNullOrEmpty(Label) ? "visually-hidden" : "ms-1";
+    private string _labelClass => Constants.Loading.GetLabelClass(Label);
 
     private async Task OnClickAsync()
     {

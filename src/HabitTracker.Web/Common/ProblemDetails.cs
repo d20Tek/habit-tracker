@@ -16,10 +16,9 @@ public class ProblemDetails
 
     public Error[] ToErrors()
     {
-        return Errors.Select(key => Error.Create(
-                                        key.Key,
-                                        key.Value.FirstOrDefault() ?? string.Empty,
-                                        Status ?? ErrorType.Unexpected))
-                     .ToArray();
+        return [.. Errors.Select(key => Error.Create(
+                                            key.Key,
+                                            key.Value.FirstOrDefault() ?? string.Empty,
+                                            Status ?? ErrorType.Unexpected))];
     }
 }

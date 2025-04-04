@@ -24,9 +24,9 @@ public partial class LoadingSubmitButton
 
     private bool _isLoading = false;
 
-    private string _iconClass => _isLoading ? "spinner-border spinner-border-sm" : IconClass;
+    private string _iconClass => _isLoading ? Constants.Loading.SpinnerClass : IconClass;
 
-    private string _labelClass => string.IsNullOrEmpty(Label) ? "visually-hidden" : "ms-1";
+    private string _labelClass => Constants.Loading.GetLabelClass(Label);
 
     private async Task HandleSubmitAsync()
     {

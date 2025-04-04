@@ -1,4 +1,6 @@
-﻿namespace HabitTracker.Web.Common;
+﻿using System.Reflection.Emit;
+
+namespace HabitTracker.Web.Common;
 
 internal static partial class Constants
 {
@@ -22,31 +24,15 @@ internal static partial class Constants
     public static string UnexpectedRequestMessage(string requestName) =>
         $"Unexpected error... {requestName} request could not be created.";
 
-    internal static class HabitStatus
+    internal static class Loading
     {
-        public const string NotStartedColor = "rgb(65,65,65)";
+        public const string DefaultIconClass = "bi bi-play";
 
-        public const string InProgressColor = "rgb(51,107,57)";
+        public const string SpinnerClass = "spinner-border spinner-border-sm";
 
-        public const string CompletedColor = "rgb(88,163,79)";
+        public const string DefaultLabel = "Loading...";
 
-        public const string OverAchievedColor = "lime";
-
-        public const string EmptyColor = "transparent";
-
-        public static string CompletionDisplay(string completion, DateTimeOffset date) =>
-            $"{completion} on {date:MMM d}";
-    }
-
-    internal static class HabitMonth
-    {
-        public const int Rows = 6;
-
-        public const int Columns = 7;
-
-        public const int StartRowFull = 5;
-
-        public const int StartRowShort = 4;
+        public static string GetLabelClass(string label) => string.IsNullOrEmpty(label) ? "visually-hidden" : "ms-1";
     }
 
     internal static class ContentLinks
