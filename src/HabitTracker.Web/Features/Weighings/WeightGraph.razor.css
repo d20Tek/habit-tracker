@@ -52,6 +52,10 @@
         background-color: gray;
     }
 
+    .selected-bar {
+        background-color: lightgray
+    }
+
 @media (max-width: 600px) {
     .bar-chart {
         padding: 8px 4px;

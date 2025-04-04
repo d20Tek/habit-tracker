@@ -6,6 +6,7 @@ public partial class WeightGraph
     private decimal _maxWeight = Constants.Weighings.MaxWeight;
     private decimal _minWeight = Constants.Weighings.MinWeight;
     private decimal[] _yAxisLabels = [];
+    private Option<WeighingResponse> _selectedWeighing = Option<WeighingResponse>.None();
 
     [Parameter]
     public List<WeighingResponse> Weighings { get; set; } = [];
@@ -41,4 +42,11 @@ public partial class WeightGraph
 
     private static decimal CalculateDelta(decimal minWeight, decimal maxWeight) =>
         Math.Max(maxWeight - minWeight, 1);
+
+    private void OnBarClicked(WeighingResponse weighing) => _selectedWeighing = weighing;
+
+    private string GetBarCss(WeighingResponse weighing) => 
+        _selectedWeighing.Match(
+            s => s.Id == weighing.Id ? "bar selected-bar" : "bar",
+            () => "bar");
 }

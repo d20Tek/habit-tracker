@@ -13,8 +13,14 @@
     <div class="bar-chart">
     @foreach(var weighing in _weighings)
     {
-        <div class="bar" style="height: @weighing.WeightPct(_minWeight, _maxWeight)%;"
-        title="@weighing.DisplayText()" />
+        <div class="@GetBarCss(weighing)" style="height: @weighing.WeightPct(_minWeight, _maxWeight)%;"
+             title="@weighing.DisplayText()"
+             @onclick="() => OnBarClicked(weighing)"/>
     }
     </div>
 </div>
+
+@if (_selectedWeighing.IsSome && _selectedWeighing.Get() is WeighingResponse weight)
+{
+    <div class="mt-2 text-center">@weight.DisplayText()</div>
+}
