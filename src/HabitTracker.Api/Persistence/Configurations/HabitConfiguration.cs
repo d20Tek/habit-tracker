@@ -34,7 +34,7 @@ internal class HabitConfiguration : IEntityTypeConfiguration<Habit>
 
         builder.HasMany(h => h.DailyCompletions)
                .WithOne()
-               .HasForeignKey("HabitId")
+               .HasForeignKey(DbConstants.HabitIdKey)
                .OnDelete(DeleteBehavior.Cascade);
     }
 }

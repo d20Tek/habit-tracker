@@ -20,7 +20,7 @@ internal static class DependencyInjection
                         .AddContentLinksCommands()
                         .AddHealthChecks()
                             .AddSqlite(
-                                builder.Configuration.GetConnectionString(Constants.DbConnectionName) ?? "Default");
+                                builder.Configuration.GetConnectionString(Constants.DbConnectionName) ?? string.Empty);
 
         return builder;
     }

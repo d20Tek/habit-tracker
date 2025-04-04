@@ -33,7 +33,7 @@ internal class GetWeighingsForUserCommand
                                       .OrderByDescending(w => w.Date)
                                       .Take(Constants.Weighings.DefaultLimit)
                                       .AsNoTracking()
-                                      .Select(w => new WeighingResponse(w.WeighingId, w.UserId, w.Date, w.Weight))
+                                      .Select(w => WeighingResponse.FromEntity(w))
                                       .ToListAsync();
         }) ?? [];
 }
