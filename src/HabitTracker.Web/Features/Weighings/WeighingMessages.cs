@@ -9,7 +9,7 @@ public record WeighingResponse(int Id, DateTimeOffset Date, decimal Weight)
         return Math.Max(normalizedHeight * Constants.Weighings.Percentage, 0);
     }
 
-    public string DisplayText() => $"{Date:MMM dd, yyyy} - {Weight:0.0}";
+    public string DisplayText() => Constants.Weighings.DisplayTextFormat(Date, Weight);
 }
 
 internal record UpsertWeighingRequest(DateTimeOffset Date, decimal Weight);

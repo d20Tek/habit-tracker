@@ -9,7 +9,7 @@
 <p>Track your weight on a daily basis...</p>
 
 <div class="d-flex flex-nowrap align-items-center mb-3">
-    <input type="date" min="2024-01-01" max="@DateTimeOffset.Now.ToString("yyyy-MM-dd")"
+    <input type="date" min="2024-01-01" max="@DateTimeOffset.Now.ToString(Constants.Weighings.DateFormat)"
            @bind-value=_vm.Date />
     <input class="text-end mx-1 mx-md-2" type="number"
            min="@Constants.Weighings.MinWeight" max="@Constants.Weighings.MaxWeight"
@@ -40,7 +40,7 @@ else
             @foreach (var weighing in _weighings)
             {
                 <tr>
-                    <td>@weighing.Date.ToString("MMM dd, yyyy")</td>
+                    <td>@weighing.Date.ToString(Constants.Weighings.DisplayDateFormat)</td>
                     <td>@($"{weighing.Weight:0.0}")</td>
                     <td class="text-center">
                         <LoadingButton IconClass="bi bi-trash3" style="width: 32px;"

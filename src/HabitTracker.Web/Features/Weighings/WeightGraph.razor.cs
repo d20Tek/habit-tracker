@@ -47,6 +47,6 @@ public partial class WeightGraph
 
     private string GetBarCss(WeighingResponse weighing) => 
         _selectedWeighing.Match(
-            s => s.Id == weighing.Id ? "bar selected-bar" : "bar",
-            () => "bar");
+            s => s.Id == weighing.Id ? Constants.Weighings.SelectedBarCss : Constants.Weighings.NormalBarCss,
+            () => Constants.Weighings.NormalBarCss);
 }

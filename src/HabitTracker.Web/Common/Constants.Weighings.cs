@@ -1,4 +1,6 @@
-﻿namespace HabitTracker.Web.Common;
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace HabitTracker.Web.Common;
 
 internal static partial class Constants
 {
@@ -9,6 +11,13 @@ internal static partial class Constants
         public static string ServiceUrlWithId(int id) => $"{ServiceUrl}/{id}";
 
         public const string ListUrl = "/weighings";
+
+        public static string DisplayTextFormat(DateTimeOffset date, decimal weight) =>
+            $"{date:MMM dd, yyyy} - {weight:0.0}";
+
+        public const string DateFormat = "yyyy-MM-dd";
+
+        public const string DisplayDateFormat = "MMM dd, yyyy";
 
         public const decimal MinWeight = 1;
 
@@ -27,5 +36,9 @@ internal static partial class Constants
         public const int GraphAxisLabels = 5;
 
         public const int GraphAxisFactor = GraphAxisLabels - 1;
+
+        public const string NormalBarCss = "bar";
+
+        public const string SelectedBarCss = "bar selected-bar";
     }
 }
