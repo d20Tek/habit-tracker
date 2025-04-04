@@ -29,10 +29,10 @@ internal class DeleteHabitCommand
 
     private static async Task<Option<HabitResponse>> DeleteEntity(AppDbContext db, DeleteHabitRequest request)
     {
-        var h = await db.Habits.SingleOrDefaultAsync(x => x.HabitId == request.Id && x.UserId == request.UserId);
-        if (h is null) return Option<HabitResponse>.None();
+        var habit = await db.Habits.SingleOrDefaultAsync(x => x.HabitId == request.Id && x.UserId == request.UserId);
+        if (habit is null) return Option<HabitResponse>.None();
 
-        var result = db.Habits.Remove(h);
+        var result = db.Habits.Remove(habit);
         await db.SaveChangesAsync();
         await db.Entry(result.Entity).Reference(h => h.Category).LoadAsync();
 

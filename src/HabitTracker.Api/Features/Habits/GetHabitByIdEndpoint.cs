@@ -1,6 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
-
-namespace HabitTracker.Api.Features.Habits;
+﻿namespace HabitTracker.Api.Features.Habits;
 
 internal static class GetHabitByIdEndpoint
 {

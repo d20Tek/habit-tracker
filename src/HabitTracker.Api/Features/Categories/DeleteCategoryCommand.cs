@@ -36,7 +36,9 @@ internal class DeleteCategoryCommand
 
     private async Task<Option<CategoryResponse>> DeleteEntity(DeleteCategoryRequest request)
     {
-        var c = await _db.Categories.SingleOrDefaultAsync(x => x.CategoryId == request.Id && x.UserId == request.UserId);
+        var c = await _db.Categories.SingleOrDefaultAsync(
+            x => x.CategoryId == request.Id && x.UserId == request.UserId);
+
         if (c is null) return Option<CategoryResponse>.None();
 
         var result = _db.Categories.Remove(c);

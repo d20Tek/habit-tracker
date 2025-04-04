@@ -14,18 +14,14 @@ internal class ContentLink
 
     public string Group { get; private set; } = string.Empty;
 
-    public static ContentLink Create(string title, string? desc, string url, int sortOrder, string group) =>
-        new()
-        {
-            Title = title,
-            Description = desc,
-            Url = url,
-            SortOrder = sortOrder,
-            Group = group
-        };
+    public static ContentLink Create(int id, string title, string? desc, string url, int sortOrder, string group)
+    {
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(id, 0, nameof(id));
+        ArgumentNullException.ThrowIfNullOrEmpty(title, nameof(title));
+        ArgumentNullException.ThrowIfNullOrEmpty(url, nameof(url));
+        ArgumentNullException.ThrowIfNullOrEmpty(group, nameof(group));
 
-    public static ContentLink Create(int id, string title, string? desc, string url, int sortOrder, string group) =>
-        new()
+        return new()
         {
             Id = id,
             Title = title,
@@ -34,4 +30,5 @@ internal class ContentLink
             SortOrder = sortOrder,
             Group = group
         };
+    }
 }

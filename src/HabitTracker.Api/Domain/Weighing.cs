@@ -13,7 +13,7 @@ public class Weighing
     public static Weighing Create(string userId, DateTimeOffset date, decimal weight)
     {
         ArgumentNullException.ThrowIfNullOrEmpty(userId, nameof(userId));
-        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(weight, 0);
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(weight, 0, nameof(weight));
 
         return new() { UserId = userId, Date = date, Weight = weight };
     }

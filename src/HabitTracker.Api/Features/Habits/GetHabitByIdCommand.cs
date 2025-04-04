@@ -28,5 +28,6 @@ internal class GetHabitByIdCommand
                                   Constants.UserIdRequiredError(Constants.Habits.GetByIdName));
 
     private static async Task<Option<HabitResponse>> GetHabitById(AppDbContext db, GetHabitByIdRequest request) =>
-        await db.Habits.QueryHabitById(request.Id, request.UserId, request.LimitCompletions).SingleAsync();
+        await db.Habits.QueryHabitById(request.Id, request.UserId, request.LimitCompletions)
+                       .SingleAsync();
 }
