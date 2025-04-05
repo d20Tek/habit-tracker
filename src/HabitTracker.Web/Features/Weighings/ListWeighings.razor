@@ -37,8 +37,7 @@ else
                 </tr>
             </thead>
             <tbody>
-            @foreach (var weighing in _weighings)
-            {
+            <Virtualize Items=_weighings Context="weighing" >
                 <tr>
                     <td>@weighing.Date.ToString(Constants.Weighings.DisplayDateFormat)</td>
                     <td>@($"{weighing.Weight:0.0}")</td>
@@ -47,7 +46,7 @@ else
                                        OnClick=@(() => OnDeleteWeighing(weighing.Id)) />
                     </td>
                 </tr>
-            }
+            </Virtualize>
             </tbody>
         </table>
     </div>
