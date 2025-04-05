@@ -40,5 +40,9 @@ internal static partial class Constants
         public const string ServiceUrl = "/api/v1/content-links/home-sidebar";
 
         public const string SessionKey = "content-links-key";
+
+        public const string ExpirationKey = "-expires";
+
+        public static TimeSpan CacheExpiration = TimeSpan.FromHours(4);
     }
 }
