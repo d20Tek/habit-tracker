@@ -9,14 +9,14 @@ internal class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.HasKey(c => c.CategoryId);
 
         builder.Property(c => c.CategoryId)
-              .ValueGeneratedOnAdd();
+               .ValueGeneratedOnAdd();
 
         builder.Property(c => c.UserId)
-              .IsRequired()
-              .HasMaxLength(Constants.Categories.UserIdLength);
+               .IsRequired()
+               .HasMaxLength(Constants.Categories.UserIdLength);
 
         builder.Property(c => c.Name)
-              .IsRequired()
-              .HasMaxLength(Constants.Categories.NameLength);
+               .IsRequired()
+               .HasMaxLength(Constants.Categories.NameLength);
     }
 }

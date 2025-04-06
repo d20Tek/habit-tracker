@@ -15,8 +15,8 @@ public class WeighingConfiguration : IEntityTypeConfiguration<Weighing>
                .IsUnique();
 
         builder.Property(c => c.UserId)
-              .IsRequired()
-              .HasMaxLength(Constants.Weighings.UserIdLength);
+               .IsRequired()
+               .HasMaxLength(Constants.Weighings.UserIdLength);
 
         builder.Property(hc => hc.Date)
                .IsRequired()
